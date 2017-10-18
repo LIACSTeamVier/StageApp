@@ -6,7 +6,7 @@
     $identifier = $_POST["username"];
     $password = $_POST["password"];
 
-    $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1551396", "presenteren", "s1551396");
+    $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1551396", "-", "s1551396");
     // Check connection
     if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
