@@ -6,63 +6,68 @@ session_start();
 
 ///!!!! put correct stuff in the session
 //echo "Hello " . $_SESSION["name"] . $_SESSION["surname"]. ".<br>";
-
-// define variables and set to empty values
-$nameErr = $emailErr = $teleErr = $descriptionErr = "";
-$name = $email = $tele = $location = $company = $description = "";
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["name"])) {
-        $nameErr = "Name is required";
-    } else {
-        $name = test_input($_POST["name"]);
-    }
-
-    if (empty($_POST["email"])) {
-        $emailErr = "Email is required";
-    } else {
-        $email = test_input($_POST["email"]);
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-          $emailErr = "Invalid email format";
-        }
-    }
-
-    if (empty($_POST["tele"])) {
-        $tele = "";
-    } else {
-        $tele = test_input($_POST["tele"]); 
-        if (!preg_match("/^[0-9 ]*$/",$tele)) {
-              $teleErr = "Only numbers allowed";
-        }       
-    }
-
-    if (empty($_POST["location"])) {
-        $location = "";
-    } else {
-        $location = test_input($_POST["location"]); 
-    }
-
-    if (empty($_POST["company"])) {
-        $company = "";
-    } else {
-        $company = test_input($_POST["company"]);
-    }
-    
-    if (empty($_POST["description"])) {
-        $descriptionErr = "A description of your internship is required";
-    } else {
-        $description = test_input($_POST["description"]);
-    }
+//test if the user is allowed to make a project   TODO put correct vars in session and check the correct values
+if (($_SESSION["role"] != "admin") && ($_SESSION["role"] != "stagebegeleider")){
+	//redirect to main page
+	header("Location: main_page.php");
+	die();
+}else{
+	// define variables and set to empty values
+	$nameErr = $emailErr = $teleErr = $descriptionErr = "";
+	$name = $email = $tele = $location = $company = $description = "";
 
 
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	    if (empty($_POST["name"])) {
+		$nameErr = "Name is required";
+	    } else {
+		$name = test_input($_POST["name"]);
+	    }
 
-    if ( ($nameErr == "") && ($emailErr == "") && ($teleErr == "")
-	 && ($descriptionErr =="")){
-        insertIntoDatabase($name, $email, $tele, $location, $company, $description);
-    }
+	    if (empty($_POST["email"])) {
+		$emailErr = "Email is required";
+	    } else {
+		$email = test_input($_POST["email"]);
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		  $emailErr = "Invalid email format";
+		}
+	    }
+
+	    if (empty($_POST["tele"])) {
+		$tele = "";
+	    } else {
+		$tele = test_input($_POST["tele"]); 
+		if (!preg_match("/^[0-9 ]*$/",$tele)) {
+		      $teleErr = "Only numbers allowed";
+		}       
+	    }
+
+	    if (empty($_POST["location"])) {
+		$location = "";
+	    } else {
+		$location = test_input($_POST["location"]); 
+	    }
+
+	    if (empty($_POST["company"])) {
+		$company = "";
+	    } else {
+		$company = test_input($_POST["company"]);
+	    }
+
+	    if (empty($_POST["description"])) {
+		$descriptionErr = "A description of your internship is required";
+	    } else {
+		$description = test_input($_POST["description"]);
+	    }
+
+
+
+	    if ( ($nameErr == "") && ($emailErr == "") && ($teleErr == "")
+		 && ($descriptionErr =="")){
+		insertIntoDatabase($name, $email, $tele, $location, $company, $description);
+	    }
+	}
 }
-
 function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
