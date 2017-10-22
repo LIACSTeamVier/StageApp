@@ -119,7 +119,7 @@ function insertIntoDatabase($name, $email, $tele, $location, $room , $field, $de
         students.
     </p>
     <p><span class="error">* required field.</span></p>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="stage">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="project">
         Name: <input type="text" name="name" value="<?php  echo $name;?>">
         <span class="error">* <?php echo $nameErr;?></span>
         <br><br>
