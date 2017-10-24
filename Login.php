@@ -1,32 +1,83 @@
 <?php
 session_start();
+$loginErr = "";
+$uname = $password = "";
+
+if (isset($_SESSION["loginErr"]))
+{
+    $loginErr = $_SESSION["loginErr"];
+    unset($_SESSION["LoginErr"]);
+    session_unset();
+    session_destroy();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["username"]) || (empty($_POST["password"]))) {
+        $loginErr = "Invalid username and password combination";
+    } else {
+        $uname = test_input($_POST["username"]);
+        $password = test_input($_POST["password"]);
+    }
+    
+    if ($loginErr == "") {
+        attemptLogin($uname, $password);
+    }
+}
+
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+function attemptLogin($uname, $password){
+    $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1551396", "-", "s1551396");
+    // TODO replace "-" with "<actual-password>"
+    // check connection
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
+
+    $result = mysqli_query($con, "SELECT * FROM StageApp_Gebruikers g WHERE g.Identifier='$uname'") or die('Unable to run query:' . mysqli_error());
+
+    $row = mysqli_fetch_row($result);
+
+    mysqli_close($con);
+    if ($row[3] == $password) { // FIXME alter according to final database.
+        // set session vars
+        $_SESSION["username"] = "$row[2]"; // FIXME as above.
+        $_SESSION["class"] = "$row[1]"; // FIXME as above.
+        // redirect to main page
+        header("Location: main_page.php");
+    }
+    else {
+        $_SESSION["loginErr"] = "Invalid username and password combination";
+        header("Location: Login.php");
+    }
+    die();
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en-UK">
+<head>
+    <meta charset="utf-8" />
+    <meta name="Description" content= "InternshipApp login" />
+    <style type="text/css">
+    </style>
+    <title>InternshipApp login</title>
+</head>
 <body>
+    <h1>InternshipApp</h1>
+    <h3>Login page</h3>
   
-  <h1>Login pagina</h1>
-  
-  <form action="attempting_Login.php" method="post">
-    username:
-    <input type="text" name ="username"><br/>
-    password:
-    <input type="text" name="password"><br/>
-    <input type="submit" value="Login">
-  </form>
-  
-  <?php
-  //$username = $_POST["username"];
-  //$password = $_POST["password"];
-  //$con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1551396", "presenteren", "s1551396");
-  // Check connection
-  //if (mysqli_connect_errno()) {
-  //echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  //}
-
-  //$result = mysqli_query($con, "SELECT * FROM Deadlines") or die('Unable to run query:' . mysqli_error());
-  ?>
-
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="login">
+        username: <input type="text" name="username"><br/>
+        password: <input type="password" name="password"><br/>
+        <span class="error"><?php echo $loginErr;?></span><br/>
+        <input type="submit" value="Login">
+    </form>
+    
 </body>
 </html>
