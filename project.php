@@ -6,14 +6,14 @@ session_start();
 
 ///!!!! put correct stuff in the session
 //echo "Hello " . $_SESSION["name"] . $_SESSION["surname"]. ".<br>";
-
+echo "Hello ". $_SESSION["uname"]".<br>";
 //test if the user is allowed to make a project   TODO put correct vars in session and check the correct values
-/*if (($_SESSION["role"] != "admin") && ($_SESSION["role"] != "begeleider")){
+if (($_SESSION["class"] != "Admin") && ($_SESSION["class"] != "begeleider")){
 	//redirect to main page
 	header("Location: main_page.php");
 	die();
 }
-else{*/
+else{
 // define variables and set to empty values
 $nameErr = $emailErr = $teleErr = $descriptionErr = "";
 $name = $email = $tele = $location = $room = $field = $description = "";
@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         insertIntoDatabase($name, $email, $tele, $location, $room ,$field, $description);
     }
 }
-//} BRACKET FOR SESSION ROLE CHECK!
+} //BRACKET FOR SESSION ROLE CHECK!
 
 function test_input($data) {
     $data = trim($data);
