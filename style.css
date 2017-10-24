@@ -1,0 +1,70 @@
+body {
+  font-family: "Georgia"; /* font voor digitale tekst universiteit */
+}
+
+h1 {
+  color: #001158; /* huisstijlkleur universiteit */
+  font-family: "Verdana"; /* font voor digitale headers ed universiteit */
+}
+
+h2 {
+  color: #000000; /* zwart */
+  font-family: "Verdana"; /* font voor digitale headers ed universiteit */
+}
+
+h3 {
+  color: #000000; /* zwart */
+  font-family: "Verdana"; /* font voor digitale headers ed universiteit */
+}
+
+.sidepane {
+  height: 100%;
+  width: 100px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #001158;
+  overflow-x: hidden;
+  padding-top: 78px;
+}
+
+.sidepane a { /*links in sidepane*/
+  padding: 6px 6px 6px 6px;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 2px 2px 8px #000000
+  font-size: 14px;
+  color: #ffffff;
+  font-family: "Verdana";
+  display: block;
+}
+
+.sidepane a:hover {
+  background-color: #7f88ab;
+}
+
+.sidepane b { /*current selected link*/
+  padding: 6px 6px 6px 6px;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 2px 2px 8px #000000
+  font-size: 14px;
+  color: #ffffff;
+  font-family: "Verdana";
+  display: block;
+  background-color: #7f88ab;
+}
+
+.main {
+  background-color: white;
+  margin-left: 120px; /* Same as the width of the sidenav + 20px */
+}
+
+.main_nopane {
+  background-color: white;
+  margin-left: 20px;
+}
+
+@media screen and (max-height: 450px) {
+}

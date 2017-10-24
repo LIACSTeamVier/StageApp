@@ -64,11 +64,12 @@ function attemptLogin($uname, $password){
 <head>
     <meta charset="utf-8" />
     <meta name="Description" content= "InternshipApp login" />
-    <style type="text/css">
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>InternshipApp login</title>
 </head>
 <body>
+
+<div class="main_nopane">
     <h1>InternshipApp</h1>
     <h3>Login page</h3>
   
@@ -78,6 +79,6 @@ function attemptLogin($uname, $password){
         <span class="error"><?php echo $loginErr;?></span><br/>
         <input type="submit" value="Login">
     </form>
-    
+</div>
 </body>
 </html>
