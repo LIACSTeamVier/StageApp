@@ -5,69 +5,72 @@ session_start();
 //TODO put stuff in sessions when logging in, fix the vars in here to match the session, fix the stuff in here to match the correct database, and fix to match the table
 
 ///!!!! put correct stuff in the session
-//echo "Hello " . $_SESSION["name"] . $_SESSION["surname"]. ".<br>";
+//echo "Hello " . $_SESSION["name"] . " " . $_SESSION["surname"]. ".<br>";
+
 //test if the user is allowed to make a project   TODO put correct vars in session and check the correct values
-if (($_SESSION["role"] != "admin") && ($_SESSION["role"] != "stagebegeleider")){
+/*if (($_SESSION["role"] != "admin") && ($_SESSION["role"] != "stagebegeleider")){
 	//redirect to main page
 	header("Location: main_page.php");
 	die();
-}else{
-	// define variables and set to empty values
-	$nameErr = $emailErr = $teleErr = $descriptionErr = "";
-	$name = $email = $tele = $location = $company = $description = "";
-
-
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	    if (empty($_POST["name"])) {
-		$nameErr = "Name is required";
-	    } else {
-		$name = test_input($_POST["name"]);
-	    }
-
-	    if (empty($_POST["email"])) {
-		$emailErr = "Email is required";
-	    } else {
-		$email = test_input($_POST["email"]);
-		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-		  $emailErr = "Invalid email format";
-		}
-	    }
-
-	    if (empty($_POST["tele"])) {
-		$tele = "";
-	    } else {
-		$tele = test_input($_POST["tele"]); 
-		if (!preg_match("/^[0-9 ]*$/",$tele)) {
-		      $teleErr = "Only numbers allowed";
-		}       
-	    }
-
-	    if (empty($_POST["location"])) {
-		$location = "";
-	    } else {
-		$location = test_input($_POST["location"]); 
-	    }
-
-	    if (empty($_POST["company"])) {
-		$company = "";
-	    } else {
-		$company = test_input($_POST["company"]);
-	    }
-
-	    if (empty($_POST["description"])) {
-		$descriptionErr = "A description of your internship is required";
-	    } else {
-		$description = test_input($_POST["description"]);
-	    }
-
-
-
-	    if ( ($nameErr == "") && ($emailErr == "") && ($teleErr == "")
-		 && ($descriptionErr =="")){
-		insertIntoDatabase($name, $email, $tele, $location, $company, $description);
-	    }
-	}
 }
+else{*/
+// define variables and set to empty values
+$nameErr = $emailErr = $teleErr = $descriptionErr = "";
+$name = $email = $tele = $location = $company = $description = "";
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["name"])) {
+        $nameErr = "Name is required";
+    } else {
+        $name = test_input($_POST["name"]);
+    }
+
+    if (empty($_POST["email"])) {
+        $emailErr = "Email is required";
+    } else {
+        $email = test_input($_POST["email"]);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+          $emailErr = "Invalid email format";
+        }
+    }
+
+    if (empty($_POST["tele"])) {
+        $tele = "";
+    } else {
+        $tele = test_input($_POST["tele"]); 
+        if (!preg_match("/^[0-9 ]*$/",$tele)) {
+              $teleErr = "Only numbers allowed";
+        }       
+    }
+
+    if (empty($_POST["location"])) {
+        $location = "";
+    } else {
+        $location = test_input($_POST["location"]); 
+    }
+
+    if (empty($_POST["company"])) {
+        $company = "";
+    } else {
+        $company = test_input($_POST["company"]);
+    }
+    
+    if (empty($_POST["description"])) {
+        $descriptionErr = "A description of your internship is required";
+    } else {
+        $description = test_input($_POST["description"]);
+    }
+
+
+
+    if ( ($nameErr == "") && ($emailErr == "") && ($teleErr == "")
+	 && ($descriptionErr =="")){
+        insertIntoDatabase($name, $email, $tele, $location, $company, $description);echo "well done proud of you bby";
+    }
+}
+//} BRACKET FOR SESSION ROLE CHECK!
+
 function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
@@ -82,10 +85,17 @@ function insertIntoDatabase($name, $email, $tele, $location, $company, $descript
     if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
-    $statement = "INSERT INTO Stage (name, email, phone, location, company, description) VALUES ('$name', '$email','$tele','$location','$company','$description')";
+/*    $statement = "INSERT INTO Stage (name, email, phone, location, company, description) VALUES ('$name', '$email','$tele','$location','$company','$description')";
     $qr = "INSERT INTO Stage (name, email, phone, location, company, description) VALUES ('test4', 'testmail', '012344', 'test', 'test', 'testestststeste')";
     $result = mysqli_query($con, $statement);
-//or die('Unable to run query:' . mysqli_error());
+//or die('Unable to run query:' . mysqli_error());*/
+
+    $stmt = mysqli_prepare($con, "INSERT INTO Stage (name, email, phone, location, company, description) VALUES (?,?,?,?,?,?)");
+    //change type of parameters in future if needed for db
+    mysqli_stmt_bind_param($stmt, 'ssssss', $name, $email, $tele, $location, $company, $description);
+    //check if true or false
+    $result = mysqli_stmt_execute($stmt);
+
     if (!$result){
 	echo "database error!";
     	die ('Unable to run query:' . mysqli_error());
