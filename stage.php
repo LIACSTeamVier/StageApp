@@ -8,7 +8,7 @@ session_start();
 //echo "Hello " . $_SESSION["name"] . " " . $_SESSION["surname"]. ".<br>";
 echo "Hello " . $_SESSION["uname"] . ".<br>";
 //test if the user is allowed to make a project   TODO put correct vars in session and check the correct values
-if (($_SESSION["role"] != "admin") && ($_SESSION["role"] != "stagebegeleider")){
+if (($_SESSION["class"] != "Admin") && ($_SESSION["class"] != "stagebegeleider")){
 	//redirect to main page
 	header("Location: main_page.php");
 	die();
