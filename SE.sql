@@ -1,5 +1,5 @@
 -- drop table statements
-DROP TABLE Afstudeerder CASCADE constraints;
+/*DROP TABLE Afstudeerder CASCADE constraints;
 DROP TABLE Begeleider CASCADE constraints;
 DROP TABLE Project CASCADE constraints;
 DROP TABLE Stagebegeleider CASCADE constraints;
@@ -81,3 +81,96 @@ CREATE TABLE Beslaat(
 	FOREIGN KEY(PlekNaam) REFERENCES Stageplek_van,
 	FOREIGN KEY(BedrijfNaam) REFERENCES Stagebegeleider
 );
+
+
+
+*/
+
+--Deze tabellen kan je nu aanmaken
+-- drop table statements
+DROP TABLE Afstudeerder CASCADE constraints;
+DROP TABLE Begeleider CASCADE constraints;
+DROP TABLE Project CASCADE constraints;
+DROP TABLE Stagebegeleider CASCADE constraints;
+DROP TABLE Stageplek_van CASCADE constraints;
+
+-- tables
+
+CREATE TABLE Begeleider(
+	DocentID	INT(7),
+	BegeleiderNaam	VARCHAR(30),
+	BegEMAIL	VARCHAR(30),
+	BegeleiderTel	INT(10),
+	
+	PRIMARY KEY(DocentID)
+);
+
+CREATE TABLE Afstudeerder(
+	StudentID	INT(7),
+	StudentNaam	VARCHAR(30),
+	StuEMAIL	VARCHAR(30),
+	StudentTel	INT(10),
+	
+	PRIMARY KEY(StudentID)
+);
+
+CREATE TABLE Project(
+	ProjectNaam	VARCHAR(30),
+	Beschrijving	TEXT,
+	Voortgang	TEXT,
+	
+	PRIMARY KEY(ProjectNaam)
+);
+
+CREATE TABLE Stagebegeleider(
+	BedrijfNaam	VARCHAR(30),
+	SBegeleiderNaam	VARCHAR(30),
+	StaEMAIL	VARCHAR(30),
+	StageTel	INT(10),
+	
+	PRIMARY KEY(BedrijfNaam, SBegeleiderNaam)
+);
+
+CREATE TABLE Stageplek_van(
+	PlekNaam	VARCHAR(30),
+	Locatie		VARCHAR(30),
+	Tijden		VARCHAR(30),
+	BedrijfNaam	VARCHAR(30),
+	
+	PRIMARY KEY(PlekNaam, BedrijfNaam),
+	FOREIGN KEY(BedrijfNaam) REFERENCES(BedrijfNaam) Stagebegeleider ON DELETE CASCADE
+);
+
+-- relationships
+
+CREATE TABLE Begeleid(
+	DocentID	INT(7),
+	StudentID	INT(7),
+	
+	PRIMARY KEY (DocentID, StudentID),
+	FOREIGN KEY (DocentID) REFERENCES Begeleider(DocentID),
+	FOREIGN KEY (StudentID) REFERENCES Afstudeerder(StudentID)
+)
+
+CREATE TABLE Volbrengt(
+	StudentID	INT(7),
+	ProjectNaam	VARCHAR(30),
+	
+	PRIMARY KEY(StudentID, ProjectNaam),
+	FOREIGN KEY(StudentID) REFERENCES Afstudeerder(StudentID),
+	FOREIGN KEY(ProjectNaam) REFERENCES Project(ProjectNaam)
+);
+
+CREATE TABLE Beslaat(
+	ProjectNaam	VARCHAR(30),
+	PlekNaam VARCHAR(30),
+	BedrijfNaam	VARCHAR(30),
+	
+	PRIMARY KEY(ProjectNaam, PlekNaam, BedrijfNaam),
+	FOREIGN KEY(ProjectNaam) REFERENCES Project(ProjectNaam),
+	FOREIGN KEY(PlekNaam) REFERENCES Stageplek_van(PlekNaam),
+	FOREIGN KEY(BedrijfNaam) REFERENCES Stagebegeleider(BedrijfNaam)
+);
+
+
+
