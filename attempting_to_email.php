@@ -4,8 +4,19 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="en-UK">
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
+  
+<div class="sidepane">
+  <a href="#">Overview</a>
+  <a href="#">Projects</a>
+  <a href="#">Contact</a>
+  <a href="#">Help</a></a>
+</div>
 
+<div class="main">
   <?php
     if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
       header("Location: http://liacs.leidenuniv.nl/~s1551396/StageApp/Login.php");
@@ -46,6 +57,7 @@ session_start();
     }
     
   ?>
-  
+</div>
+
 </body>
 </html> 

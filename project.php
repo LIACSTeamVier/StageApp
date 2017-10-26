@@ -122,11 +122,19 @@ function insertIntoDatabase($name, $email, $tele, $location, $room , $field, $de
         <meta charset="utf-8" /> 
           
         <meta name="Description" content= "Page To Offer Projects" />
-        <style type="text/css">
-        </style>
+        <link rel="stylesheet" type="text/css" href="style.css">
         <title>Page To Offer Projects</title>
     </head>
    <body>
+     
+    <div class="sidepane">
+       <a href="#">Overview</a>
+       <a href="#">Projects</a>
+       <a href="#">Contact</a>
+       <a href="#">Help</a></a>
+    </div>
+     
+    <div class="main">
     <p>
         Fill in the forms to make your project information available to the
         students.
@@ -152,6 +160,8 @@ function insertIntoDatabase($name, $email, $tele, $location, $room , $field, $de
         <br><br>
         <input type="submit" value="Post project">
     </form>
+    </div>
+   
    </body>
 </html>
 

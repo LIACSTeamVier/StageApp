@@ -10,8 +10,8 @@ session_start();
 <body>
 
 <div class="sidepane">
-  <b href="#">Overzicht</a>
-  <a href="#">Stages</a>
+  <a href="#">Overview</a>
+  <a href="#">Projects</a>
   <a href="#">Contact</a>
   <a href="#">Help</a></a>
 </div>

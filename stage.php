@@ -115,11 +115,19 @@ function insertIntoDatabase($name, $email, $tele, $location, $company, $descript
         <meta charset="utf-8" /> 
           
         <meta name="Description" content= "Page To Offer Internships" />
-        <style type="text/css">
-        </style>
+        <link rel="stylesheet" type="text/css" href="style.css">
         <title>Page To Offer Internships</title>
     </head>
    <body>
+     
+   <div class="sidepane">
+     <a href="#">Overview</a>
+     <a href="#">Projects</a>
+     <a href="#">Contact</a>
+     <a href="#">Help</a></a>
+   </div>
+     
+   <div class="main">
     <p>
         Fill in the forms to make your internship information available to the
         students.
@@ -144,5 +152,7 @@ function insertIntoDatabase($name, $email, $tele, $location, $company, $descript
         <br><br>
         <input type="submit" value="Post internship">
     </form>
+    </div>
+    
    </body>
 </html>
