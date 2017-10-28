@@ -133,6 +133,7 @@ CREATE TABLE Stagebegeleider(
 );
 
 CREATE TABLE Stageplek_van(
+	ProjectNaam	VARCHAR(30),
 	PlekNaam	VARCHAR(30), --stad
 	Locatie		VARCHAR(30), --straat
 	StraatNr	VARCHAR(30), --straatnr
@@ -143,7 +144,7 @@ CREATE TABLE Stageplek_van(
 	Studentqualities TEXT, --wat een stage begeleider van een student wilt
 	BedrijfNaam	VARCHAR(30), 
 	
-	PRIMARY KEY(PlekNaam, BedrijfNaam),
+	PRIMARY KEY(ProjectNaam),--, PlekNaam, BedrijfNaam),
 	FOREIGN KEY(BedrijfNaam) REFERENCES Stagebegeleider(BedrijfNaam) ON DELETE CASCADE
 );
 
