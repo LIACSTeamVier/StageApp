@@ -118,6 +118,7 @@ CREATE TABLE Project(
 	ProjectNaam	VARCHAR(30),
 	Beschrijving	TEXT,
 	Voortgang	TEXT,
+	Tijd		TEXT, --tijd restricties op een project, bijv voor of najaar
 	
 	PRIMARY KEY(ProjectNaam)
 );
@@ -132,10 +133,15 @@ CREATE TABLE Stagebegeleider(
 );
 
 CREATE TABLE Stageplek_van(
-	PlekNaam	VARCHAR(30),
-	Locatie		VARCHAR(30),
-	Tijden		VARCHAR(30),
-	BedrijfNaam	VARCHAR(30),
+	PlekNaam	VARCHAR(30), --stad
+	Locatie		VARCHAR(30), --straat
+	StraatNr	VARCHAR(30), --straatnr
+	--naar project toe gegaan Tijden		VARCHAR(30),
+	Travel		VARCHAR(3), --reiskosten vergoed of niet, ja/nee
+	Tnotes		VARCHAR(30), --extra opmerkingen over reiskosten
+	Pay		VARCHAR(30), --hoeveel je betaald krijgt op de stage
+	Studentqualities TEXT, --wat een stage begeleider van een student wilt
+	BedrijfNaam	VARCHAR(30), 
 	
 	PRIMARY KEY(PlekNaam, BedrijfNaam),
 	FOREIGN KEY(BedrijfNaam) REFERENCES Stagebegeleider(BedrijfNaam) ON DELETE CASCADE
