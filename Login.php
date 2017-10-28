@@ -2,7 +2,6 @@
 session_start();
 $loginErr = "";
 $uname = $password = "";
-
 if (isset($_SESSION["loginErr"]))
 {
     $loginErr = $_SESSION["loginErr"];
@@ -10,7 +9,6 @@ if (isset($_SESSION["loginErr"]))
     session_unset();
     session_destroy();
 }
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["username"]) || (empty($_POST["password"]))) {
         $loginErr = "Invalid username and password combination";
@@ -23,26 +21,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         attemptLogin($uname, $password);
     }
 }
-
 function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }
-
 function attemptLogin($uname, $password){
-    $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1551396", "-", "s1551396");
+    $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1551396", "9sdu8kG09u", "s1551396");
     // TODO replace "-" with "<actual-password>"
     // check connection
     if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
-
     $result = mysqli_query($con, "SELECT * FROM StageApp_Gebruikers g WHERE g.Identifier='$uname'") or die('Unable to run query:' . mysqli_error());
-
     $row = mysqli_fetch_row($result);
-
     mysqli_close($con);
     if ($row[3] == $password) { // FIXME alter according to final database.
         // set session vars

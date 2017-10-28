@@ -19,7 +19,7 @@ session_start();
 <div class="main">
   <?php
     if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
-      header("Location: http://liacs.leidenuniv.nl/~s1551396/StageApp/Login.php");
+      header("Location: Login.php");
       exit;
       // TODO, send info of expired session to login page.
       // TODO, expire session after period of inactivity.
@@ -35,10 +35,10 @@ session_start();
           <p> Create an account </p>
           <select name='createAcc' onchange='location = this.value;'>
             <option disabled selected value> -- Select an option -- </option>
-            <option value='create_acc/admin_account.php'>Admin</option>
-            <option value='create_acc/intern_instruc_account.php'>Internship instructor</option>
-            <option value='create_acc/instruc_account.php'>Instructor</option>
-            <option value='create_acc/Student_account.php'>Student</option>
+            <option value='create_admin_account.php'>Admin</option>
+            <option value='create_intern_contact_account.php'>Internship Contact</option>
+            <option value='create_supervisor_account.php'>Supervisor</option>
+            <option value='create_Student_account.php'>Student</option>
           </select>";
     
     
