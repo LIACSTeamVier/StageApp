@@ -138,7 +138,7 @@ CREATE TABLE Stageplek_van(
 	BedrijfNaam	VARCHAR(30),
 	
 	PRIMARY KEY(PlekNaam, BedrijfNaam),
-	FOREIGN KEY(BedrijfNaam) REFERENCES(BedrijfNaam) Stagebegeleider ON DELETE CASCADE
+	FOREIGN KEY(BedrijfNaam) REFERENCES Stagebegeleider(BedrijfNaam) ON DELETE CASCADE
 );
 
 -- relationships
