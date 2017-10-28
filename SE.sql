@@ -145,6 +145,7 @@ CREATE TABLE Stageplek_van(
 	BedrijfNaam	VARCHAR(30), 
 	
 	PRIMARY KEY(ProjectNaam),--, PlekNaam, BedrijfNaam),
+	FOREIGN KEY(ProjectNaam) REFERENCES Project(ProjectNaam),
 	FOREIGN KEY(BedrijfNaam) REFERENCES Stagebegeleider(BedrijfNaam) ON DELETE CASCADE
 );
 
@@ -170,12 +171,13 @@ CREATE TABLE Volbrengt(
 
 CREATE TABLE Beslaat(
 	ProjectNaam	VARCHAR(30),
-	PlekNaam VARCHAR(30),
+	--PlekNaam VARCHAR(30),
 	BedrijfNaam	VARCHAR(30),
 	
-	PRIMARY KEY(ProjectNaam, PlekNaam, BedrijfNaam),
+	--PRIMARY KEY(ProjectNaam, PlekNaam, BedrijfNaam),
+	PRIMARY KEY(ProjectNaam, BedrijfNaam),
 	FOREIGN KEY(ProjectNaam) REFERENCES Project(ProjectNaam),
-	FOREIGN KEY(PlekNaam) REFERENCES Stageplek_van(PlekNaam),
+	--FOREIGN KEY(PlekNaam) REFERENCES Stageplek_van(PlekNaam),
 	FOREIGN KEY(BedrijfNaam) REFERENCES Stagebegeleider(BedrijfNaam)
 );
 
