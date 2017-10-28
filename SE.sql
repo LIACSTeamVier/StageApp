@@ -150,7 +150,7 @@ CREATE TABLE Begeleid(
 	PRIMARY KEY (DocentID, StudentID),
 	FOREIGN KEY (DocentID) REFERENCES Begeleider(DocentID),
 	FOREIGN KEY (StudentID) REFERENCES Afstudeerder(StudentID)
-)
+);
 
 CREATE TABLE Volbrengt(
 	StudentID	INT(7),
