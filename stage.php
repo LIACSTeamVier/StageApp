@@ -14,7 +14,7 @@
     }
     else{
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1553968", "Rahzaeg2", "s1553968");
+            $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1553968", "-", "s1553968");
             if (mysqli_connect_errno()) {
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();
             }
