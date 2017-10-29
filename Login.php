@@ -28,7 +28,7 @@ function test_input($data) {
     return $data;
 }
 function attemptLogin($uname, $password){
-    $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1551396", "9sdu8kG09u", "s1551396");
+    $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1551396", "-", "s1551396");
     // TODO replace "-" with "<actual-password>"
     // check connection
     if (mysqli_connect_errno()) {

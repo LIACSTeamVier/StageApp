@@ -29,14 +29,14 @@ h3 {
   cursor: pointer;
 }
 
-.textbox, input[type=text], input[type=password] {
+.textbox, input[type=text], input[type=password], textarea {
     background-color: #f5f5f5;
     border: 1px solid #dddddd;
     padding: 10px 15px;
     color: black;
 }
 
-.textbox:focus, input[type=text]:focus, input[type=password]:focus {
+.textbox:focus, input[type=text]:focus, input[type=password]:focus, textarea:focus {
   background-color: #fcffec;
 }
 

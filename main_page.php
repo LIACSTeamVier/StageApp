@@ -13,6 +13,7 @@ session_start();
   <a href="#">Overview</a>
   <a href="#">Projects</a>
   <a href="#">Contact</a>
+  <a href="database_table.php">Database</a>
   <a href="#">Help</a></a>
 </div>
 
