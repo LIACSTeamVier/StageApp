@@ -3,18 +3,18 @@
     //TODO put stuff in sessions when logging in, fix the vars in here to match the session, fix the stuff in here to match the correct database, and fix to match the table
     ///!!!! put correct stuff in the session
 
-    $locationErr = $streetErr = $streetnrErr = $payErr = $tnotesErr = $naamErr = $tijdrestErr = $squalErr = $descriptionErr = "";
-    $location = $street = $streetnr = $pay = $travel = $tnotes = $description = $tijdrest = $naam = $squal = "";
+    $locationErr = $streetErr = $streetnrErr = $payErr = $tnotesErr = $naamErr = $topicErr = $tijdrestErr = $squalErr = $descriptionErr = "";
+    $location = $street = $streetnr = $pay = $travel = $tnotes = $description = $tijdrest = $naam = $topic = $squal = "";
 
     //test if the user is allowed to make a project   TODO put correct vars in session and check the correct values
-    if (($_SESSION["class"] != "Admin") && ($_SESSION["class"] != "stagebegeleider")){
+    if (($_SESSION["class"] != "Admin") && ($_SESSION["class"] != "InternshipInstructor")){
         //redirect to main page
         header("Location: main_page.php");
         die();
     }
     else{
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1553968", "-", "s1553968");
+            $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1553968", "Rahzaeg2", "s1553968");
             if (mysqli_connect_errno()) {
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();
             }
@@ -42,6 +42,14 @@
                     $naamErr = "Name is taken";
             }
 
+            if (empty($_POST["topic"])) {
+                $topic = "";
+            } else {
+                $topic = test_input($_POST["topic"]);
+                if(strlen($topic) > 127)
+                    $topicErr = "Input too big";
+            }
+		
             if (empty($_POST["location"])) {
                 $locationErr = "Location is required";
             } else {
@@ -82,7 +90,7 @@
                     $tnotesErr = "Input too big";
             }
             if(empty($_POST["travel"])){
-                $travel = "";
+                $travel = NULL;
             }else{
                 $travel =  test_input($_POST["travel"]);
             }
@@ -105,9 +113,9 @@
                 $tijdrest =  test_input($_POST["tijdrest"]);
             }
 
-            if ( ($naamErr == "") && ($locationErr == "") && ($streetErr == "") && ($streetnrErr == "") && ($payErr == "")  && ($tnotesErr == "")
-                && ($descriptionErr =="") && ($squalErr == "") && ($tijdrestErr == "") ){
-                insertIntoDatabase($naam, $location, $street, $streetnr, $pay, $travel, $tnotes, $description, $squal, $tijdrest, $con);
+            if ( ($naamErr == "") && ($topicErr == "") && ($locationErr == "") && ($streetErr == "") && ($streetnrErr == "") 
+                 && ($payErr == "")  && ($tnotesErr == "") && ($descriptionErr =="") && ($squalErr == "") && ($tijdrestErr == "") ){
+                insertIntoDatabase($naam, $topic, $location, $street, $streetnr, $pay, $travel, $tnotes, $description, $squal, $tijdrest, $con);
             }
             else
                 mysqli_close($con);
@@ -120,7 +128,7 @@
         $data = htmlspecialchars($data);
         return $data;
     }
-    function insertIntoDatabase($naam, $location, $street, $streetnr, $pay, $travel, $tnotes, $description, $squal, $tijdrest, $con){
+    function insertIntoDatabase($naam, $topic, $location, $street, $streetnr, $pay, $travel, $tnotes, $description, $squal, $tijdrest, $con){
         $intsupname = $_SESSION["username"];//has to be the same name as the name in the stagebegeleider table
         $stmt1 = mysqli_prepare($con, "SELECT BedrijfNaam FROM Stagebegeleider s WHERE s.SBegeleiderNaam = ?");
         mysqli_stmt_bind_param($stmt1,'s', $intsupname);
@@ -141,8 +149,10 @@
             //	header("Location: main_page.php");
         }	
 
-        $stmt2 = mysqli_prepare($con, "INSERT INTO Project(ProjectNaam, Beschrijving, Tijd) VALUES (?,?,?)");
-        mysqli_stmt_bind_param($stmt2, 'sss', $naam, $description, $tijdrest);
+        $stmt2 = mysqli_prepare($con,
+         "INSERT INTO Project(ProjectNaam, Beschrijving, Tijd, Studentqualities, Topic, Internship, SBegeleiderNaam, BedrijfNaam)
+          VALUES (?,?,?,?,?,'1',?,?)");
+        mysqli_stmt_bind_param($stmt2, 'sssssss', $naam, $description, $tijdrest, $squal, $topic,$intsupname,$compname);
         $result2 = mysqli_stmt_execute($stmt2);
         //$result2 = mysqli_stmt_get_result($stmt2);
         mysqli_stmt_close($stmt2);
@@ -154,8 +164,8 @@
 
 
         $stmt4 = mysqli_prepare($con, "INSERT INTO Stageplek_van(ProjectNaam, PlekNaam, Locatie, StraatNr, Travel, Tnotes,
-                                 Pay, Studentqualities, BedrijfNaam) VALUES (?,?,?,?,?,?,?,?,?)");
-        mysqli_stmt_bind_param($stmt4,'sssssssss', $naam, $location, $street, $streetnr, $travel, $tnotes, $pay, $squal, $compname);
+                                 Pay, BedrijfNaam) VALUES (?,?,?,?,?,?,?,?)");
+        mysqli_stmt_bind_param($stmt4,'ssssssss', $naam, $location, $street, $streetnr, $travel, $tnotes, $pay, $compname);
         $result4 = mysqli_stmt_execute($stmt4);
         mysqli_stmt_close($stmt4);
         if (!$result4){
@@ -208,6 +218,9 @@
                 ProjectName: <input type="text" name="naam" value="<?php  echo $naam;?>">
                 <span class="error">* <?php echo $naamErr;?></span>
                 <br><br>
+                Topic/keywords: <input type="text" name="topic" value="<?php  echo $topic;?>">
+				<span class="error"><?php echo $topicErr;?></span>
+				<br><br>
                 Your internship's City: <input type="text" name="location" value="<?php echo $location;?>">
                 <span class="error">* <?php echo $locationErr;?></span>
                 <br>
@@ -219,7 +232,7 @@
                 Pay: <input type="text" name="pay" value="<?php echo $pay;?>">
                 <span class="error"> <?php echo $payErr;?></span>
                 <br><br>
-                Travel Arrangements: <input type="radio" name="travel" value="yes">Included <input type="radio" name="travel" value="no">Excluded
+                Travel Arrangements: <input type="radio" name="travel" value="1">Included <input type="radio" name="travel" value="0">Excluded
                 <br>
                 Notes: <input type="text" name="tnotes" value="<?php echo $tnotes;?>">
                 <span class="error"> <?php echo $tnotesErr;?></span>
@@ -229,7 +242,7 @@
                 <br>
                 Describe the qualities you seek in a student (i.e. skillset):  <textarea name="squal" rows="5" cols="40"><?php echo $squal;?></textarea>
                 <span class="error"> <?php echo $squalErr;?></span>
-                <br>
+                <br><br>
                 Describe time restriction (when the internship is available):  <textarea name="tijdrest" rows="5" cols="40"><?php echo $tijdrest;?></textarea>
                 <span class="error"> <?php echo $tijdrestErr;?></span>
                 <br><br>
