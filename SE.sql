@@ -122,10 +122,13 @@ CREATE TABLE Project(
 	Studentqualities TEXT, --wat een stage begeleider van een student wilt
 	Topic		VARCHAR(127),
 	Internship	INT(1), --of het een stage of project van de uni is
-	DocentID	INT(7),
+	DocentID	INT(7), --link de docent die het project heeft gemaakt
+	SBegeleiderNaam VARCHAR(30), --link bedrijf en
+	BedrijfNaam	VARCHAR(30), --naam van begeleider aan een project
 	
 	PRIMARY KEY(ProjectNaam),
-	FOREIGN KEY(DocentId) REFERENCES Begeleider(DocentID)
+	FOREIGN KEY(DocentId) REFERENCES Begeleider(DocentID),
+	FOREIGN KEY(BedrijfNaam, SBegeleiderNaam) REFERENCES Stagebegeleider(BedrijfNaam, SBegeleiderNaam)
 );
 
 CREATE TABLE Stagebegeleider(
