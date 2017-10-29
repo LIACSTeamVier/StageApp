@@ -29,8 +29,22 @@ session_start();
     echo "<h1>Welcome " . "$username" . "." ."</h1>";
     echo "<p>You are a(n) " . "$class" . "." ."<p>"; //TODO temp, remove line.
     
+    // After sending an e-mail
+    if (isset($_SESSION["creatingAccount"])) {
+        if (isset($_SESSION["accCreateErr"]))
+            echo "ERROR: " . $_SESSION["accCreateErr"] . "</br>Could not create account. No e-mail was sent.</br>";
+        else {
+            echo "Account created successfully.</br>";
+            if (isset($_SESSION["emailErr"]))
+                echo "ERROR: e-mail could not be delivered. Please manually inform the recipient. Their username should be their e-mail address. Their password can be found in the 'name' table."; //TODO vervang 'name'
+        }
+    }
+    unset($_SESSION["emailErr"]);
+    unset($_SESSION["accCreateErr"]);
+    unset($_SESSION["creatingAccount"]);
+    
     if ($class == "Admin") {
-      //Creating an account
+      // Creating an account
         echo "
           <p> Create an account </p>
           <select name='createAcc' onchange='location = this.value;'>
