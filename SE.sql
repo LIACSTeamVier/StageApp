@@ -119,8 +119,13 @@ CREATE TABLE Project(
 	Beschrijving	TEXT,
 	Voortgang	TEXT,
 	Tijd		TEXT, --tijd restricties op een project, bijv voor of najaar
+	Studentqualities TEXT, --wat een stage begeleider van een student wilt
+	Topic		VARCHAR(127),
+	Internship	INT(1), --of het een stage of project van de uni is
+	DocentID	INT(7),
 	
-	PRIMARY KEY(ProjectNaam)
+	PRIMARY KEY(ProjectNaam),
+	FOREIGN KEY(DocentId) REFERENCES Begeleider(DocentID)
 );
 
 CREATE TABLE Stagebegeleider(
@@ -138,10 +143,9 @@ CREATE TABLE Stageplek_van(
 	Locatie		VARCHAR(30), --straat
 	StraatNr	VARCHAR(30), --straatnr
 	--naar project toe gegaan Tijden		VARCHAR(30),
-	Travel		VARCHAR(3), --reiskosten vergoed of niet, ja/nee
+	Travel		INT(1), --reiskosten vergoed of niet, ja/nee
 	Tnotes		VARCHAR(30), --extra opmerkingen over reiskosten
 	Pay		VARCHAR(30), --hoeveel je betaald krijgt op de stage
-	Studentqualities TEXT, --wat een stage begeleider van een student wilt
 	BedrijfNaam	VARCHAR(30), 
 	
 	PRIMARY KEY(ProjectNaam),--, PlekNaam, BedrijfNaam),
