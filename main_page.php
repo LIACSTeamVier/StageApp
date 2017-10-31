@@ -10,8 +10,8 @@ session_start();
 <body>
 
 <div class="sidepane">
-  <a href="#">Overview</a>
-  <a href="#">Projects</a>
+  <a href="main_page.php">Overview</a>
+  <a href="project_list.php">Projects</a>
   <a href="#">Contact</a>
   <a href="database_table.php">Database</a>
   <a href="#">Help</a></a>
