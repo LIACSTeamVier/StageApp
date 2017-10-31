@@ -11,16 +11,16 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT Docent_ID, Naam FROM Begeleider B, Begeleid L, Afstudeerder A WHERE (B.Docent_ID = L.Docent_ID)  AND (L.Student_ID = " . $_SESSION[“my_ID”] . “)” ;
+$sql = "SELECT PlekNaam, BedrijfNaam FROM Stageplek_van";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo  . $row["naam"]. "<br>";
+        echo  . $row["PlekNaam"]. " " . $row["BedrijfNaam"] "<br>";
     }
 } else {
-    echo "Er zijn geen begeleiders.";
+    echo "Er zijn geen stages.";
 }
 $conn->close();
 ?> 
