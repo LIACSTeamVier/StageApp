@@ -19,10 +19,10 @@ session_start();
 
 <div class="main">
   <?php
-    $host = "";
-    $username = "";
-    $password = "";
-    $dbname = "";
+    $host = "mysql.liacs.leidenuniv.nl";
+    $username = "s1551396";
+    $password = "-";
+    $dbname = "s1551396";
     $con = mysqli_connect($host, $username, $password, $dbname);
     
     // check connection

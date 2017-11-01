@@ -19,10 +19,10 @@ session_start();
 
 <div class="main">
   <?php
-    $host = "";
-    $username = "";
-    $password = "";
-    $dbname = "";
+    $host = "mysql.liacs.leidenuniv.nl";
+    $username = "s1551396";
+    $password = "-";
+    $dbname = "s1551396";
     $con = mysqli_connect($host, $username, $password, $dbname);
     
     // check connection
@@ -53,8 +53,13 @@ session_start();
               <td>" . $row['Voortgang'] . "</td>
               <td>" . $row['Tijd'] . "</td>
               <td>" . $row['Studentqualities'] . "</td>
-              <td>" . $row['Topic'] . "</td>
-              <td>" . $row['Internship'] . "</td>
+              <td>" . $row['Topic'] . "</td>    
+              <td>"
+              if ($row['Internship'] == 1)
+                  echo "Ja";
+              else
+                  echo "Nee"; 
+        echo "</td>
               <td>" . $row['DocentID'] . "</td>
               <td>" . $row['SBegeleiderNaam'] . "</td>
               <td>" . $row['BedrijfNaam'] . "</td></tr>";  //$row['index'] the index here is a field name
