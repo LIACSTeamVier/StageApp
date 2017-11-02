@@ -127,7 +127,7 @@ CREATE TABLE Project(
 	BedrijfNaam	VARCHAR(30), --naam van begeleider aan een project
 	
 	PRIMARY KEY(ProjectNaam),
-	FOREIGN KEY(DocentId) REFERENCES Begeleider(DocentID),
+	FOREIGN KEY(DocentID) REFERENCES Begeleider(DocentID),
 	FOREIGN KEY(BedrijfNaam, SBegeleiderNaam) REFERENCES Stagebegeleider(BedrijfNaam, SBegeleiderNaam)
 );
 
