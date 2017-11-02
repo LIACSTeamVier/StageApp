@@ -54,7 +54,7 @@ session_start();
               <td>" . $row['Tijd'] . "</td>
               <td>" . $row['Studentqualities'] . "</td>
               <td>" . $row['Topic'] . "</td>    
-              <td>"
+              <td>";
               if ($row['Internship'] == 1)
                   echo "Ja";
               else
