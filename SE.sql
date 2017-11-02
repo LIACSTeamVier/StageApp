@@ -114,6 +114,16 @@ CREATE TABLE Afstudeerder(
 	PRIMARY KEY(StudentID)
 );
 
+
+CREATE TABLE Stagebegeleider(
+	BedrijfNaam	VARCHAR(30),
+	SBegeleiderNaam	VARCHAR(30),
+	StaEMAIL	VARCHAR(30),
+	StageTel	INT(10),
+	
+	PRIMARY KEY(BedrijfNaam, SBegeleiderNaam)
+);
+
 CREATE TABLE Project(
 	ProjectNaam	VARCHAR(30),
 	Beschrijving	TEXT,
@@ -129,15 +139,6 @@ CREATE TABLE Project(
 	PRIMARY KEY(ProjectNaam),
 	FOREIGN KEY(DocentID) REFERENCES Begeleider(DocentID),
 	FOREIGN KEY(BedrijfNaam, SBegeleiderNaam) REFERENCES Stagebegeleider(BedrijfNaam, SBegeleiderNaam)
-);
-
-CREATE TABLE Stagebegeleider(
-	BedrijfNaam	VARCHAR(30),
-	SBegeleiderNaam	VARCHAR(30),
-	StaEMAIL	VARCHAR(30),
-	StageTel	INT(10),
-	
-	PRIMARY KEY(BedrijfNaam, SBegeleiderNaam)
 );
 
 CREATE TABLE Stageplek_van(
