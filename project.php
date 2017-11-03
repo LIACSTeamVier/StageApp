@@ -14,7 +14,7 @@ else{
 	$nameErr = $topicErr = $descriptionErr = $tijdrestErr = $sqaulErr = "";
 	$name = $topic = $description = $tijdrest = $squal ="";
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		$con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1553968", "-", "s1553968");
+		$con = mysqli_connect("mysql.liacs.leidenuniv.nl", "csthesis", "-", "csthesis");
 		// Check connection
 		if (mysqli_connect_errno()) {
 			echo "Failed to connect to MySQL: " . mysqli_connect_error();
