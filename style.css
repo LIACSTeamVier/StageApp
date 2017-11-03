@@ -59,6 +59,7 @@ th {
     background-color: white;
     color: black;
     border-bottom-style: solid;
+    cursor:pointer;
 }
 
 /* sidepane */

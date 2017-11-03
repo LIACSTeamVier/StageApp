@@ -6,6 +6,7 @@ session_start();
 <html lang="en-UK">
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
+<script src="sortTable.js"></script>
 </head>
 <body>
 
@@ -31,17 +32,17 @@ session_start();
     }
     
     $project_table = mysqli_query($con, "SELECT * FROM Project") or die('Unable to run query:' . mysqli_error());
-    echo "<table width='90%'>"; // start a table tag in the HTML
+    echo "<table width='90%' id='project_table'>"; // start a table tag in the HTML
     
     // column names
-    echo "<tr><th>Name and description</th>
-              <th>Topic</th>
-              <th>Time</th>
-              <th>Progress</th>
-              <th>Student type</th>
-              <th>Internship</th>
-              <th>Teacher</th>
-              <th>Company</th></tr>";
+    echo "<tr><th onclick=\"sortTable(0)\">Name and description</th>
+              <th onclick=\"sortTable(1)\">Topic</th>
+              <th onclick=\"sortTable(2)\">Time</th>
+              <th onclick=\"sortTable(3)\">Progress</th>
+              <th onclick=\"sortTable(4)\">Student type</th>
+              <th onclick=\"sortTable(5)\">Internship</th>
+              <th onclick=\"sortTable(6)\">Teacher</th>
+              <th onclick=\"sortTable(7)\">Company</th></tr>";
     
     // rows of the database
     while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
