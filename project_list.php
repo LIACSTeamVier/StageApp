@@ -30,38 +30,33 @@ session_start();
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
     
-    $result = mysqli_query($con, "SELECT * FROM Project") or die('Unable to run query:' . mysqli_error());
-
-    echo "<table>"; // start a table tag in the HTML
+    $project_table = mysqli_query($con, "SELECT * FROM Project") or die('Unable to run query:' . mysqli_error());
+    echo "<table width='90%'>"; // start a table tag in the HTML
     
     // column names
-    echo "<tr><th>Projectnaam</th>
-              <th>Beschrijving</th>
-              <th>Voortgang</th>
-              <th>Tijd</th>
-              <th>Student qualities</th>
+    echo "<tr><th>Name and description</th>
               <th>Topic</th>
+              <th>Time</th>
+              <th>Progress</th>
+              <th>Student type</th>
               <th>Internship</th>
-              <th>DocentID</th>
-              <th>Begeleider</th>
-              <th>Bedrijfsnaam</th></tr>";
+              <th>Teacher</th>
+              <th>Company</th></tr>";
     
     // rows of the database
-    while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
-        echo "<tr><td>" . $row['ProjectNaam'] . "</td>
-              <td>" . $row['Beschrijving'] . "</td>
-              <td>" . $row['Voortgang'] . "</td>
+    while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
+        $teacher_name_get = mysqli_query($con, "SELECT BegeleiderNaam FROM Begeleider WHERE DocentID=" . $row['DocentID']) or die('Unable to run query:' . mysqli_error());
+        $teacher_name = mysqli_fetch_array($teacher_name_get);
+        echo "<tr><td width='40%'><b>" . $row['ProjectNaam'] . "</b><p style='margin-left: 5px'>" . $row['Beschrijving'] . "</p></td>
+              <td>" . $row['Topic'] . "</td>
               <td>" . $row['Tijd'] . "</td>
-              <td>" . $row['Studentqualities'] . "</td>
-              <td>" . $row['Topic'] . "</td>    
-              <td>";
+              <td>" . $row['Voortgang'] . "</td>
+              <td>" . $row['Studentqualities'] . "</td>";  
               if ($row['Internship'] == 1)
-                  echo "Ja";
+                  echo "<td>Yes</td>";
               else
-                  echo "Nee"; 
-        echo "</td>
-              <td>" . $row['DocentID'] . "</td>
-              <td>" . $row['SBegeleiderNaam'] . "</td>
+                  echo "<td>No</td>";
+        echo "<td>" . $teacher_name['BegeleiderNaam'] . "</td>
               <td>" . $row['BedrijfNaam'] . "</td></tr>";  //$row['index'] the index here is a field name
     }
     
