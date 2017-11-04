@@ -101,6 +101,9 @@ CREATE TABLE Begeleider(
 	BegeleiderNaam	VARCHAR(30),
 	BegEMAIL	VARCHAR(30),
 	BegeleiderTel	INT(10),
+	RoleFirst       VARCHAR(3), --yes/no
+	RoleSecond      VARCHAR(3),
+	Background      VARCHAR(4), --use as ENUM('ICT', 'BUS', 'BOTH') 
 	
 	PRIMARY KEY(DocentID)
 );
