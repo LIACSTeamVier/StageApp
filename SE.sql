@@ -159,13 +159,22 @@ CREATE TABLE Stageplek_van(
 
 -- relationships
 
+-- table that describes options for supervising (ie first supervisor/ second supervisor)
+CREATE TABLE RelationOptions(
+    type VARCHAR(20),
+    
+    PRIMARY KEY (type)
+);
+
 CREATE TABLE Begeleid(
-	DocentID	INT(7),
-	StudentID	INT(7),
+    type        VARCHAR(20),	
+    DocentID	INT(7),
+    StudentID	INT(7),
 	
-	PRIMARY KEY (DocentID, StudentID),
-	FOREIGN KEY (DocentID) REFERENCES Begeleider(DocentID),
-	FOREIGN KEY (StudentID) REFERENCES Afstudeerder(StudentID)
+    PRIMARY KEY (type, StudentID),
+    FOREIGN KEY(type) REFERENCES RelationOptions(type),
+    FOREIGN KEY(DocentID) REFERENCES Begeleider(DocentID),
+    FOREIGN KEY(StudentID) REFERENCES Afstudeerder(StudentID)
 );
 
 CREATE TABLE Volbrengt(
