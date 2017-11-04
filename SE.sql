@@ -170,6 +170,7 @@ CREATE TABLE Begeleid(
     type        VARCHAR(20),	
     DocentID	INT(7),
     StudentID	INT(7),
+    Accepted	INT(1),
 	
     PRIMARY KEY (type, StudentID),
     FOREIGN KEY(type) REFERENCES RelationOptions(type),
