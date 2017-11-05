@@ -24,8 +24,6 @@ session_start();
 			$numrow = mysqli_num_rows($result);echo "<p>temp: numb of rows $numrow</p></br>";
 			//$row = mysqli_fetch_array($result);
 			if($numrow > 2){
-				//echo "<p>You already made a request for this type of supervisor.
-					//  </br>Choose a different type or delete that request.</p>"
 				echo "<p>You already made requests for both types of supervisor, delete one or more of them</p></br>";
 			}
 			else if($numrow == 0){//als er nog geen requests gemaakt zijn
@@ -38,7 +36,7 @@ session_start();
 				if(!empty($rowres2)){
 					if ( ($rowres2["RoleFirst"] == "yes" && $reqtyp == "First Supervisor") ||
 						 ($rowres2["RoleSecond"] == "yes" && $reqtyp == "Second Supervisor")){
-							 $_SESSION["ReqDocId"] = $reqdoc;
+							 $_SESSION["ReqDocID"] = $reqdoc;
 							 $_SESSION["ReqType"] = $reqtyp;
 							 $_SESSION["ReqStudentID"] = $_SESSION["ID"];
 							 header("Location: make_activation.php");
@@ -77,7 +75,7 @@ session_start();
 							else{
 									if ( ($rowres4["RoleFirst"] == "yes" && $reqtyp == "First Supervisor") ||
 										 ($rowres4["RoleSecond"] == "yes" && $reqtyp == "Second Supervisor")){
-											 $_SESSION["ReqDocId"] = $reqdoc;
+											 $_SESSION["ReqDocID"] = $reqdoc;
 											 $_SESSION["ReqType"] = $reqtyp;
 											 $_SESSION["ReqStudentID"] = $_SESSION["ID"];
 											 header("Location: make_activation.php");
