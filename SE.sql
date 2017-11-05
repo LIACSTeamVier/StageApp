@@ -174,7 +174,7 @@ CREATE TABLE Begeleid(
     DocentID	INT(7),
     StudentID	INT(7),
     Accepted	INT(1),
-    ActivationCode	VARCHAR(32), --activation code, so supervisors can accept via mail
+    ActivationCode	VARCHAR(32) UNIQUE, --activation code, so supervisors can accept via mail
 	
     PRIMARY KEY (type, StudentID),
     FOREIGN KEY(type) REFERENCES RelationOptions(type),
