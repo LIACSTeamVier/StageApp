@@ -23,7 +23,9 @@ session_start();
 		if($result){
 			$numrow = mysqli_num_rows($result);echo "<p>temp: numb of rows $numrow</p></br>";
 			//$row = mysqli_fetch_array($result);
-			if($numrow > 2){
+			if($numrow >= 2){
+				//echo "<p>You already made a request for this type of supervisor.
+					//  </br>Choose a different type or delete that request.</p>"
 				echo "<p>You already made requests for both types of supervisor, delete one or more of them</p></br>";
 			}
 			else if($numrow == 0){//als er nog geen requests gemaakt zijn
