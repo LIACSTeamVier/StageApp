@@ -18,6 +18,7 @@ session_start();
 
 <div class="main">
   <?php
+    $identifierlength = 30; // length of the identifier according to table InternshipApp_Users
     if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
       header("Location: Login.php");
       exit;
@@ -35,13 +36,15 @@ session_start();
         // Creating the account
         $name = $_POST["name"];
         $email = $_POST["email"];
+        $username = substr($_POST["email"], 0, $identifierlength); // FIXME maybe not use email as identifier
         $password = $_POST["password"];
-        $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1551396", "9sdu8kG09u", "s1551396");
+        $class = $_POST["role"];
+        $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "csthesis", "ldOIouqs", "csthesis");
         // Check connection
         if (mysqli_connect_errno())
             $_SESSION["accCreateErr"] = "Failed to connect to MySQL: " . mysqli_connect_error();
         else {
-            $result = mysqli_query($con, "INSERT INTO StageApp_Gebruikers VALUES ('$email','Internship Instructor','$name','$password');");// or die('Unable to run query:' . mysqli_error($con));
+            $result = mysqli_query($con, "INSERT INTO StageApp_Gebruikers VALUES ('$username','$class','$name','$password');");// or die('Unable to run query:' . mysqli_error($con));
         
             if (mysqli_error($con) != "")
                 $_SESSION["accCreateErr"] = "Unable to run query:" . mysqli_error($con);
@@ -53,7 +56,7 @@ session_start();
         if (!isset($_SESSION["accCreateErr"])) {
             //$message = fopen("../email.php", "r") or die("Unable to open file!"); //FIXME: https://stackoverflow.com/questions/1846882/open-basedir-restriction-in-effect-file-is-not-within-the-allowed-paths
             
-            $email_from = 'benstef2015@gmail.com'; //TODO replace with actual LIACS email
+            $email_from = 'donotreply@yopmail.com'; //TODO replace with actual LIACS email
             $subject = "An account has been made for you on the LIACS InternshipApp";
             $boundary = uniqid('np');
             
@@ -67,13 +70,13 @@ session_start();
             $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
             
             // Plain text body
-            $message .=  "Hello,\nPlease open this e-mail in HTML-mode to view its contents.\nPlease do not reply to this e-mail.\n\nRegards,\n(notactually)LIACS"; // TODO change sender once relevant
+            $message .= "Dear ".$name.",\nAn account has been made for you on the LIACS InternshipApp. Please follow the following link:\nhttp://csthesis.liacs.leidenuniv.nl/Login.php\nYour username and password are as follows:\nUsername: ".$username."\nPassword: ".$password."\nPlease do not reply to this e-mail.\n(notactually)LIACS"; // TODO replace with file
             $message .= "\r\n\r\n--" . $boundary . "\r\n";
             $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
             
             // HTML body
             $message .= "Dear <td>".$name."</td>,</br> An account has been made for you on the
-        <a href='http://liacs.leidenuniv.nl/~s1551396/InternshipApp/Login.php'>LIACS InternshipApp</a>.</br> Your username and password are as follows:</br> Username: <td>".$email."</td></br> Password: <td>".$password."</td></br> Please do not reply to this e-mail."; // TODO replace with file
+        <a href='http://csthesis.liacs.leidenuniv.nl/Login.php'>LIACS InternshipApp</a>.</br> Your username and password are as follows:</br> Username: <td>".$username."</td></br> Password: <td>".$password."</td></br> Please do not reply to this e-mail.</br>(notactually)LIACS"; // TODO replace with file
             $message .= "\r\n\r\n--" . $boundary . "--";
             
             
