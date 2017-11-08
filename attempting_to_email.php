@@ -53,8 +53,7 @@ session_start();
         mysqli_close($con);
         
         // Send email
-        if (!isset($_SESSION["accCreateErr"])) {
-            //$message = fopen("../email.php", "r") or die("Unable to open file!"); //FIXME: https://stackoverflow.com/questions/1846882/open-basedir-restriction-in-effect-file-is-not-within-the-allowed-paths
+        if (!isset($_SESSION["accCreateErr"]))
             
             $email_from = 'donotreply@yopmail.com'; //TODO replace with actual LIACS email
             $subject = "An account has been made for you on the LIACS InternshipApp";
