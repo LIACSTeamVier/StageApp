@@ -39,7 +39,7 @@ session_start();
         $username = substr($_POST["email"], 0, $identifierlength); // FIXME maybe not use email as identifier
         $password = $_POST["password"];
         $class = $_POST["role"];
-        $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "csthesis", "ldOIouqs", "csthesis");
+        $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "csthesis", "-", "csthesis");
         // Check connection
         if (mysqli_connect_errno())
             $_SESSION["accCreateErr"] = "Failed to connect to MySQL: " . mysqli_connect_error();
