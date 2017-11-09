@@ -6,14 +6,15 @@
 		//header("Location: main_page.php");
 		die("Wrong Session Vars");
 	}
-
-	$con = mysqli_connect("mysql.liacs.leidenuniv.nl", "csthesis", "-", "csthesis");
+    $configs = include("config.php");
+	$con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
 	// Check connection
 	if (mysqli_connect_errno()) {
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		die();
 	}
-	$randstring = random_str(32);
+
+	$randstring = random_str(32); 
 	$res = mysqli_query($con, "SELECT * FROM Begeleid WHERE ActivationCode='$randstring'");
 	$numrow = mysqli_num_rows($res);
 	while($numrow > 0){//make sure the activation code is unique
@@ -21,21 +22,21 @@
 		$res = mysqli_query($con, "SELECT * FROM Begeleid WHERE ActivationCode='$randstring'");
 		$numrow = mysqli_num_rows($res);
 	}
-	
+
 	$stmt = mysqli_prepare($con, "INSERT INTO Begeleid(type, DocentID, StudentID, Accepted, ActivationCode)
           VALUES (?,?,?,'0',?)");
 	mysqli_stmt_bind_param($stmt,'ssss', $_SESSION["ReqType"], $_SESSION["ReqDocID"], $_SESSION["ReqStudentID"], $randstring);
-	mysqli_stmt_execute($stmt);
-	$result = mysqli_stmt_get_result($stmt);
+	$result = mysqli_stmt_execute($stmt);
+	//$result = mysqli_stmt_get_result($stmt);
 	mysqli_stmt_close($stmt);
-	if(!$result)
-		die('Unable to run query:' . mysqli_error());
+	if(!$result){echo "query 1";
+		die('Unable to run query1:' . mysqli_error());}
 	
 	$result2 = mysqli_query($con, "SELECT BegEMAIL, BegeleiderNaam FROM Begeleider WHERE DocentID='".$_SESSION["ReqDocID"]."'");
 	$row = mysqli_fetch_array($result2);
-	if(!$result2)
-		die('Unable to run query:' . mysqli_error());
-		
+	if(!$result2){echo "query 2";
+		die('Unable to run query2:' . mysqli_error());}
+
 	$result3 = mysqli_query($con, "SELECT StudentNaam FROM Afstudeerder WHERE StudentID='".$_SESSION["ReqStudentID"]."'");
 	$rowres3 = mysqli_fetch_array($result3);
 	if(!$result3)
@@ -48,7 +49,7 @@
 	$type = $_SESSION["ReqType"];
 	mysqli_close($con);
 
-	$email_from = 'benstef2015@gmail.com'; //TODO replace with actual LIACS email
+	$email_from = 'noreply@yopmail.com'; //TODO replace with actual LIACS email
 	$subject = "A Student Wants You as Masters Supervisor";
 	$boundary = uniqid('np');
 	
@@ -71,21 +72,32 @@
 				<body>
 				  <p>Dear $DocName,</p><br/>
 				  <p>The student: $StudentName , $StudentID , has requested you to be their $type .</p></br>
-				  <p>Click this <a href=\"http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randomstr\">LINK</a> to accept their request.<p><br/>
+				  "//<p>Click this <a href=\"http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring\">LINK</a> to accept their request.<p><br/>
+				 ."/<p>Enter this url 'http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring' in your browser to accept their request</p></br>
 				  <p>Please do not reply to this e-mail.</p><br/>
 				</body>
 				</html> ";
-			
+	//$message .= "<p>Dear $DocName,</p><br/>";
+	//$message .="<p>The student: $StudentName , $StudentID , has requested you to";
+	//$message .=" be their $type .</p></br>";
+	//$message .="<p>Click this ";
+	//$message .="<a href=\"http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randomstr\">LINK</a>";
+	//$message .="to accept their request.<p><br/>";
+	//$message .=" <p>Please do not reply to this e-mail.</p><br/>";
+	//$message .= "\r\n\r\n--" . $boundary . "--";
+		
+
 	$headers = "MIME-Version: 1.0\r\n";
 	$headers .= "From: $email_from \r\n";
 	$headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
-	
+
 	if (!(mail($email,$subject,$message,$headers)))
 		$_SESSION["emailErr"] = 1;
 
 	if ($_SESSION["emailErr"] == 1){
-		echo "sending email went wrong, either notify your requested supervisor to check their account on the system or </br>
+		echo "sending email went wrong, either notify your requested supervisor to check their account on the system or</br>
 			  delete the request and try again";
+
 		echo "<a href=\"main_page.php\">Go back to the main page</a>";
 	}
 	else{
@@ -121,3 +133,4 @@ function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzAB
     return $str;
 }
 ?>
+

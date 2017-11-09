@@ -1,5 +1,5 @@
 <?php
-session_start();
+  session_start();
 ?>
 
 <!DOCTYPE html>
@@ -34,17 +34,18 @@ session_start();
     else {
         $_SESSION["creatingAccount"] = 0;
         // Creating the account
+        $configs = include("config.php");
         $name = $_POST["name"];
         $email = $_POST["email"];
         $username = substr($_POST["email"], 0, $identifierlength); // FIXME maybe not use email as identifier
         $password = $_POST["password"];
         $class = $_POST["role"];
-        $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "csthesis", "-", "csthesis");
+        $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
         // Check connection
         if (mysqli_connect_errno())
             $_SESSION["accCreateErr"] = "Failed to connect to MySQL: " . mysqli_connect_error();
         else {
-            $result = mysqli_query($con, "INSERT INTO StageApp_Gebruikers VALUES ('$username','$class','$name','$password');");// or die('Unable to run query:' . mysqli_error($con));
+            $result = mysqli_query($con, "INSERT INTO StageApp_Gebruikers VALUES ('$username','$class','$name','$password');");
         
             if (mysqli_error($con) != "")
                 $_SESSION["accCreateErr"] = "Unable to run query:" . mysqli_error($con);
@@ -53,7 +54,7 @@ session_start();
         mysqli_close($con);
         
         // Send email
-        if (!isset($_SESSION["accCreateErr"]))
+        if (!isset($_SESSION["accCreateErr"])) {
             
             $email_from = 'donotreply@yopmail.com'; //TODO replace with actual LIACS email
             $subject = "An account has been made for you on the LIACS InternshipApp";

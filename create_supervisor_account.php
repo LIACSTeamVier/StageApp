@@ -1,6 +1,6 @@
 <?php
-  require_once "random_compat-2.0.11/lib/random.php";
-  session_start();
+require_once "random_compat-2.0.11/lib/random.php";
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +32,6 @@
     }
     else {
       $password = random_str(8);
-      //$password = 'placeholder'; // FIXME replace with above once possible.
       $role = 'Supervisor';
       echo "<h5>Please fill in the form below<h5></br>";
       echo "

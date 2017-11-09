@@ -1,7 +1,8 @@
 <?php
 	session_start();
+	$configs = include("config.php");
 	if ($_SERVER["REQUEST_METHOD"] == "GET"){
-		$con = mysqli_connect("mysql.liacs.leidenuniv.nl", "csthesis", "-", "csthesis");
+        $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
 		// Check connection
 		if (mysqli_connect_errno()) {
 			echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -15,10 +16,13 @@
 			
 			if(mysqli_affected_rows($con)>0){
 				mysqli_stmt_close($stmt);
-				$stmt2 = mysqli_prepare($con, "UPDATE Begeleid SET ActivationCode='' WHERE ActivationCode=?");
+				$stmt2 = mysqli_prepare($con, "UPDATE Begeleid SET ActivationCode=NULL WHERE ActivationCode=?");
 				mysqli_stmt_bind_param($stmt2,'s', $randomstr);
-				mysqli_stmt_execute($stmt2);
-				$result2 = mysqli_stmt_get_result($stmt2);
+				$result2 = mysqli_stmt_execute($stmt2);
+				//$result2 = mysqli_stmt_get_result($stmt2);
+				if(!$result2){
+					die("mysql error");
+				}
 				mysqli_stmt_close($stmt2);
 				echo "<script>alert(\"Successfully accepted being a supervisor for the student!\");
 						location.href='main_page.php';
@@ -41,11 +45,12 @@
 		$docid = $_SESSION["ID"];
 	
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		$con = mysqli_connect("mysql.liacs.leidenuniv.nl", "csthesis", "-", "csthesis");
+        $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
 		// Check connection
 		if (mysqli_connect_errno()) {
 			echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}
+		//TODO set activation codes op null
 		if(!(empty($_POST["FirstStudent"]))){
 			mysqli_query($con, "UPDATE Begeleid SET Accepted='1' WHERE type='First Supervisor' AND DocentID='$docid' AND StudentID='".$_POST["FirstStudent"]."'")
 			or die('Unable to run query:' . mysqli_error());
@@ -87,11 +92,8 @@
 
 <div class="main">
   <?php
-    $host = "mysql.liacs.leidenuniv.nl";
-    $username = "csthesis";
-    $password = "-";
-    $dbname = "csthesis";
-    $con = mysqli_connect($host, $username, $password, $dbname);
+    $configs = include("config.php");
+    $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
     
     // check connection
     if (mysqli_connect_errno()) {
@@ -159,4 +161,5 @@
 
 </body>
 </html>
+
 

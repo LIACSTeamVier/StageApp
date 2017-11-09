@@ -1,11 +1,12 @@
 <?php
 session_start();
 	//ID is the student id for the student that makes a request to a teacher
-	if( (empty($_SESSION["ID"])) || ($_SESSION["class"] != "Student") ){
-		header("Location: main_page.php");
-		die();
+	if( (empty($_SESSION["ID"])) || ($_SESSION["class"] != "Student")){
+		//header("Location: main_page.php");
+		die("Wrong Class");
 	}
-	$con = mysqli_connect("mysql.liacs.leidenuniv.nl", "csthesis", "-", "csthesis");
+	$configs = include("config.php");
+	$con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
 	// Check connection
 	if (mysqli_connect_errno()) {
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -14,7 +15,7 @@ session_start();
 	if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["RequestType"]) && !empty($_POST["RequestDocID"])){
 		$reqtyp = test_input($_POST["RequestType"]);
 		$reqdoc = test_input($_POST["RequestDocID"]);
-		//echo "$reqtyp   $reqdoc";die();
+		echo "$reqtyp   $reqdoc";
 		$stmt = mysqli_prepare($con, "SELECT DocentID, type FROM Begeleid WHERE StudentID='".$_SESSION["ID"]."'");
 		//mysqli_bind_param($stmt, 's',$reqtyp);
 		mysqli_stmt_execute($stmt);
@@ -23,13 +24,11 @@ session_start();
 		if($result){
 			$numrow = mysqli_num_rows($result);echo "<p>temp: numb of rows $numrow</p></br>";
 			//$row = mysqli_fetch_array($result);
-			if($numrow >= 2){
-				//echo "<p>You already made a request for this type of supervisor.
-					//  </br>Choose a different type or delete that request.</p>"
+			if($numrow >= 2){ 
 				echo "<p>You already made requests for both types of supervisor, delete one or more of them</p></br>";
 			}
 			else if($numrow == 0){//als er nog geen requests gemaakt zijn
-				$stmt2 = mysqli_prepare($con, "SELECT RoleFirst, RoleSecond FROM Begeleider	WHERE DocentID=?");
+				$stmt2 = mysqli_prepare($con, "SELECT RoleFirst, RoleSecond FROM Begeleider WHERE DocentID=?");
 				mysqli_bind_param($stmt2, 's', $reqdoc);
 				mysqli_stmt_execute($stmt2);
 				$result2 = mysqli_stmt_get_result($stmt2);
@@ -49,7 +48,7 @@ session_start();
 					}
 				}
 				else
-					echo "<p>Supervisor doesn't exist</p></br>";
+				    echo "<p>Supervisor doesn't exist</p></br>";
 			}
 			else if($numrow == 1){
 				$row = mysqli_fetch_array($result);
@@ -60,7 +59,7 @@ session_start();
 				else{
 					$existingDocID = $row["DocentID"];
 					$result3 = mysqli_query($con, "SELECT Background FROM Begeleider WHERE DocentID='$existingDocID'");
-					$rowres3 = mysqli_fetch_array($result3);
+					$rowres3 = mysqli_fetch_array($result3);var_dump($rowres3);
 					if(!empty($rowres3)){
 						$existingBackground = $rowres3["Background"];
 						$stmt4 = mysqli_prepare($con, "SELECT RoleFirst, RoleSecond, Background FROM Begeleider WHERE DocentID=?");
@@ -93,6 +92,7 @@ session_start();
 					}
 					else
 						die("mysql error");
+					
 				}
 			}
 		}
@@ -114,12 +114,12 @@ session_start();
 ?>
 <!DOCTYPE HTML>
 <html>
-	<head>
+    <head>
         <meta charset="utf-8" /> 
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="style.css"> 
     </head>
 	<body>
-		<div class="sidepane">
+	<div class="sidepane">
             <a href="main_page.php">Overview</a>
             <a>standardise this</a>
         </div>

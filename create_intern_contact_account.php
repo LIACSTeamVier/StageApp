@@ -1,6 +1,6 @@
 <?php
-  require_once "random_compat-2.0.11/lib/random.php";
-  session_start();
+require_once "random_compat-2.0.11/lib/random.php";
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +32,6 @@
     }
     else {
       $password = random_str(8);
-      //$password = 'placeholder'; // FIXME replace with above once possible.
       $role = 'Internship Contact';
       echo "<h5>Please fill in the form below<h5></br>";
       echo "
@@ -46,7 +45,7 @@
           <input type='submit' value='Create account'>
         </form>";
     }
-    
+  
 /** From StackOverFlow https://stackoverflow.com/a/31107425 
  *  Under Creative Commons Licence Attribution-ShareAlike 3.0 
  * 
@@ -69,7 +68,7 @@ function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzAB
         $str .= $keyspace[random_int(0, $max)];
     }
     return $str;
-}   
+}    
   ?>  
 </div>
 

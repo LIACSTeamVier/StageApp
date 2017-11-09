@@ -7,14 +7,15 @@
     $location = $street = $streetnr = $pay = $travel = $tnotes = $description = $tijdrest = $naam = $topic = $squal = "";
 
     //test if the user is allowed to make a project   TODO put correct vars in session and check the correct values
-    if (($_SESSION["class"] != "Admin") && ($_SESSION["class"] != "InternshipInstructor")){
+    if (($_SESSION["class"] != "Admin") && ($_SESSION["class"] != "InternshipInstructor") && ($_SESSION["class"] != "Internship Contact")){
         //redirect to main page
         header("Location: main_page.php");
         die();
     }
     else{
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1553968", "-", "s1553968");
+            $configs = include("config.php");
+            $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
             if (mysqli_connect_errno()) {
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();
             }
@@ -252,3 +253,4 @@
 
     </body>
 </html>
+

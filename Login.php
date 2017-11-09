@@ -1,5 +1,5 @@
 <?php
-session_start();
+Session_start();
 $loginErr = "";
 $uname = $password = "";
 if (isset($_SESSION["loginErr"]))
@@ -27,9 +27,9 @@ function test_input($data) {
     $data = htmlspecialchars($data);
     return $data;
 }
-function attemptLogin($uname, $password){
-    $con = mysqli_connect("mysql.liacs.leidenuniv.nl", "csthesis", "-", "csthesis");
-    // TODO replace "-" with "<actual-password>"
+function attemptLogin($uname, $password) {
+    $configs = include("config.php");
+    $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
     // check connection
     if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -37,10 +37,16 @@ function attemptLogin($uname, $password){
     $result = mysqli_query($con, "SELECT * FROM StageApp_Gebruikers g WHERE g.Identifier='$uname'") or die('Unable to run query:' . mysqli_error());
     $row = mysqli_fetch_row($result);
     mysqli_close($con);
-    if ($row[3] == $password) { // FIXME alter according to final database.
+    if ($row[3] == $password) {
         // set session vars
-        $_SESSION["username"] = "$row[2]"; // FIXME as above.
-        $_SESSION["class"] = "$row[1]"; // FIXME as above.
+        $_SESSION["username"] = "$row[2]";
+        $_SESSION["class"] = "$row[1]";
+
+
+	/*****TEMP*****/
+	$_SESSION["ID"] = $uname;
+
+
         // redirect to main page
         header("Location: main_page.php");
     }
@@ -75,3 +81,4 @@ function attemptLogin($uname, $password){
 </div>
 </body>
 </html>
+

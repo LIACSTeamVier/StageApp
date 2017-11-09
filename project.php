@@ -14,7 +14,8 @@ else{
 	$nameErr = $topicErr = $descriptionErr = $tijdrestErr = $sqaulErr = "";
 	$name = $topic = $description = $tijdrest = $squal ="";
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		$con = mysqli_connect("mysql.liacs.leidenuniv.nl", "csthesis", "-", "csthesis");
+	    $configs = include("config.php");
+		$con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
 		// Check connection
 		if (mysqli_connect_errno()) {
 			echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -84,7 +85,7 @@ function test_input($data) {
 }
 
 function insertIntoDatabase($name, $topic, $description, $squal, $tijdrest, $con){	
-	$docid = $_SESSION["docentID"];//of haal het uit de begeleider tabel als alleen de naam in de sessie staat
+	$docid = $_SESSION["ID"];//of haal het uit de begeleider tabel als alleen de naam in de sessie staat
 	
 	$stmt1 = mysqli_prepare($con,
 	 "INSERT INTO Project(ProjectNaam, Beschrijving, Tijd, Studentqualities, Topic, Internship, DocentID)
@@ -151,3 +152,4 @@ function insertIntoDatabase($name, $topic, $description, $squal, $tijdrest, $con
    
    </body>
 </html>
+

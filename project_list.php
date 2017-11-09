@@ -20,11 +20,8 @@ session_start();
 
 <div class="main">
   <?php
-    $host = "mysql.liacs.leidenuniv.nl";
-    $username = "csthesis";
-    $password = "-";
-    $dbname = "csthesis";
-    $con = mysqli_connect($host, $username, $password, $dbname);
+    $configs = include("config.php");
+    $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
     
     // check connection
     if (mysqli_connect_errno()) {
@@ -46,7 +43,7 @@ session_start();
     
     // rows of the database
     while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
-        $teacher_name_get = mysqli_query($con, "SELECT BegeleiderNaam FROM Begeleider WHERE DocentID=" . $row['DocentID']) or die('Unable to run query:' . mysqli_error());
+        $teacher_name_get = mysqli_query($con, "SELECT BegeleiderNaam FROM Begeleider WHERE DocentID='".$row['DocentID']."'")or die('Unable to run query:' . mysqli_error());
         $teacher_name = mysqli_fetch_array($teacher_name_get);
         echo "<tr><td width='40%'><b>" . $row['ProjectNaam'] . "</b><p style='margin-left: 5px'>" . $row['Beschrijving'] . "</p></td>
               <td>" . $row['Topic'] . "</td>
@@ -71,4 +68,4 @@ session_start();
 </div>
 
 </body>
-</html> 
+</html>

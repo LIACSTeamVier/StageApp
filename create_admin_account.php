@@ -32,7 +32,6 @@
     }
     else {
       $password = random_str(8);
-      //$password = 'placeholder'; // FIXME replace with above once possible.
       $role = 'Admin';
       echo "<h5>Please fill in the form below<h5></br>";
       echo "

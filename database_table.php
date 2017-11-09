@@ -19,11 +19,8 @@ session_start();
 
 <div class="main">
   <?php
-    $host = "mysql.liacs.leidenuniv.nl";
-    $username = "csthesis";
-    $password = "-";
-    $dbname = "csthesis";
-    $con = mysqli_connect($host, $username, $password, $dbname);
+    $configs = include("config.php");
+    $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
     
     // check connection
     if (mysqli_connect_errno()) {
