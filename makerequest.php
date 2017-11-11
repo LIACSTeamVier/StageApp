@@ -57,7 +57,7 @@ session_start();
 					</br> delete that request or request another type</p><br>";
 				}
 				else{
-					$existingDocID = $row["DocentID"];
+					$existingDocID = $row["SupID"];
 					$result3 = mysqli_query($con, "SELECT Background FROM Supervisor WHERE SupID='$existingDocID'");
 					$rowres3 = mysqli_fetch_array($result3);var_dump($rowres3);
 					if(!empty($rowres3)){
