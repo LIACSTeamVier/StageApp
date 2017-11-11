@@ -25,7 +25,7 @@ session_start();
 			$numrow = mysqli_num_rows($result);echo "<p>temp: numb of rows $numrow</p></br>";
 			//$row = mysqli_fetch_array($result);
 			if($numrow >= 2){ 
-				echo "<p>You already made requests for both types of supervisor, delete one or more of them</p></br>";
+				echo "<div class=\"main\"><p>You already made requests for both types of supervisor, delete one or more of them</p></br></div>";
 			}
 			else if($numrow == 0){//als er nog geen requests gemaakt zijn
 				$stmt2 = mysqli_prepare($con, "SELECT RoleFirst, RoleSecond FROM Supervisor WHERE SupID=?");
@@ -44,22 +44,22 @@ session_start();
 							 die();
 					 }
 					else{
-						echo "<p>Requested supervisor isn't available for selected supervising type.</p></br>";
+						echo "<div class=\"main\"><p>Requested supervisor isn't available for selected supervising type.</p></br></div>";
 					}
 				}
 				else
-				    echo "<p>Supervisor doesn't exist</p></br>";
+				    echo "<div class=\"main\"><p>Supervisor doesn't exist</p></br></div>";
 			}
 			else if($numrow == 1){
 				$row = mysqli_fetch_array($result);
 				if($reqtyp == $row["type"]){
-					echo "<p>You already made a request for this type of supervisor,
-					</br> delete that request or request another type</p><br>";
+					echo "<div class=\"main\"><p>You already made a request for this type of supervisor,
+					</br> delete that request or request another type</p><br></div>";
 				}
 				else{
 					$existingDocID = $row["SupID"];
 					$result3 = mysqli_query($con, "SELECT Background FROM Supervisor WHERE SupID='$existingDocID'");
-					$rowres3 = mysqli_fetch_array($result3);var_dump($rowres3);
+					$rowres3 = mysqli_fetch_array($result3);//var_dump($row);//rowres3);
 					if(!empty($rowres3)){
 						$existingBackground = $rowres3["Background"];
 						$stmt4 = mysqli_prepare($con, "SELECT RoleFirst, RoleSecond, Background FROM Supervisor WHERE SupID=?");
@@ -71,8 +71,8 @@ session_start();
 						if(!empty($rowres4)){
 							if ( ($rowres4["Background"] == $existingBackground)
 									&& ($existingBackground != "BOTH") )
-								echo "<p>You need one supervisor with background in CS and one in Business.</br>
-										You already have one with background in: $existingBackground</p></br>";
+								echo "<div class=\"main\"><p>You need one supervisor with background in CS and one in Business.</br>
+										You already have one with background in: $existingBackground</p></br></div>";
 							else{
 									if ( ($rowres4["RoleFirst"] == "yes" && $reqtyp == "First Supervisor") ||
 										 ($rowres4["RoleSecond"] == "yes" && $reqtyp == "Second Supervisor")){
@@ -83,21 +83,21 @@ session_start();
 											 die();
 									 }
 									else{
-										echo "<p>Requested supervisor isn't available for selected supervising type.</p></br>";
+										echo "<div class=\"main\"><p>Requested supervisor isn't available for selected supervising type.</p></br></div>";
 									}
 							}
 						}
 						else
-							echo "<p>Supervisor doesn't exist</p></br>";
+							echo "<div class=\"main\"><p>Supervisor doesn't exist</p></br></div>";
 					}
 					else
-						die("mysql error");
+						die("mysql error1");
 					
 				}
 			}
 		}
 		else{
-			die("mysql error");
+			die("mysql error2");
 		}
 		mysqli_close($con);
 	}
@@ -116,7 +116,7 @@ session_start();
 <html>
     <head>
         <meta charset="utf-8" /> 
- <!--       <link rel="stylesheet" type="text/css" href="style.css"> -->
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
 	<body>
 	<div class="sidepane">
