@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	date_default_timezone_set("Europe/Amsterdam");
 	$configs = include("config.php");
 	if ($_SERVER["REQUEST_METHOD"] == "GET"){
         $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
@@ -9,7 +10,8 @@
 		}
 		if(!(empty($_GET["code"]))){
 			$randomstr = test_input($_GET["code"]);
-			$stmt = mysqli_prepare($con, "UPDATE Supervises SET Accepted='1' WHERE ActivationCode=?");
+			$dateacp = date("Y-m-d: H:i:s");
+			$stmt = mysqli_prepare($con, "UPDATE Supervises SET Accepted='1', DateAccepted='$dateacp' WHERE ActivationCode=?");
 			mysqli_stmt_bind_param($stmt,'s', $randomstr);
 			mysqli_stmt_execute($stmt);
 			$result = mysqli_stmt_get_result($stmt);
@@ -63,8 +65,10 @@
 			echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}
 		//TODO set activation codes op null
+//		date_default_timezone_set("Europe/Amsterdam");echo date("Y-m-d: H:i:s");
+		$dateacp = date("Y-m-d: H:i:s"); //echo $dateacp;
 		if(!(empty($_POST["FirstStudent"]))){
-			mysqli_query($con, "UPDATE Supervises SET Accepted='1' WHERE type='First Supervisor' AND SupID='$docid' AND StuID='".$_POST["FirstStudent"]."'")
+			mysqli_query($con, "UPDATE Supervises SET Accepted='1', DateAccepted='$dateacp'  WHERE type='First Supervisor' AND SupID='$docid' AND StuID='".$_POST["FirstStudent"]."'")
 			or die('Unable to run query:' . mysqli_error());
 			mysqli_query($con, "UPDATE Supervises SET ActivationCode=NULL WHERE type='First Supervisor' AND SupID='$docid' AND StuID='".$_POST["FirstStudent"]."'")
                         or die('Unable to run query:' . mysqli_error());
@@ -72,7 +76,7 @@
                         sendMailToStudent($con, $configs, $_POST["FirstStudent"], $docid, $type);
 		}
 		if(!(empty($_POST["SecondStudent"]))){
-			mysqli_query($con, "UPDATE Supervises SET Accepted='1' WHERE type='Second Supervisor' AND SupID='$docid' AND StuID='".$_POST["SecondStudent"]."'")
+			mysqli_query($con, "UPDATE Supervises SET Accepted='1', DateAccepted='$dateacp'  WHERE type='Second Supervisor' AND SupID='$docid' AND StuID='".$_POST["SecondStudent"]."'")
 			or die('Unable to run query:' . mysqli_error());
 			mysqli_query($con, "UPDATE Supervises SET ActivationCode=NULL WHERE type='Second Supervisor' AND SupID='$docid' AND StuID='".$_POST["SecondStudent"]."'")
                         or die('Unable to run query:' . mysqli_error());
@@ -164,8 +168,7 @@
     if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
-    
-    
+     
     $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
     
     $RoleAllowRes = mysqli_query($con, "SELECT SupID, RoleFirst, RoleSecond FROM Supervisor WHERE SupID='$docid'")or die('Unable to run query:' . mysqli_error());
