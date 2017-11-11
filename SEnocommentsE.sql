@@ -87,6 +87,7 @@ CREATE TABLE Supervises(
     StuID	VARCHAR(30),
     Accepted	INT(1),
     ActivationCode	VARCHAR(32) UNIQUE,
+    DateAccepted VARCHAR(30);
 	
     PRIMARY KEY (type, StuID),
     FOREIGN KEY(type) REFERENCES RelationOptions(type),
