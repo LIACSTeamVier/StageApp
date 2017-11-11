@@ -43,19 +43,19 @@ session_start();
     
     // rows of the database
     while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
-        $teacher_name_get = mysqli_query($con, "SELECT BegeleiderNaam FROM Begeleider WHERE DocentID='".$row['DocentID']."'")or die('Unable to run query:' . mysqli_error());
+        $teacher_name_get = mysqli_query($con, "SELECT SupName FROM Supervisor WHERE SupID='".$row['SupID']."'")or die('Unable to run query:' . mysqli_error());
         $teacher_name = mysqli_fetch_array($teacher_name_get);
-        echo "<tr><td width='40%'><b>" . $row['ProjectNaam'] . "</b><p style='margin-left: 5px'>" . $row['Beschrijving'] . "</p></td>
+        echo "<tr><td width='40%'><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
               <td>" . $row['Topic'] . "</td>
-              <td>" . $row['Tijd'] . "</td>
-              <td>" . $row['Voortgang'] . "</td>
+              <td>" . $row['Time'] . "</td>
+              <td>" . $row['Progress'] . "</td>
               <td>" . $row['Studentqualities'] . "</td>";  
               if ($row['Internship'] == 1)
                   echo "<td>Yes</td>";
               else
                   echo "<td>No</td>";
-        echo "<td>" . $teacher_name['BegeleiderNaam'] . "</td>
-              <td>" . $row['BedrijfNaam'] . "</td></tr>";  //$row['index'] the index here is a field name
+        echo "<td>" . $teacher_name['SupName'] . "</td>
+              <td>" . $row['CompanyName'] . "</td></tr>";  //$row['index'] the index here is a field name
     }
     
     echo "</table>"; //Close the table in HTML

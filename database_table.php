@@ -27,22 +27,22 @@ session_start();
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
     
-    $result = mysqli_query($con, "SELECT * FROM Afstudeerder") or die('Unable to run query:' . mysqli_error());
+    $result = mysqli_query($con, "SELECT * FROM Student") or die('Unable to run query:' . mysqli_error());
 
     echo "<table>"; // start a table tag in the HTML
     
     // column names
-    echo "<tr><th>StudentID</th>
-              <th>StudentNaam</th>
+    echo "<tr><th>StuID</th>
+              <th>StuName</th>
               <th>StuEMAIL</th>
-              <th>StudentTel</th></tr>";
+              <th>StuTel</th></tr>";
     
     // rows of the database
     while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
-        echo "<tr><td>" . $row['StudentID'] . "</td>
-              <td>" . $row['StudentNaam'] . "</td>
+        echo "<tr><td>" . $row['StuID'] . "</td>
+              <td>" . $row['StuName'] . "</td>
               <td>" . $row['StuEMAIL'] . "</td>
-              <td>" . $row['StudentTel'] . "</td></tr>";  //$row['index'] the index here is a field name
+              <td>" . $row['StuTel'] . "</td></tr>";  //$row['index'] the index here is a field name
     }
     
     echo "</table>"; //Close the table in HTML

@@ -15,15 +15,15 @@
 	}
 
 	$randstring = random_str(32); 
-	$res = mysqli_query($con, "SELECT * FROM Begeleid WHERE ActivationCode='$randstring'");
+	$res = mysqli_query($con, "SELECT * FROM Supervises WHERE ActivationCode='$randstring'");
 	$numrow = mysqli_num_rows($res);
 	while($numrow > 0){//make sure the activation code is unique
 		$randstring = random_str(32);
-		$res = mysqli_query($con, "SELECT * FROM Begeleid WHERE ActivationCode='$randstring'");
+		$res = mysqli_query($con, "SELECT * FROM Supervises WHERE ActivationCode='$randstring'");
 		$numrow = mysqli_num_rows($res);
 	}
 
-	$stmt = mysqli_prepare($con, "INSERT INTO Begeleid(type, DocentID, StudentID, Accepted, ActivationCode)
+	$stmt = mysqli_prepare($con, "INSERT INTO Supervises(type, SupID, StuID, Accepted, ActivationCode)
           VALUES (?,?,?,'0',?)");
 	mysqli_stmt_bind_param($stmt,'ssss', $_SESSION["ReqType"], $_SESSION["ReqDocID"], $_SESSION["ReqStudentID"], $randstring);
 	$result = mysqli_stmt_execute($stmt);
@@ -32,24 +32,24 @@
 	if(!$result){echo "query 1";
 		die('Unable to run query1:' . mysqli_error());}
 	
-	$result2 = mysqli_query($con, "SELECT BegEMAIL, BegeleiderNaam FROM Begeleider WHERE DocentID='".$_SESSION["ReqDocID"]."'");
+	$result2 = mysqli_query($con, "SELECT SupEMAIL, SupName FROM Supervisor WHERE SupID='".$_SESSION["ReqDocID"]."'");
 	$row = mysqli_fetch_array($result2);
 	if(!$result2){echo "query 2";
 		die('Unable to run query2:' . mysqli_error());}
 
-	$result3 = mysqli_query($con, "SELECT StudentNaam FROM Afstudeerder WHERE StudentID='".$_SESSION["ReqStudentID"]."'");
+	$result3 = mysqli_query($con, "SELECT StuName FROM Student WHERE StuID='".$_SESSION["ReqStudentID"]."'");
 	$rowres3 = mysqli_fetch_array($result3);
 	if(!$result3)
 		die('Unable to run query:' . mysqli_error());
 	
-	$StudentName = $rowres3["StudentNaam"];
-	$email = $row["BegEMAIL"];
-	$DocName = $row["BegeleiderNaam"];
+	$StudentName = $rowres3["StuName"];
+	$email = $row["SupEMAIL"];
+	$DocName = $row["SupName"];
 	$StudentID = $_SESSION["ReqStudentID"];
 	$type = $_SESSION["ReqType"];
 	mysqli_close($con);
 
-	$email_from = 'noreply@yopmail.com'; //TODO replace with actual LIACS email
+	$email_from = $configs["noreply"];
 	$subject = "A Student Wants You as Masters Supervisor";
 	$boundary = uniqid('np');
 	

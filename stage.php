@@ -28,7 +28,7 @@
                     $naamErr = "Input too big";
 
                 //test if name is taken
-                $stmt = mysqli_prepare($con, "SELECT * FROM Project p WHERE p.ProjectNaam = ?");
+                $stmt = mysqli_prepare($con, "SELECT * FROM Project p WHERE p.ProjectName = ?");
                 mysqli_stmt_bind_param($stmt,'s', $naam);
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
@@ -131,7 +131,7 @@
     }
     function insertIntoDatabase($naam, $topic, $location, $street, $streetnr, $pay, $travel, $tnotes, $description, $squal, $tijdrest, $con){
         $intsupname = $_SESSION["username"];//has to be the same name as the name in the stagebegeleider table
-        $stmt1 = mysqli_prepare($con, "SELECT BedrijfNaam FROM Stagebegeleider s WHERE s.SBegeleiderNaam = ?");
+        $stmt1 = mysqli_prepare($con, "SELECT CompanyName FROM Internship_Contact s WHERE s.IConName = ?");
         mysqli_stmt_bind_param($stmt1,'s', $intsupname);
         mysqli_stmt_execute($stmt1);
         $result = mysqli_stmt_get_result($stmt1);
@@ -151,7 +151,7 @@
         }	
 
         $stmt2 = mysqli_prepare($con,
-         "INSERT INTO Project(ProjectNaam, Beschrijving, Tijd, Studentqualities, Topic, Internship, SBegeleiderNaam, BedrijfNaam)
+         "INSERT INTO Project(ProjectName, Description, Time, Studentqualities, Topic, Internship, IConName, CompanyName)
           VALUES (?,?,?,?,?,'1',?,?)");
         mysqli_stmt_bind_param($stmt2, 'sssssss', $naam, $description, $tijdrest, $squal, $topic,$intsupname,$compname);
         $result2 = mysqli_stmt_execute($stmt2);
@@ -164,8 +164,8 @@
         }
 
 
-        $stmt4 = mysqli_prepare($con, "INSERT INTO Stageplek_van(ProjectNaam, PlekNaam, Locatie, StraatNr, Travel, Tnotes,
-                                 Pay, BedrijfNaam) VALUES (?,?,?,?,?,?,?,?)");
+        $stmt4 = mysqli_prepare($con, "INSERT INTO Internship_of(ProjectName, LocName, Location, StreetNr, Travel, Tnotes,
+                                 Pay, CompanyName) VALUES (?,?,?,?,?,?,?,?)");
         mysqli_stmt_bind_param($stmt4,'ssssssss', $naam, $location, $street, $streetnr, $travel, $tnotes, $pay, $compname);
         $result4 = mysqli_stmt_execute($stmt4);
         mysqli_stmt_close($stmt4);
@@ -175,7 +175,7 @@
         }
 
 
-        $stmt3 = mysqli_prepare($con, "INSERT INTO Beslaat(ProjectNaam, BedrijfNaam) VALUES(?,?)");
+        $stmt3 = mysqli_prepare($con, "INSERT INTO Part_of(ProjectName, CompanyName) VALUES(?,?)");
         mysqli_stmt_bind_param($stmt3,'ss', $naam, $compname);
         $result3 = mysqli_stmt_execute($stmt3);
         mysqli_stmt_close($stmt3);

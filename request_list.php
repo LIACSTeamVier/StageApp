@@ -9,14 +9,14 @@
 		}
 		if(!(empty($_GET["code"]))){
 			$randomstr = test_input($_GET["code"]);
-			$stmt = mysqli_prepare($con, "UPDATE Begeleid SET Accepted='1' WHERE ActivationCode=?");
+			$stmt = mysqli_prepare($con, "UPDATE Supervises SET Accepted='1' WHERE ActivationCode=?");
 			mysqli_stmt_bind_param($stmt,'s', $randomstr);
 			mysqli_stmt_execute($stmt);
 			$result = mysqli_stmt_get_result($stmt);
 			
 			if(mysqli_affected_rows($con)>0){
 				mysqli_stmt_close($stmt);
-				$stmt2 = mysqli_prepare($con, "UPDATE Begeleid SET ActivationCode=NULL WHERE ActivationCode=?");
+				$stmt2 = mysqli_prepare($con, "UPDATE Supervises SET ActivationCode=NULL WHERE ActivationCode=?");
 				mysqli_stmt_bind_param($stmt2,'s', $randomstr);
 				$result2 = mysqli_stmt_execute($stmt2);
 				//$result2 = mysqli_stmt_get_result($stmt2);
@@ -52,11 +52,11 @@
 		}
 		//TODO set activation codes op null
 		if(!(empty($_POST["FirstStudent"]))){
-			mysqli_query($con, "UPDATE Begeleid SET Accepted='1' WHERE type='First Supervisor' AND DocentID='$docid' AND StudentID='".$_POST["FirstStudent"]."'")
+			mysqli_query($con, "UPDATE Supervises SET Accepted='1' WHERE type='First Supervisor' AND SupID='$docid' AND StuID='".$_POST["FirstStudent"]."'")
 			or die('Unable to run query:' . mysqli_error());
 		}
 		if(!(empty($_POST["SecondStudent"]))){
-			mysqli_query($con, "UPDATE Begeleid SET Accepted='1' WHERE type='Second Supervisor' AND DocentID='$docid' AND StudentID='".$_POST["SecondStudent"]."'")
+			mysqli_query($con, "UPDATE Supervises SET Accepted='1' WHERE type='Second Supervisor' AND SupID='$docid' AND StuID='".$_POST["SecondStudent"]."'")
 			or die('Unable to run query:' . mysqli_error());
 		}
 				
@@ -103,10 +103,10 @@
     
     $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
     
-    $RoleAllowRes = mysqli_query($con, "SELECT DocentID, RoleFirst, RoleSecond FROM Begeleider WHERE DocentID='$docid'")or die('Unable to run query:' . mysqli_error());
+    $RoleAllowRes = mysqli_query($con, "SELECT SupID, RoleFirst, RoleSecond FROM Supervisor WHERE SupID='$docid'")or die('Unable to run query:' . mysqli_error());
     $RoleAllow = mysqli_fetch_array($RoleAllowRes);
     if($RoleAllow['RoleFirst'] == "yes"){
-		$project_table = mysqli_query($con, "SELECT * FROM Begeleid b WHERE b.DocentID='$docid' AND b.type = 'First Supervisor' AND b.Accepted='0'") or die('Unable to run query:' . mysqli_error());
+		$project_table = mysqli_query($con, "SELECT * FROM Supervises b WHERE b.SupID='$docid' AND b.type = 'First Supervisor' AND b.Accepted='0'") or die('Unable to run query:' . mysqli_error());
 		echo "These students want you as FIRST SUPERVISOR";
 		echo "<table width='40%' id='1strequest_table'>"; // start a table tag in the HTML
 		// column names
@@ -115,11 +115,11 @@
 		
 		// rows of the database
 		while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
-			$student_name_get = mysqli_query($con, "SELECT StudentNaam FROM Afstudeerder WHERE StudentID='".$row['StudentID']."'")or die('Unable to run query:' . mysqli_error());
+			$student_name_get = mysqli_query($con, "SELECT StuName FROM Student WHERE StuID='".$row['StudentID']."'")or die('Unable to run query:' . mysqli_error());
 			$student_name = mysqli_fetch_array($student_name_get);
 			echo "<tr><form action=\"$temp\" method=\"post\">
-				  <td>" . $row['StudentID'] . "</td>
-				  <td>".$student_name['StudentNaam']."</td>
+				  <td>" . $row['StuID'] . "</td>
+				  <td>".$student_name['StuName']."</td>
 				  <td><input type=\"submit\" name=\"FirstStudentDisp\" value=\"Accept This Student\">
 					  <input type=\"hidden\" name=\"FirstStudent\" value=\"".$row['StudentID']."\" /></td>
 				  </form></tr>";  //$row['index'] the index here is a field name
@@ -129,7 +129,7 @@
 		echo "</br></br>";
 	}
 	if($RoleAllow['RoleSecond'] == "yes"){
-		$project_table = mysqli_query($con, "SELECT * FROM Begeleid b WHERE b.DocentID='$docid' AND b.type = 'Second Supervisor' AND b.Accepted='0'") or die('Unable to run query:' . mysqli_error());
+		$project_table = mysqli_query($con, "SELECT * FROM Supervises b WHERE b.SupID='$docid' AND b.type = 'Second Supervisor' AND b.Accepted='0'") or die('Unable to run query:' . mysqli_error());
 		echo "These students want you as SECOND SUPERVISOR";
 		echo "<table width='40%' id='2ndrequest_table'>"; // start a table tag in the HTML
 		// column names
@@ -138,11 +138,11 @@
 		
 		// rows of the database
 		while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
-			$student_name_get = mysqli_query($con, "SELECT StudentNaam FROM Afstudeerder WHERE StudentID='".$row['StudentID']."'")or die('Unable to run query:' . mysqli_error());
+			$student_name_get = mysqli_query($con, "SELECT StuName FROM Student WHERE StuID='".$row['StuID']."'")or die('Unable to run query:' . mysqli_error());
 			$student_name = mysqli_fetch_array($student_name_get);
 			echo "<tr><form action=\"$temp\" method=\"post\">
-				  <td>" . $row['StudentID'] . "</td>
-				  <td>".$student_name['StudentNaam']."</td>
+				  <td>" . $row['StuID'] . "</td>
+				  <td>".$student_name['StuName']."</td>
 				  <td><input type=\"submit\" name=\"SecondStudentDisp\" value=\"Accept This Student\">
 					  <input type=\"hidden\" name=\"SecondStudent\" value=\"".$row['StudentID']."\" /></td>
 				  </form></tr>";  //$row['index'] the index here is a field name

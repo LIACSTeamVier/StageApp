@@ -45,7 +45,7 @@
         if (mysqli_connect_errno())
             $_SESSION["accCreateErr"] = "Failed to connect to MySQL: " . mysqli_connect_error();
         else {
-            $result = mysqli_query($con, "INSERT INTO StageApp_Gebruikers VALUES ('$username','$class','$name','$password');");
+            $result = mysqli_query($con, "INSERT INTO InternshipApp_Users VALUES ('$username','$class','$name','$password');");
         
             if (mysqli_error($con) != "")
                 $_SESSION["accCreateErr"] = "Unable to run query:" . mysqli_error($con);
@@ -56,7 +56,7 @@
         // Send email
         if (!isset($_SESSION["accCreateErr"])) {
             
-            $email_from = 'donotreply@yopmail.com'; //TODO replace with actual LIACS email
+            $email_from = $configs["noreply"];
             $subject = "An account has been made for you on the LIACS InternshipApp";
             $boundary = uniqid('np');
             

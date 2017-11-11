@@ -28,7 +28,7 @@ else{
                     $nameErr = "Input too big";
 
                 //test if name is taken
-                $stmt = mysqli_prepare($con, "SELECT * FROM Project p WHERE p.ProjectNaam = ?");
+                $stmt = mysqli_prepare($con, "SELECT * FROM Project p WHERE p.ProjectName = ?");
                 mysqli_stmt_bind_param($stmt,'s', $name);
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
@@ -88,7 +88,7 @@ function insertIntoDatabase($name, $topic, $description, $squal, $tijdrest, $con
 	$docid = $_SESSION["ID"];//of haal het uit de begeleider tabel als alleen de naam in de sessie staat
 	
 	$stmt1 = mysqli_prepare($con,
-	 "INSERT INTO Project(ProjectNaam, Beschrijving, Tijd, Studentqualities, Topic, Internship, DocentID)
+	 "INSERT INTO Project(ProjectName, Description, Time, Studentqualities, Topic, Internship, SupID)
 	 VALUES (?,?,?,?,?,'0',?)"); 
 	mysqli_bind_param($stmt1, 'ssssss', $name, $description, $tijdrest, $squal, $topic, $docid);
 	$result1 = mysqli_execute($stmt1);

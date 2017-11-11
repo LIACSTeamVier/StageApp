@@ -16,7 +16,7 @@ session_start();
 		$reqtyp = test_input($_POST["RequestType"]);
 		$reqdoc = test_input($_POST["RequestDocID"]);
 		echo "$reqtyp   $reqdoc";
-		$stmt = mysqli_prepare($con, "SELECT DocentID, type FROM Begeleid WHERE StudentID='".$_SESSION["ID"]."'");
+		$stmt = mysqli_prepare($con, "SELECT SupID, type FROM Supervises WHERE StuID='".$_SESSION["ID"]."'");
 		//mysqli_bind_param($stmt, 's',$reqtyp);
 		mysqli_stmt_execute($stmt);
 		$result = mysqli_stmt_get_result($stmt);
@@ -28,7 +28,7 @@ session_start();
 				echo "<p>You already made requests for both types of supervisor, delete one or more of them</p></br>";
 			}
 			else if($numrow == 0){//als er nog geen requests gemaakt zijn
-				$stmt2 = mysqli_prepare($con, "SELECT RoleFirst, RoleSecond FROM Begeleider WHERE DocentID=?");
+				$stmt2 = mysqli_prepare($con, "SELECT RoleFirst, RoleSecond FROM Supervisor WHERE SupID=?");
 				mysqli_bind_param($stmt2, 's', $reqdoc);
 				mysqli_stmt_execute($stmt2);
 				$result2 = mysqli_stmt_get_result($stmt2);
@@ -58,11 +58,11 @@ session_start();
 				}
 				else{
 					$existingDocID = $row["DocentID"];
-					$result3 = mysqli_query($con, "SELECT Background FROM Begeleider WHERE DocentID='$existingDocID'");
+					$result3 = mysqli_query($con, "SELECT Background FROM Supervisor WHERE SupID='$existingDocID'");
 					$rowres3 = mysqli_fetch_array($result3);var_dump($rowres3);
 					if(!empty($rowres3)){
 						$existingBackground = $rowres3["Background"];
-						$stmt4 = mysqli_prepare($con, "SELECT RoleFirst, RoleSecond, Background FROM Begeleider WHERE DocentID=?");
+						$stmt4 = mysqli_prepare($con, "SELECT RoleFirst, RoleSecond, Background FROM Supervisor WHERE SupID=?");
 						mysqli_bind_param($stmt4, 's', $reqdoc);
 						mysqli_stmt_execute($stmt4);
 						$result4 = mysqli_stmt_get_result($stmt4);
@@ -116,7 +116,7 @@ session_start();
 <html>
     <head>
         <meta charset="utf-8" /> 
-        <link rel="stylesheet" type="text/css" href="style.css"> 
+ <!--       <link rel="stylesheet" type="text/css" href="style.css"> -->
     </head>
 	<body>
 	<div class="sidepane">
