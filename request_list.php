@@ -13,9 +13,20 @@
 			mysqli_stmt_bind_param($stmt,'s', $randomstr);
 			mysqli_stmt_execute($stmt);
 			$result = mysqli_stmt_get_result($stmt);
-			
+
 			if(mysqli_affected_rows($con)>0){
 				mysqli_stmt_close($stmt);
+				
+                        	$stmt3 = mysqli_prepare($con, "SELECT type, SupID, StuID FROM Supervises WHERE ActivationCode=?");
+                	        mysqli_stmt_bind_param($stmt3, 's', $randomstr);
+				mysqli_stmt_execute($stmt3);
+				$res3 = mysqli_stmt_get_result($stmt3);
+				$rowres3 = mysqli_fetch_array($res3);
+				$type = $rowres3["type"];
+				$studid = $rowres3["StuID"];
+				$docid = $rowres3["SupID"];
+				mysqli_stmt_close($stmt3);
+		
 				$stmt2 = mysqli_prepare($con, "UPDATE Supervises SET ActivationCode=NULL WHERE ActivationCode=?");
 				mysqli_stmt_bind_param($stmt2,'s', $randomstr);
 				$result2 = mysqli_stmt_execute($stmt2);
@@ -24,6 +35,7 @@
 					die("mysql error");
 				}
 				mysqli_stmt_close($stmt2);
+                        	sendMailToStudent($con, $configs, $studid, $docid, $type);
 				echo "<script>alert(\"Successfully accepted being a supervisor for the student!\");
 						location.href='main_page.php';
 						exit;
@@ -54,10 +66,18 @@
 		if(!(empty($_POST["FirstStudent"]))){
 			mysqli_query($con, "UPDATE Supervises SET Accepted='1' WHERE type='First Supervisor' AND SupID='$docid' AND StuID='".$_POST["FirstStudent"]."'")
 			or die('Unable to run query:' . mysqli_error());
+			mysqli_query($con, "UPDATE Supervises SET ActivationCode=NULL WHERE type='First Supervisor' AND SupID='$docid' AND StuID='".$_POST["FirstStudent"]."'")
+                        or die('Unable to run query:' . mysqli_error());
+			$type = 'First Supervisor';
+                        sendMailToStudent($con, $configs, $_POST["FirstStudent"], $docid, $type);
 		}
 		if(!(empty($_POST["SecondStudent"]))){
 			mysqli_query($con, "UPDATE Supervises SET Accepted='1' WHERE type='Second Supervisor' AND SupID='$docid' AND StuID='".$_POST["SecondStudent"]."'")
 			or die('Unable to run query:' . mysqli_error());
+			mysqli_query($con, "UPDATE Supervises SET ActivationCode=NULL WHERE type='Second Supervisor' AND SupID='$docid' AND StuID='".$_POST["SecondStudent"]."'")
+                        or die('Unable to run query:' . mysqli_error());
+			$type = 'Second Supervisor';
+			sendMailToStudent($con, $configs, $_POST["SecondStudent"], $docid, $type);
 		}
 				
 		mysqli_close($con);
@@ -70,7 +90,52 @@
 		$data = htmlspecialchars($data);
 		return $data;
 	}
-    
+    	function sendMailToStudent($con, $configs, $studID, $docID, $type){
+		
+		$result = mysqli_query($con, "SELECT SupName FROM Supervisor WHERE SupID='$docID'");
+		$rowres = mysqli_fetch_array($result);
+
+		$result2 = mysqli_query($con, "SELECT StuName, StuEMAIL FROM Student WHERE StuID='$studID'");
+		$rowres2 = mysqli_fetch_array($result2);
+
+		$StudentName = $rowres2["StuName"];
+		$email = $rowres2["StuEMAIL"];
+		$DocName = $rowres["SupName"];
+		$email_from = $configs["noreply"];
+		$subject = "A supervisor has accepted you";
+		$boundary = uniqid('np');
+	
+		$headers = "MIME-Version: 1.0\r\n";
+		$headers .= "From: $email_from \r\n";
+		$headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
+	
+		// MIME stuff
+		$message = "This is a MIME encoded message.";
+		$message .= "\r\n\r\n--" . $boundary . "\r\n";
+		$message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
+	
+		// Plain text body
+		$message .=  "Hello,\nPlease open this e-mail in HTML-mode to view its contents.\nPlease do not reply to this e-mail.\n\nThanks"; 
+		$message .= "\r\n\r\n--" . $boundary . "\r\n";
+		$message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
+	
+		// HTML body
+		$message .= "<html lang=\"en-UK\">
+				<body>
+				  <p>Dear $StudentName,</p><br/>
+				  <p>$DocName, has accepted being your $type</p></br>
+				  <p>Please do not reply to this e-mail.</p><br/>
+				</body>
+				</html> ";
+
+		
+		$headers = "MIME-Version: 1.0\r\n";
+		$headers .= "From: $email_from \r\n";
+		$headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
+		//echo "<div class=\"main\">";
+		//var_dump($email, $subject, $messsage, $headers);	echo "</div>";
+		mail($email,$subject,$message,$headers);
+	}
 ?>
 
 <!DOCTYPE html>
@@ -115,13 +180,13 @@
 		
 		// rows of the database
 		while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
-			$student_name_get = mysqli_query($con, "SELECT StuName FROM Student WHERE StuID='".$row['StudentID']."'")or die('Unable to run query:' . mysqli_error());
+			$student_name_get = mysqli_query($con, "SELECT StuName FROM Student WHERE StuID='".$row['StuID']."'")or die('Unable to run query:' . mysqli_error());
 			$student_name = mysqli_fetch_array($student_name_get);
 			echo "<tr><form action=\"$temp\" method=\"post\">
 				  <td>" . $row['StuID'] . "</td>
 				  <td>".$student_name['StuName']."</td>
 				  <td><input type=\"submit\" name=\"FirstStudentDisp\" value=\"Accept This Student\">
-					  <input type=\"hidden\" name=\"FirstStudent\" value=\"".$row['StudentID']."\" /></td>
+					  <input type=\"hidden\" name=\"FirstStudent\" value=\"".$row['StuID']."\" /></td>
 				  </form></tr>";  //$row['index'] the index here is a field name
 		}
 		
@@ -144,7 +209,7 @@
 				  <td>" . $row['StuID'] . "</td>
 				  <td>".$student_name['StuName']."</td>
 				  <td><input type=\"submit\" name=\"SecondStudentDisp\" value=\"Accept This Student\">
-					  <input type=\"hidden\" name=\"SecondStudent\" value=\"".$row['StudentID']."\" /></td>
+					  <input type=\"hidden\" name=\"SecondStudent\" value=\"".$row['StuID']."\" /></td>
 				  </form></tr>";  //$row['index'] the index here is a field name
 			
 		}
@@ -161,5 +226,3 @@
 
 </body>
 </html>
-
-
