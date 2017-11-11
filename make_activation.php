@@ -73,7 +73,7 @@
 				  <p>Dear $DocName,</p><br/>
 				  <p>The student: $StudentName , $StudentID , has requested you to be their $type .</p></br>
 				  "//<p>Click this <a href=\"http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring\">LINK</a> to accept their request.<p><br/>
-				 ."/<p>Enter this url 'http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring' in your browser to accept their request</p></br>
+				 ."<p>Enter this url 'http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring' in your browser to accept their request</p></br>
 				  <p>Please do not reply to this e-mail.</p><br/>
 				</body>
 				</html> ";
