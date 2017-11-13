@@ -8,7 +8,7 @@ CREATE TABLE InternshipApp_Users(
 );
 
 CREATE TABLE Supervisor(
-	SupID	VARCHAR(30),
+	SupID	VARCHAR(50),
 	SupName	VARCHAR(30),
 	SupEMAIL	VARCHAR(50),
 	SupTel	INT(10),
@@ -32,7 +32,7 @@ CREATE TABLE Student(
 );
 
 CREATE TABLE Internship_Contact(
-    IConID VARCHAR(30) UNIQUE,
+    IConID VARCHAR(50) UNIQUE,
 	CompanyName	VARCHAR(30),
 	IConName	VARCHAR(30),
 	IConEMAIL	VARCHAR(50),
