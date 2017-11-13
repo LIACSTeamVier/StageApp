@@ -1,14 +1,23 @@
 <?php
 Session_start();
-$loginErr = "";
+$loginErr = $regErr = "";
 $uname = $password = "";
 if (isset($_SESSION["loginErr"]))
 {
     $loginErr = $_SESSION["loginErr"];
-    unset($_SESSION["LoginErr"]);
+    unset($_SESSION["loginErr"]);
     session_unset();
     session_destroy();
 }
+
+if (isset($_SESSION["regErr"]))
+{
+    $regErr = $_SESSION["regErr"];
+    unset($_SESSION["regErr"]);
+    session_unset();
+    session_destroy();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["username"]) || (empty($_POST["password"]))) {
         $loginErr = "Invalid username and password combination";
@@ -21,12 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         attemptLogin($uname, $password);
     }
 }
+
 function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }
+
 function attemptLogin($uname, $password) {
     $configs = include("config.php");
     $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
@@ -49,10 +60,12 @@ function attemptLogin($uname, $password) {
 
         // redirect to main page
         header("Location: main_page.php");
+        exit();
     }
     else {
         $_SESSION["loginErr"] = "Invalid username and password combination";
-        header("Location: Login.php");
+        header("Location: index.php");
+        exit();
     }
     die();
 }
@@ -76,8 +89,15 @@ function attemptLogin($uname, $password) {
         username: <input type="text" name="username"><br/>
         password: <input type="password" name="password"><br/>
         <span class="error"><?php echo $loginErr;?></span><br/>
+        <span class="error"><?php echo $regErr;?></span><br/>
         <input type="submit" value="Login">
     </form>
+    
+    Don't have an account?
+    <a href="create_own_account.php">Register as student.</a></br>
+    Forgotten password?
+    <a href="reset_password.php">Reset password.</a></br>
+
 </div>
 </body>
 </html>
