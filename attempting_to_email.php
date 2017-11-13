@@ -18,7 +18,7 @@
 
 <div class="main">
   <?php
-    $identifierlength = 30; // length of the identifier according to table InternshipApp_Users
+    $identifierlength = 50; // length of the identifier according to table InternshipApp_Users
     if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
       header("Location: Login.php");
       exit;
@@ -37,18 +37,26 @@
         $configs = include("config.php");
         $name = $_POST["name"];
         $email = $_POST["email"];
-        $username = substr($_POST["email"], 0, $identifierlength); // FIXME maybe not use email as identifier
-        $password = $_POST["password"];
         $class = $_POST["role"];
+        if ($class == "Student")
+            $username = $_POST["studentnumber"];
+        else
+            $username = substr($_POST["email"], 0, $identifierlength);
+        $password = $_POST["password"];
         $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
         // Check connection
         if (mysqli_connect_errno())
             $_SESSION["accCreateErr"] = "Failed to connect to MySQL: " . mysqli_connect_error();
         else {
             $result = mysqli_query($con, "INSERT INTO InternshipApp_Users VALUES ('$username','$class','$name','$password');");
-        
             if (mysqli_error($con) != "")
                 $_SESSION["accCreateErr"] = "Unable to run query:" . mysqli_error($con);
+            else if ($class == 'Student') {
+                $result = mysqli_query($con, "INSERT INTO Student VALUES ('$username','$name','$email',NULL);");
+                if (mysqli_error($con) != "")
+                    $_SESSION["accCreateErr"] = "Unable to run query:" . mysqli_error($con);
+                mysqli_close($con);
+            }
         }
         
         mysqli_close($con);
