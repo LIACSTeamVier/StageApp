@@ -61,6 +61,10 @@ function insertIntoDatabase($name, $email, $tele, $location, $company, $descript
     if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
+	//$stmt = $con->prepare("INSERT INTO Stage (name, email, phone, location, company, description) VALUES (?,?,?,?,?,?)");
+	//$stmt->bind_param("ssssss", $name, $email, $tele, $location, $company, $description);
+	
+	//$stmt->execute(); //ipv de stukjes hieronder
     $statement = "INSERT INTO Stage (name, email, phone, location, company, description) VALUES ('$name', '$email','$tele','$location','$company','$description')";
     $qr = "INSERT INTO Stage (name, email, phone, location, company, description) VALUES ('test4', 'testmail', '012344', 'test', 'test', 'testestststeste')";
     $result = mysqli_query($con, $statement);
