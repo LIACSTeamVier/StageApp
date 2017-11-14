@@ -27,9 +27,12 @@ session_start();
 			$email = $_POST["email"];
 			$password = $_POST["password"];
 			$con = mysqli_connect("mysql.liacs.leidenuniv.nl", "s1551396", "9sdu8kG09u", "s1551396");
+			//$stmt = $con->prepare("INSERT INTO StageApp_Gebruikers VALUES (?,?,?,?);");
+			//$stmt->bind_param("ssss", $email, 'student', $name, $password);
 			if (mysqli_connect_errno())
 				$_SESSION["accCreateErr"] = "Failed to connect to MySQL: " . mysqli_connect_error();
 			else {
+				//stmt->execute(); //ipv de regel hieronder
 				$result = mysqli_query($con, "INSERT INTO StageApp_Gebruikers VALUES ('$email','Student','$name','$password');");
 				if (mysqli_error($con) != "")
 					$_SESSION["accCreateErr"] = "Unable to run query:" . mysqli_error($con);
