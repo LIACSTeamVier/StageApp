@@ -11,7 +11,7 @@ CREATE TABLE Supervisor(
 	SupID	VARCHAR(50),
 	SupName	VARCHAR(30),
 	SupEMAIL	VARCHAR(50),
-	SupTel	INT(10),
+	SupTel	VARCHAR(10),
 	RoleFirst       VARCHAR(3),
 	RoleSecond      VARCHAR(3),
 	Background      VARCHAR(4),
@@ -25,7 +25,7 @@ CREATE TABLE Student(
 	StuID	VARCHAR(30),
 	StuName	VARCHAR(30),
 	StuEMAIL	VARCHAR(50),
-	StuTel	INT(10),
+	StuTel	VARCHAR(10),
 	
 	PRIMARY KEY(StuID),
 	FOREIGN KEY(StuID) REFERENCES InternshipApp_Users(Identifier)
@@ -36,7 +36,7 @@ CREATE TABLE Internship_Contact(
 	CompanyName	VARCHAR(30),
 	IConName	VARCHAR(30),
 	IConEMAIL	VARCHAR(50),
-	IConTel	INT(10),
+	IConTel	VARCHAR(10),
 	
 	PRIMARY KEY(CompanyName, IConName),
 	FOREIGN KEY(IConID) REFERENCES InternshipApp_Users(Identifier)
