@@ -82,14 +82,14 @@ session_start();
 		    if ($class == "Supervisor") {
                 //List assigned students and their projects
                 //Button for creating a project (TODO: move to projects page)
-                echo "<form action='project.php' method='post'>
+                echo "<form action='project.php' method='head'>
                           <input type='submit' value='Create a university project'>
                       </form>";
             }
             if ($class == "Internship Contact") {
 			    //List assigned students and their projects
                 //Button for creating an internship (TODO: move to projects page?)
-                echo "<form action='stage.php' method='post'>
+                echo "<form action='stage.php' method='head'>
                           <input type='submit' value='Create an internship'>
                       </form>";
 		        }
