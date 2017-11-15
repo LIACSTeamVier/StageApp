@@ -196,9 +196,9 @@
     <head>
         <meta charset="utf-8" /> 
 
-        <meta name="Description" content= "Page To Offer Internships" />
+        <meta name="Description" content= "Offer Internship" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Page To Offer Internships</title>
+        <title>Offer Internship</title>
     </head>
     <body>
 

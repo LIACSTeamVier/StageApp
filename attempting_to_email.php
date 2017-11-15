@@ -19,17 +19,10 @@
 <div class="main">
   <?php
     $identifierlength = 50; // length of the identifier according to table InternshipApp_Users
-    if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
-      header("Location: Login.php");
-      exit;
-      // TODO, send info of expired session to login page.
-      // TODO, expire session after period of inactivity.
-    }
-    
     $class = $_SESSION["class"];
     if ($class != "Admin") {
-      echo "Permission Denied<br/>";
-      echo "<a href='../main_page.php'>Go back to main page</a>";
+      header("Location: main_page.php");
+      exit;
     }
     else {
         $_SESSION["creatingAccount"] = 0;
@@ -78,13 +71,13 @@
             $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
             
             // Plain text body
-            $message .= "Dear ".$name.",\nAn account has been made for you on the LIACS InternshipApp. Please follow the following link:\nhttp://csthesis.liacs.leidenuniv.nl/Login.php\nYour username and password are as follows:\nUsername: ".$username."\nPassword: ".$password."\nPlease do not reply to this e-mail.\n(notactually)LIACS"; // TODO replace with file
+            $message .= "Dear ".$name.",\nAn account has been made for you on the LIACS InternshipApp. Please follow the following link:\nhttp://csthesis.liacs.leidenuniv.nl\nYour username and password are as follows:\nUsername: ".$username."\nPassword: ".$password."\nPlease do not reply to this e-mail.\n(notactually)LIACS"; // TODO replace with file
             $message .= "\r\n\r\n--" . $boundary . "\r\n";
             $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
             
             // HTML body
             $message .= "Dear <td>".$name."</td>,</br> An account has been made for you on the
-        <a href='http://csthesis.liacs.leidenuniv.nl/Login.php'>LIACS InternshipApp</a>.</br> Your username and password are as follows:</br> Username: <td>".$username."</td></br> Password: <td>".$password."</td></br> Please do not reply to this e-mail.</br>(notactually)LIACS"; // TODO replace with file
+        <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.</br> Your username and password are as follows:</br> Username: <td>".$username."</td></br> Password: <td>".$password."</td></br> Please do not reply to this e-mail.</br>(notactually)LIACS"; // TODO replace with file
             $message .= "\r\n\r\n--" . $boundary . "--";
             
             

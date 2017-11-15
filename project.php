@@ -111,9 +111,9 @@ function insertIntoDatabase($name, $topic, $description, $squal, $tijdrest, $con
         <head>
         <meta charset="utf-8" /> 
           
-        <meta name="Description" content= "Page To Offer Projects" />
+        <meta name="Description" content= "Offer Project" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Page To Offer Projects</title>
+        <title>Offer Project</title>
     </head>
    <body>
      

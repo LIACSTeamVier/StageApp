@@ -1,3 +1,4 @@
+
 <?php
 	session_start();
 	$configs = include("config.php");
@@ -140,64 +141,68 @@
 
 <!DOCTYPE html>
 <html lang="en-UK">
-<head>
-<link rel="stylesheet" type="text/css" href="style.css">
-<script src="sortTable.js"></script>
-</head>
-<body>
+    <head>
+        <meta charset="utf-8" /> 
 
-<div class="sidepane">
-  <a href="main_page.php">Overview</a>
-  <a href="project_list.php">Projects</a>
-  <a href="#">Contact</a>
-  <a href="database_table.php">Database</a>
-  <a href="#">Help</a></a>
-</div>
+        <meta name="Description" content= "Requesting Students" />
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Requesting Students</title>
+    </head>
+    <body>
 
-<div class="main">
-  <?php
-    $configs = include("config.php");
-    $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
-    
-    // check connection
-    if (mysqli_connect_errno()) {
-        echo "Failed to connect to MySQL: " . mysqli_connect_error();
-    }
-    
-    
-    $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
-    
-    
-		$project_table = mysqli_query($con, "SELECT * FROM Supervises b WHERE b.SupID='$contactid' AND b.type = 'Internship Contact' AND b.Accepted='0'") or die('Unable to run query:' . mysqli_error());
-		echo "These students to join your internship";
-		echo "<table width='40%' id='1strequest_table'>"; // start a table tag in the HTML
-		// column names
-		echo "<tr><th onclick=\"sortTable(0)\">Student Id</th>
-				  <th onclick=\"sortTable(1)\">Student Name</th></tr>";
+        <div class="sidepane">
+            <a href="main_page.php">Overview</a>
+            <a href="project_list.php">Projects</a>
+            <a href="#">Contact</a>
+            <a href="database_table.php">Database</a>
+            <a href="#">Help</a></a>
+        </div>
+
+        <div class="main">
+            <?php
+                $configs = include("config.php");
+                $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
+                
+                // check connection
+                if (mysqli_connect_errno()) {
+                    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                }
+        
+        
+                $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
+        
+        
+		        $project_table = mysqli_query($con, "SELECT * FROM Supervises b WHERE b.SupID='$contactid' AND b.type = 'Internship Contact' AND b.Accepted='0'") or die('Unable to run query:' . mysqli_error());
+		        echo "These students want to join your internship";
+		        echo "<table width='40%' id='1strequest_table'>"; // start a table tag in the HTML
+		        // column names
+		        echo "<tr><th onclick=\"sortTable(0)\">Student Id</th>
+				          <th onclick=\"sortTable(1)\">Student Name</th></tr>";
 		
-		// rows of the database
-		while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
-			$student_name_get = mysqli_query($con, "SELECT StuName FROM Student WHERE StuID='".$row['StuID']."'")or die('Unable to run query:' . mysqli_error());
-			$student_name = mysqli_fetch_array($student_name_get);
-			echo "<tr><form action=\"$temp\" method=\"post\">
-				  <td>" . $row['StuID'] . "</td>
-				  <td>".$student_name['StuName']."</td>
-				  <td><input type=\"submit\" name=\"InternshipStudentDisp\" value=\"Accept This Student\">
-					  <input type=\"hidden\" name=\"InternshipStudent\" value=\"".$row['StuID']."\" /></td>
-				  </form></tr>";  //$row['index'] the index here is a field name
-		}
+		        // rows of the database
+		        while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
+			        $student_name_get = mysqli_query($con, "SELECT StuName FROM Student WHERE StuID='".$row['StuID']."'")or die('Unable to run query:' . mysqli_error());
+			        $student_name = mysqli_fetch_array($student_name_get);
+			        echo "<tr><form action=\"$temp\" method=\"post\">
+				          <td>" . $row['StuID'] . "</td>
+				          <td>".$student_name['StuName']."</td>
+				          <td><input type=\"submit\" name=\"InternshipStudentDisp\" value=\"Accept This Student\">
+					          <input type=\"hidden\" name=\"InternshipStudent\" value=\"".$row['StuID']."\" /></td>
+				          </form></tr>";  //$row['index'] the index here is a field name
+		        }
 		
-		echo "</table>"; //Close the table in HTML
-		echo "</br></br>";
+		        echo "</table>"; //Close the table in HTML
+		        echo "</br></br>";
 	
 	
 	
-    mysqli_close($con);
+                mysqli_close($con);
   
   
     
-    ?>
-</div>
+            ?>
+        </div>
 
-</body>
+    </body>
 </html>
+

@@ -296,15 +296,14 @@ function insertIntoStudent($uname, $name, $email, $phonenum){
 }
 ?>
 
-<!doctype html>
-
-<html>
+<!DOCTYPE html>
+<html lang="en-UK">
     <head>
         <meta charset="utf-8" /> 
 
-        <meta name="Description" content= "Page To Register Accounts" />
+        <meta name="Description" content= "Register Account" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Page To Register Accounts</title>
+        <title>Register Account</title>
     </head>
     <body>
 

@@ -40,7 +40,7 @@
 	$result3 = mysqli_query($con, "SELECT StuName FROM Student WHERE StuID='".$_SESSION["ReqStudentID"]."'");
 	$rowres3 = mysqli_fetch_array($result3);
 	if(!$result3)
-		die('Unable to run query:' . mysqli_error());
+		die('Unable to run query3:' . mysqli_error());
 	
 	$StudentName = $rowres3["StuName"];
 	$email = $row["SupEMAIL"];
@@ -72,7 +72,7 @@
 				<body>
 				  <p>Dear $DocName,</p><br/>
 				  <p>The student: $StudentName , $StudentID , has requested you to be their $type .</p></br>
-				  "//<p>Click this <a href=\"http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring\">LINK</a> to accept their request.<p><br/>
+				 "// <p>Click this <a href=\"http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring\">LINK</a> to accept their request.<p><br/>
 				 ."<p>Enter this url 'http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring' in your browser to accept their request</p></br>
 				  <p>Please do not reply to this e-mail.</p><br/>
 				</body>
@@ -101,7 +101,7 @@
 		echo "<a href=\"main_page.php\">Go back to the main page</a>";
 	}
 	else{
-			echo "<script>alert(\"Successfully send an email request to your requested supervisor!\");
+			echo "<script>alert(\"Successfully sent an email request to your requested supervisor!\");
 					location.href='main_page.php';
 					exit;
 					</script>";
