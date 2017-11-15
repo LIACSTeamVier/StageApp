@@ -75,7 +75,7 @@ session_start();
                     echo "</table>"; //Close the table in HTML
 
                     //Button for creating admin account (TODO: move to accounts page)
-                    echo "<form action='create_admin_account.php' method='post'>
+                    echo "<form action='create_admin_account.php' method='head'>
                               <input type='submit' value='Create an admin account'>
                           </form>";
             }
