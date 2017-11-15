@@ -16,10 +16,6 @@ if ($conn->connect_error){
 }
 $sql = "SELECT ProjectNaam FROM Projects";
 $result = $conn->query($sql);
-/*else {
-$sql = "INSERT INTO volbrengt (afstudeerderID, ProjectNaam)" ;// $_GET["id"]; ;// "," $_GET["project"]; ")" ;
-//$result = $conn->query($sql);
-}*/
 ?>
 
 <!DOCTYPE html>
@@ -45,10 +41,12 @@ $sql = "INSERT INTO volbrengt (afstudeerderID, ProjectNaam)" ;// $_GET["id"]; ;/
 </form>
 <?php
 if(isset($_POST['submit'])){
+$stmt = $conn->prepare("INSERT INTO volbrengt (afstudeerderID, ProjectNaam) VALUES (?,?);
+$stmt->bind_param("ss", $id, $selected_val);
+
 $selected_val = $_POST['Projects'];  // Storing Selected Value In Variable
 echo "We schrijven " . $id . " in in project: " . $selected_val;
-//$sql = "INSERT INTO volbrengt (afstudeerderID, ProjectNaam)" $id "," $selected_val ")" ;
-//$result = $conn->query($sql);
+//$stmt->execute();
 }
 ?>
 
