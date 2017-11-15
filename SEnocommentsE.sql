@@ -1,5 +1,5 @@
 CREATE TABLE InternshipApp_Users(
-	Identifier	VARCHAR(30),
+	Identifier	VARCHAR(50),
 	Class	VARCHAR(30),
 	Name	VARCHAR(30),
 	Password	VARCHAR(30),
