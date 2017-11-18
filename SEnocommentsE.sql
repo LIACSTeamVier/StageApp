@@ -92,7 +92,7 @@ CREATE TABLE Supervises(
     DateAccepted	VARCHAR(30),
     DateTerminated	VARCHAR(30),
 	
-    PRIMARY KEY (type, StuID),
+    PRIMARY KEY (type, StuID, DateRequested),
     FOREIGN KEY(type) REFERENCES RelationOptions(type),
     FOREIGN KEY(SupID) REFERENCES Supervisor(SupID),
     FOREIGN KEY(StuID) REFERENCES Student(StuID)
