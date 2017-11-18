@@ -1,6 +1,7 @@
 <?php
 	require_once "random_compat-2.0.11/lib/random.php";
 	require_once "sidebar_student.php";
+	date_default_timezone_set("Europe/Amsterdam");
 	session_start();
 	if( ($_SESSION["class"] != "Student") || empty($_SESSION["ReqDocID"]) || empty($_SESSION["ReqType"]) || empty($_SESSION["ReqStudentID"]) ){
 		//header("Location: main_page.php");
@@ -29,10 +30,10 @@
 			$res = mysqli_query($con, "SELECT * FROM Supervises WHERE ActivationCode='$randstring'");
 			$numrow = mysqli_num_rows($res);
 		}
-
-		$stmt = mysqli_prepare($con, "INSERT INTO Supervises(type, SupID, StuID, Accepted, ActivationCode)
-			  VALUES (?,?,?,'0',?)");
-		mysqli_stmt_bind_param($stmt,'ssss', $_SESSION["ReqType"], $_SESSION["ReqDocID"], $_SESSION["ReqStudentID"], $randstring);
+		$datereq = date("Y-m-d: H:i:s");
+		$stmt = mysqli_prepare($con, "INSERT INTO Supervises(type, SupID, StuID, Accepted, ActivationCode, DateRequested)
+			  VALUES (?,?,?,'0',?,?)");
+		mysqli_stmt_bind_param($stmt,'sssss', $_SESSION["ReqType"], $_SESSION["ReqDocID"], $_SESSION["ReqStudentID"], $randstring, $datereq);
 		$result = mysqli_stmt_execute($stmt);
 		//$result = mysqli_stmt_get_result($stmt);
 		mysqli_stmt_close($stmt);
