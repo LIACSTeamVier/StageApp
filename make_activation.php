@@ -63,7 +63,8 @@
 	$message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
 	
 	// Plain text body
-	$message .=  "Hello,\nPlease open this e-mail in HTML-mode to view its contents.\nPlease do not reply to this e-mail.\n\nThanks"; 
+	$message .=  "Dear $DocName,\n\The student: $StudentName, $StudentID, has requested you to be their $type.\nEnter this url 'http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring' in your browser to accept their request
+				  \nPlease do not reply to this e-mail.";//"Hello,\nPlease open this e-mail in HTML-mode to view its contents.\nPlease do not reply to this e-mail.\n\nThanks"; 
 	$message .= "\r\n\r\n--" . $boundary . "\r\n";
 	$message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
 	
@@ -71,7 +72,7 @@
 	$message .= "<html lang=\"en-UK\">
 				<body>
 				  <p>Dear $DocName,</p><br/>
-				  <p>The student: $StudentName , $StudentID , has requested you to be their $type .</p></br>
+				  <p>The student: $StudentName, $StudentID, has requested you to be their $type.</p>
 				 "// <p>Click this <a href=\"http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring\">LINK</a> to accept their request.<p><br/>
 				 ."<p>Enter this url 'http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring' in your browser to accept their request</p></br>
 				  <p>Please do not reply to this e-mail.</p><br/>
