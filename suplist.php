@@ -1,9 +1,11 @@
 <?php
 	session_start();
+	date_default_timezone_set("Europe/Amsterdam");
 	$configs = include("config.php");
 	$_SESSION["needsDeleting"] = "false";
 	$class = $_SESSION["class"];
-	
+	if (empty($_SESSION["ID"]))
+		header("Location: index.php");
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
 		// Check connection
@@ -26,16 +28,27 @@
 		
 		
 		$studentid = $_SESSION["ID"];
+		$dateterm = date("Y-m-d: H:i:s");
 		if(!empty($_POST["delreq1"])){
-			$del1res = mysqli_query($con, "DELETE FROM Supervises WHERE type='First Supervisor' AND StuID=$studentid");
-			if(mysqli_affected_rows($con) ==0)
+			mysqli_query($con, "UPDATE Supervises SET Accepted='-1', ActivationCode='NULL', DateTerminated='$dateterm' WHERE type='First Supervisor' AND StuID=$studentid AND Accepted='1'");//keep track when accepted relations are deleted
+			$del1res = mysqli_affected_rows($con);
+			//dont keep track of unaccepted deletion
+			mysqli_query($con, "DELETE FROM Supervises WHERE type='First Supervisor' AND StuID=$studentid AND Accepted='0'");
+			if(mysqli_affected_rows($con) ==0 && $del1res == 0)
 				die("mysql error");
 //			$needsDeleting = false;
 		}
 		if(!empty($_POST["delreq2"])){
-			$del1res = mysqli_query($con, "DELETE FROM Supervises WHERE type='Second Supervisor' AND StuID=$studentid");
-			if(mysqli_affected_rows($con) ==0)
-				die("mysql error");
+			mysqli_query($con, "UPDATE Supervises SET Accepted='-1', ActivationCode='NULL', DateTerminated='$dateterm' WHERE type='Second Supervisor' AND StuID=$studentid AND Accepted='1'");//keep track when accepted relations are deleted
+                        $del2res = mysqli_affected_rows($con);
+                        //dont keep track of unaccepted deletion
+                        mysqli_query($con, "DELETE FROM Supervises WHERE type='Second Supervisor' AND StuID=$studentid AND Accepted='0'");
+                        if(mysqli_affected_rows($con) ==0 && $del2res == 0)
+                                die("mysql error");
+
+			//$del1res = mysqli_query($con, "DELETE FROM Supervises WHERE type='Second Supervisor' AND StuID=$studentid");
+			//if(mysqli_affected_rows($con) ==0)
+			//	die("mysql error");
 //			$needsDeleting = false;
 		}
 
@@ -55,7 +68,7 @@
 		//$reqtyp = test_input($_POST["RequestType"]);
 		//$reqdoc = test_input($_POST["RequestDocID"]);
 		//echo "$reqtyp   $reqdoc";
-		$stmt = mysqli_prepare($con, "SELECT SupID, type FROM Supervises WHERE StuID='".$_SESSION["ID"]."'");
+		$stmt = mysqli_prepare($con, "SELECT SupID, type FROM Supervises WHERE StuID='".$_SESSION["ID"]."' AND (Accepted='0' OR Accepted='1')");
 		//mysqli_bind_param($stmt, 's',$reqtyp);
 		mysqli_stmt_execute($stmt);
 		$result = mysqli_stmt_get_result($stmt);
@@ -194,11 +207,14 @@
     }
 
     $sup_table = mysqli_query($con, "SELECT * FROM Supervisor") or die('Unable to run query:' . mysqli_error());
-	echo "These are the available supervisors.</br>";
-	echo "You need one First Supervisor and one Second Supervisor.</br>";
-	echo "You need one supervisor with a background in Computer Science(ICT), and one with background in Business(BUS).</br>";
-	echo "Supervisors with background 'BOTH' can fill either role</br>";
+	if($class =="Student"){
+		echo "These are the available supervisors.</br>";
+		echo "You need one First Supervisor and one Second Supervisor.</br>";
+		echo "You need one supervisor with a background in Computer Science(ICT), and one with background in Business(BUS).</br>";
+		echo "Supervisors with background 'BOTH' can fill either role</br>";
+	}
 	echo "<table width='80%' id='1strequest_table'>"; // start a table tag in the HTML
+	
 	// column names
 	echo "<tr><th onclick=\"sortTable(0)\">Supervisor Name</th>
 			  <th onclick=\"sortTable(1)\">Supervisor Email</th>
@@ -211,22 +227,36 @@
 	while($row = mysqli_fetch_array($sup_table)){   //Creates a loop to loop through results
 		echo "<tr><td>" . $row['SupName'] . "</td>
 			  <td>" . $row['SupEMAIL'] . "</td>
-			  <td>" . $row['Topics'] . "</td>
-			  <td>" . $row['RoleFirst'] . "</td>
-			  <td>" . $row['RoleSecond'] . "</td>
-			  <td>" . $row['Background']."</td>";
+			  <td>" . $row['Topics'] . "</td>";
+			  //<td>" . $row['RoleFirst'] . "</td>
+			  //<td>" . $row['RoleSecond'] . "</td>";
+			 // <td>" . $row['Background']."</td>";
 		if($class == "Student"){
-			echo "<td><form action=\"$temp\" method=\"post\">
-						<input type=\"submit\" name=\"supreq1disp\" value=\"Request as FIRST SUPERVISOR\">
+			if ($row['RoleFirst'] == "yes"){
+				echo "<td><form action=\"$temp\" method=\"post\">
+						<input type=\"submit\" name=\"supreq1disp\" value=\"Request as First\">
 						<input type=\"hidden\" name=\"supreq1\" value=\"".$row['SupID']."\">
-						</form></td>
-				  <td><form action=\"$temp\" method=\"post\">
-						<input type=\"submit\" name=\"supreq2disp\" value=\"Request as SECOND SUPERVISOR\">
+						</form></td>";
+			     	}
+			else{
+			    echo "<td>no</td>";
+			}
+			if ($row['RoleSecond'] == "yes"){
+				echo "<td><form action=\"$temp\" method=\"post\">
+						<input type=\"submit\" name=\"supreq2disp\" value=\"Request as Second\">
 						<input type=\"hidden\" name=\"supreq2\" value=\"".$row['SupID']."\">
 						</form></td>";
+			}
+			else{
+			    echo "<td>no</td>";
+			}
 		}
-		else
-			echo "</tr>";  //$row['index'] the index here is a field name
+		else{
+			echo "<td>" . $row['RoleFirst'] . "</td>
+                              <td>" . $row['RoleSecond'] . "</td>";
+			//echo "</tr>";  //$row['index'] the index here is a field name
+		}
+		echo "<td>". $row['Background']."</td></tr>";
 	}
 	
 	echo "</table>"; //Close the table in HTML
@@ -240,4 +270,3 @@
 
 </body>
 </html>
-
