@@ -119,9 +119,7 @@
 		$message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
 	
 		// Plain text body
-		$message .=  "Dear $StudentName,\n
-                                  $DocName, has accepted being your $type\n
-                                  Please do not reply to this e-mail.";//"Hello,\nPlease open this e-mail in HTML-mode to view its contents.\nPlease do not reply to this e-mail.\n\nThanks"; 
+		$message .= "Dear $StudentName,\n$DocName, has accepted being your $type\nPlease do not reply to this e-mail."; //"Hello,\nPlease open this e-mail in HTML-mode to view its contents.\nPlease do not reply to this e-mail.\n\nThanks"; 
 		$message .= "\r\n\r\n--" . $boundary . "\r\n";
 		$message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
 	
@@ -235,5 +233,4 @@
 
     </body>
 </html>
-
 
