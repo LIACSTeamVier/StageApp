@@ -39,19 +39,10 @@ session_start();
 				echo "You are logged in as " . "$class" . "." ."<p>"; //TODO temp, remove line.
 
 				// After sending an e-mail
-				if (isset($_SESSION["creatingAccount"])) {
-					if (isset($_SESSION["accCreateErr"])) {
-						echo "ERROR: " . $_SESSION["accCreateErr"] . "</br>Could not create account. No e-mail was sent.</br>";
-					}
-					else {
-						echo "Account created successfully.</br>";
-						if (isset($_SESSION["emailErr"]))
-							echo "ERROR: e-mail could not be delivered. Please manually inform the recipient. Their username should be their e-mail address. Their password can be found in the 'name' table."; //TODO vervang 'name'
-					}
+				if (isset($_SESSION["regErr"])) {
+					echo $_SESSION["regErr"];
 				}
-				unset($_SESSION["emailErr"]);
-				unset($_SESSION["accCreateErr"]);
-				unset($_SESSION["creatingAccount"]);
+				unset($_SESSION["regErr"]);
 
 				if ($class == "Admin") {
 					//List all students with their projects
@@ -234,4 +225,4 @@ session_start();
 		</div>
 
 	</body>
-</html>
+</html> 
