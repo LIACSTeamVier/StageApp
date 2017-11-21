@@ -45,10 +45,14 @@
 				die();
 
 			}
-			header("Location: main_page.php");
-			die("Wrong Code");
+			//header("Location: main_page.php");
+			//die("Wrong Code");
+			echo "<div class=\"main\"><a>Wrong or Expired code</a>
+                              <a href=\"main_page.php\">Go to the main page</a>
+                              </div>";
+			die();
 		}
-		
+
 	}
 
 	if (($_SESSION["class"] != "Admin") && ($_SESSION["class"] != "Supervisor")){
@@ -138,7 +142,10 @@
 		$headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
 		//echo "<div class=\"main\">";
 		//var_dump($email, $subject, $messsage, $headers);	echo "</div>";
-		mail($email,$subject,$message,$headers);
+		if(!mail($email,$subject,$message,$headers)){
+			//var_dump($email, $subject, $message, $headsers);die();
+			echo "Mail sending failed";
+		}
 	}
 ?>
 
@@ -233,4 +240,3 @@
 
     </body>
 </html>
-
