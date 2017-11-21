@@ -1,7 +1,6 @@
 <?php
 include "general_functions.php";
 Session_start();
-require_once "random_compat-2.0.11/lib/random.php";
 $regErr = $nameErr = $emailErr = "";
 $name = $email = "";
 $password = random_str(8);
@@ -63,10 +62,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 function attemptRegister($name, $email, $password) {
     $class = "Admin";
+    $uname = $email;
     insertIntoUsers($email, $class, $name, $password);
     if (!isset($_SESSION["regErr"])) {
         $_SESSION["regErr"] = "Account created successfully!";
-        if (!sendEmail($name, $email, $password)) {
+        if (!sendEmail($name, $email, $uname, $password)) {
             $_SESSION["regErr"] = "E-mail could not be delivered. Account not created.";
             deleteUser($email);
         }
@@ -86,7 +86,7 @@ function deleteUser($uname){
         mysqli_stmt_bind_param($stmt1,'s', $uname);
         $result1 = mysqli_execute($stmt1);
         mysqli_close($stmt1);
-	    if (!$result1){
+	    if (!$result1) {
             $_SESSION["regErr"] = "Unable to run query:" . mysqli_error($con);
 	    }
 	    mysqli_close($con);

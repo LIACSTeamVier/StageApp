@@ -1,4 +1,7 @@
 <?php
+    require_once "random_compat-2.0.11/lib/random.php";    
+    
+    // Database query
     function query_our_database($query) {
         $configs = include("config.php");
         $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
@@ -14,40 +17,8 @@
 
         return $result;
     }
-  
-    function sendEmail($name, $email, $password) {
-        $configs = include("config.php");
-        $email_from = $configs["noreply"];
-        $subject = "An account has been made for you on the LIACS InternshipApp";
-        $boundary = uniqid('np');
-        
-        $headers = "MIME-Version: 1.0\r\n";
-        $headers .= "From: $email_from \r\n";
-        $headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
-        
-        // MIME stuff
-        $message = "This is a MIME encoded message.";
-        $message .= "\r\n\r\n--" . $boundary . "\r\n";
-        $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
-        
-        // Plain text body
-        $message .= "Dear ".$name.",\nAn account has been made for you on the LIACS InternshipApp. Please follow the following link:\nhttp://csthesis.liacs.leidenuniv.nl\nYour username and password are as follows:\nUsername: ".$email."\nPassword: ".$password."\nPlease do not reply to this e-mail.\n(notactually)LIACS"; // TODO replace with file
-        $message .= "\r\n\r\n--" . $boundary . "\r\n";
-        $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
-        
-        // HTML body
-        $message .= "Dear <td>".$name."</td>,</br> An account has been made for you on the
-    <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.</br> Your username and password are as follows:</br> Username: <td>".$email."</td></br> Password: <td>".$password."</td></br> Please do not reply to this e-mail.</br>(notactually)LIACS"; // TODO replace with file
-        $message .= "\r\n\r\n--" . $boundary . "--";
-        
-        
-        $headers = "MIME-Version: 1.0\r\n";
-        $headers .= "From: $email_from \r\n";
-        $headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
-        //var_dump($email);
-        //die();
-        return mail($email,$subject,$message,$headers);
-    }
+    
+    //Random string generator
     
     /** From StackOverFlow https://stackoverflow.com/a/31107425 
      *  Under Creative Commons Licence Attribution-ShareAlike 3.0 
@@ -71,6 +42,42 @@
             $str .= $keyspace[random_int(0, $max)];
         }
         return $str;
+    }
+    
+    // Account creation functions
+    
+    function sendEmail($name, $email, $uname, $password) {
+        $configs = include("config.php");
+        $email_from = $configs["noreply"];
+        $subject = "An account has been made for you on the LIACS InternshipApp";
+        $boundary = uniqid('np');
+        
+        $headers = "MIME-Version: 1.0\r\n";
+        $headers .= "From: $email_from \r\n";
+        $headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
+        
+        // MIME stuff
+        $message = "This is a MIME encoded message.";
+        $message .= "\r\n\r\n--" . $boundary . "\r\n";
+        $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
+        
+        // Plain text body
+        $message .= "Dear ".$name.",\nAn account has been made for you on the LIACS InternshipApp. Please follow the following link:\nhttp://csthesis.liacs.leidenuniv.nl\nYour username and password are as follows:\nUsername: ".$uname."\nPassword: ".$password."\nPlease do not reply to this e-mail.\n(notactually)LIACS"; // TODO replace with file
+        $message .= "\r\n\r\n--" . $boundary . "\r\n";
+        $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
+        
+        // HTML body
+        $message .= "Dear <td>".$name."</td>,</br> An account has been made for you on the
+    <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.</br> Your username and password are as follows:</br> Username: <td>".$email."</td></br> Password: <td>".$password."</td></br> Please do not reply to this e-mail.</br>(notactually)LIACS"; // TODO replace with file
+        $message .= "\r\n\r\n--" . $boundary . "--";
+        
+        
+        $headers = "MIME-Version: 1.0\r\n";
+        $headers .= "From: $email_from \r\n";
+        $headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
+        //var_dump($email);
+        //die();
+        return mail($email,$subject,$message,$headers);
     }
     
     function test_input($data) {
@@ -121,7 +128,7 @@
             mysqli_stmt_bind_param($stmt1,'ssss', $uname, $class, $name, $password);
             $result1 = mysqli_execute($stmt1);
             mysqli_close($stmt1);
-            if (!$result1){
+            if (!$result1) {
                 $_SESSION["regErr"] = "Unable to run query:" . mysqli_error($con);
             }
             mysqli_close($con);
