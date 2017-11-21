@@ -1,5 +1,8 @@
 <?php
+include 'sidebar_selector.php';
+
 Session_start();
+
 $loginErr = $regErr = "";
 $uname = $password = "";
 if (isset($_SESSION["loginErr"]))
@@ -77,24 +80,28 @@ function attemptLogin($uname, $password) {
     <meta charset="utf-8" />
     <meta name="Description" content= "InternshipApp login" />
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>InternshipApp login</title>
+    <title>Login - LIACS Student Project Manager</title>
 </head>
 <body>
 
-<div class="main_nopane">
-    <h1>InternshipApp</h1>
-    <h3>Login page</h3>
+<div class="main">
+    <h1>LIACS Student Project Manager</h1>
+    <h3>Login</h3>
   
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="login">
-        username: <input type="text" name="username"><br/>
-        password: <input type="password" name="password"><br/>
+        <p><label>
+			username:
+			<input type="text" name="username">
+		</label></p>
+		<p><label>
+			password:
+			<input type="password" name="password">
+		</label></p>
         <span class="error"><?php echo $loginErr;?></span><br/>
         <span class="error"><?php echo $regErr;?></span><br/>
         <input type="submit" value="Login">
     </form>
     
-    Don't have an account?
-    <a href="create_own_account.php">Register as student.</a></br>
     Forgotten password?
     <a href="reset_password.php">Reset password.</a></br>
 

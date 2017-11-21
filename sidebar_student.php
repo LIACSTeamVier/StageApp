@@ -8,8 +8,12 @@
     margin-left: -10px;
     padding-bottom: -10px;
     min-height: 100vh;
-    width: 120px;
+    width: 140px;
     background-color: #001158;
+}
+
+.sidebar a:hover {
+	background-color: #a5accc;
 }
 
 .menu {
@@ -18,10 +22,15 @@
 }
 
 .menu-item a {
-    color: white;
-    text-decoration: none;
-    font-family: "Verdana";
-    font-size: 12px;
+    margin-left: -10px;
+	padding: 6px 6px 6px 6px;
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 2px 2px 8px #000000
+	font-size: 14px;
+	color: #ffffff;
+	font-family: "Verdana";
+	display: block;
 }
 
 </style>
