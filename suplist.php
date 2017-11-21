@@ -1,7 +1,8 @@
-<?php
+<?php 
 	session_start();
 	date_default_timezone_set("Europe/Amsterdam");
 	$configs = include("config.php");
+        $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
 	$_SESSION["needsDeleting"] = "false";
 	$class = $_SESSION["class"];
 	if (empty($_SESSION["ID"]))
@@ -25,33 +26,44 @@
 			$requestdoc = $_POST["supreq2"];
 			request($con, $requesttyp, $requestdoc);			
 		}
-		
-		
+
 		$studentid = $_SESSION["ID"];
 		$dateterm = date("Y-m-d: H:i:s");
 		if(!empty($_POST["delreq1"])){
-			mysqli_query($con, "UPDATE Supervises SET Accepted='-1', ActivationCode='NULL', DateTerminated='$dateterm' WHERE type='First Supervisor' AND StuID=$studentid AND Accepted='1'");//keep track when accepted relations are deleted
-			$del1res = mysqli_affected_rows($con);
-			//dont keep track of unaccepted deletion
-			mysqli_query($con, "DELETE FROM Supervises WHERE type='First Supervisor' AND StuID=$studentid AND Accepted='0'");
-			if(mysqli_affected_rows($con) ==0 && $del1res == 0)
-				die("mysql error");
-//			$needsDeleting = false;
+                    if(!empty($_POST["confirmed"])){
+			if($_POST["confirmed"] == "true"){ 
+			    mysqli_query($con, "UPDATE Supervises SET Accepted='-1', ActivationCode=NULL, DateTerminated='$dateterm' WHERE type='First Supervisor' AND StuID=$studentid AND Accepted='1'");//keep track when accepted relations are deleted
+			    $del1res = mysqli_affected_rows($con);
+                            //dont keep track of unaccepted deletion
+                            mysqli_query($con, "DELETE FROM Supervises WHERE type='First Supervisor' AND StuID=$studentid AND Accepted='0'");
+                            if(mysqli_affected_rows($con) ==0 && $del1res == 0) 
+			        die("mysql error");
+//			    $needsDeleting = false;
+		        }
+		    }
+		    else
+		        $_SESSION["needsDeleting"]="conf1";
 		}
+
 		if(!empty($_POST["delreq2"])){
-			mysqli_query($con, "UPDATE Supervises SET Accepted='-1', ActivationCode='NULL', DateTerminated='$dateterm' WHERE type='Second Supervisor' AND StuID=$studentid AND Accepted='1'");//keep track when accepted relations are deleted
-                        $del2res = mysqli_affected_rows($con);
-                        //dont keep track of unaccepted deletion
-                        mysqli_query($con, "DELETE FROM Supervises WHERE type='Second Supervisor' AND StuID=$studentid AND Accepted='0'");
-                        if(mysqli_affected_rows($con) ==0 && $del2res == 0)
+		    if(!empty($_POST["confirmed2"])){
+			if($_POST["confirmed2"] == "true"){
+                            mysqli_query($con, "UPDATE Supervises SET Accepted='-1', ActivationCode=NULL, DateTerminated='$dateterm' WHERE type='Second Supervisor' AND StuID=$studentid AND Accepted='1'");//keep track when accepted relations are deleted
+                            $del2res = mysqli_affected_rows($con);
+                            //dont keep track of unaccepted deletion
+                            mysqli_query($con, "DELETE FROM Supervises WHERE type='Second Supervisor' AND StuID=$studentid AND Accepted='0'");
+                            if(mysqli_affected_rows($con) ==0 && $del2res == 0)
                                 die("mysql error");
 
 			//$del1res = mysqli_query($con, "DELETE FROM Supervises WHERE type='Second Supervisor' AND StuID=$studentid");
 			//if(mysqli_affected_rows($con) ==0)
 			//	die("mysql error");
 //			$needsDeleting = false;
+			}
+		    }
+                    else
+			$_SESSION["needsDeleting"]="conf2";
 		}
-
 			
 		mysqli_close($con);
 	}
@@ -185,14 +197,12 @@
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
      
-    $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
-
     if ($_SESSION["needsDeleting"] == "true"){
 		echo "<a><form action=\"$temp\" method=\"post\">
 					<input type=\"submit\" name=\"delreq1\" value=\"Delete Request For The First Supervisor\">
-					</form></a>
-			  <a><form action=\"$temp\" method=\"post\">
-                    <input type=\"submit\" name=\"delreq2\" value=\"Delete Request For The Second Supervisor\">
+        			</form></a>
+	              <a><form action=\"$temp\" method=\"post\">
+                     <input type=\"submit\" name=\"delreq2\" value=\"Delete Request For The Second Supervisor\">
 					</form></a>";	
     }
     else if($_SESSION["needsDeleting"] == "First Supervisor"){
@@ -205,6 +215,22 @@
                     <input type=\"submit\" name=\"delreq2\" value=\"Delete Request For The Second Supervisor\">
                                         </form></a>";
     }
+    else if($_SESSION["needsDeleting"] == "conf1"){
+	echo "<form id='1' action=\"$test\" method=\"post\">
+	      <input type=\"hidden\" name=\"delreq1\" value=\"true\">
+	      <script>document.write('<input type=\"hidden\" name=\"confirmed\" value=\"'+confirm(\"This is a serious action, do you really want to delete the supervisor?\")+'\">');</script>
+	     </form>";
+	echo "<script>document.getElementById(1).submit()</script>";
+    }
+ 
+    else if($_SESSION["needsDeleting"] == "conf2"){
+        echo "<form id='2' action=\"$test\" method=\"post\">
+              <input type=\"hidden\" name=\"delreq2\" value=\"true\">
+              <script>document.write('<input type=\"hidden\" name=\"confirmed2\" value=\"'+confirm(\"This is a serious action, do you really want to delete the supervisor?\")+'\">');</script>
+             </form>";
+        echo "<script>document.getElementById(2).submit()</script>";
+    }
+
 
     $sup_table = mysqli_query($con, "SELECT * FROM Supervisor") or die('Unable to run query:' . mysqli_error());
 	if($class =="Student"){
