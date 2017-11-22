@@ -1,7 +1,6 @@
 <?php
-include 'sidebar_selector.php';
-
 Session_start();
+include 'sidebar_selector.php';
 
 $loginErr = $regErr = "";
 $uname = $password = "";
@@ -89,14 +88,16 @@ function attemptLogin($uname, $password) {
     <h3>Login</h3>
   
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="login">
-        <p><label>
-			username:
-			<input type="text" name="username">
-		</label></p>
-		<p><label>
-			password:
-			<input type="password" name="password">
-		</label></p>
+		<table class="form">	
+			<tr>
+				<td>Username:</td>
+				<td><input type="text" name="username"></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><input type="password" name="password"></td>
+			</tr>
+		</table>
         <span class="error"><?php echo $loginErr;?></span><br/>
         <span class="error"><?php echo $regErr;?></span><br/>
         <input type="submit" value="Login">

@@ -38,16 +38,13 @@
 <div class="sidebar">
     <div class="menu">
         <div class="menu-item">
-            <h4><a href="#">Overview</a></h4>
+            <h4><a href="main_page.php">Overview</a></h4>
         </div>
         <div class="menu-item">
-            <h4><a href="#">Create internship</a></h4>
+            <h4><a href="create_internship.php">Create internship</a></h4>
         </div>
         <div class="menu-item">
-            <h4><a href="#">Students</a></h4>
-        </div>
-        <div class="menu-item">
-            <h4><a href="#">Logout</a></h4>
+            <h4><a href="index.php">Logout</a></h4>
         </div>
     </div> 
 </div> 

@@ -41,25 +41,29 @@ h3 {
 }
 
 /* tables */
-table {
+.list table {
     border-collapse: collapse;
 }
 
-th, td {
+.list th, td {
     text-align: left;
     vertical-align: top;
     padding: 6px 10px;
 }
 
-tr:nth-child(odd){
+.list tr:nth-child(odd){
     background-color: #d2d8ef;
 }
 
-th {
+.list th {
     background-color: white;
     color: black;
     border-bottom-style: solid;
     cursor:pointer;
+}
+
+.form td {
+	vertical-align: middle;
 }
 
 .main {

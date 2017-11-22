@@ -74,13 +74,13 @@
             <h4><a href="#" onclick="toggleDropdown()">Create account</a></h4>
         </div>
         <div class="menu-item">
-            <h4><a href="#">Students</a></h4>
+            <h4><a href="student_list.php">Students</a></h4>
         </div>
         <div class="menu-item">
-            <h4><a href="#">Supervisors</a></h4>
+            <h4><a href="supervisor_list.php">Supervisors</a></h4>
         </div>
         <div class="menu-item">
-            <h4><a href="#">Projects</a></h4>
+            <h4><a href="project_list.php">Projects</a></h4>
         </div>
         <div class="menu-item">
             <h4><a href="index.php">Logout</a></h4>

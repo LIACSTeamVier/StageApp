@@ -1,6 +1,8 @@
 <?php
 include "general_functions.php";
 Session_start();
+include 'sidebar_selector.php';
+
 $regErr = $nameErr = $unameErr = $emailErr = "";
 $name = $uname = $email = "";
 $password = random_str(8);
@@ -143,31 +145,33 @@ function deleteUser($uname) {
 
         <meta name="Description" content= "Register Account" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Register Account</title>
+        <title>Create student account - LIACS Student Project Manager</title>
     </head>
     <body>
 
-        <div class="sidepane">
-            <a href="main_page.php">Overview</a>
-            <a href="#">Projects</a>
-            <a href="#">Contact</a>
-            <a href="#">Help</a></a>
-        </div>
-
         <div class="main">
             <p>
-            Fill in the forms to create a new Admin account.
+            Fill in this form to create a new student account.
             </p>
-            <p><span class="error">* required field.</span></p>
+            <p><span class="error">* Required field.</span></p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-                Student's Full name: <input type="text" name="name" value="<?php  echo $name;?>">
-                <span class="error">* <?php echo $nameErr;?></span>
-                <br>
-                Student's Student number: <input type="text" name="uname" value="<?php  echo $uname;?>">
-                <span class="error">* <?php echo $unameErr;?></span>
-                <br>
-                Student's Email address: <input type="text" name="email" value="<?php echo $email;?>">
-                <span class="error">* <?php echo $emailErr;?></span>
+                <table class="form">
+					<tr>
+						<td>Full name:</td>
+						<td><input type="text" name="name" value="<?php  echo $name;?>">
+						<span class="error">* <?php echo $nameErr;?></span></td>
+					</tr>
+					<tr>
+						<td>Student number:</td>
+						<td><input type="text" name="uname" value="<?php  echo $uname;?>">
+						<span class="error">* <?php echo $unameErr;?></span></td>
+					</tr>
+					<tr>
+						<td>Email address:</td>
+						<td><input type="text" name="email" value="<?php echo $email;?>">
+						<span class="error">* <?php echo $emailErr;?></span></td>
+					</tr>
+				</table>
                 <input type="hidden" name ="password" value="<?php echo $password;?>">
                 <br>
                 <span class="error"><?php echo $regErr;?></span>

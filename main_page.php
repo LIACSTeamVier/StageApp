@@ -1,7 +1,7 @@
 <?php
 include 'general_functions.php';
-
 session_start();
+include 'sidebar_selector.php';
 ?>
 
 <!DOCTYPE html>
@@ -11,21 +11,9 @@ session_start();
 
 		<meta name="Description" content= "Home" />
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<title>Home</title>
+		<title>Overview - LIACS Student Project Manager</title>
 	</head>
 	<body>
-
-		<div class="sidepane">
-			<a href="main_page.php">Overview</a>
-			<?php
-				if($_SESSION["class"] == "Admin" || $_SESSION["class"] == "Supervisor")
-					echo "<a href=\"request_list.php\">Student Supervison Requests</a>"
-			?>
-			<a href="project_list.php">Projects</a>
-			<a href="#">Contact</a>
-			<a href="database_table.php">Database</a>
-			<a href="#">Help</a></a>
-		</div>
 
 		<div class="main">
 			<?php
@@ -134,11 +122,7 @@ session_start();
 								</form>";
 				}
 				if ($class == "Internship Contact") {
-					//List assigned students and their projects
-					//Button for creating an internship (TODO: move to projects page?)
-					echo "<form action='stage.php' method='head'>
-								<input type='submit' value='Create an internship'>
-							</form>";
+					//TODO here: add information on internship + participating students
 				}
 				if ($class == "Student") {
 					//Show your project and supervisors

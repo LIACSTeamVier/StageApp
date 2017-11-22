@@ -1,6 +1,7 @@
 <?php
     require_once "random_compat-2.0.11/lib/random.php";
     session_start();
+	include 'sidebar_selector.php';
   
     /** From StackOverFlow https://stackoverflow.com/a/31107425 
      *  Under Creative Commons Licence Attribution-ShareAlike 3.0 
@@ -34,16 +35,11 @@
 
         <meta name="Description" content= "Create Supervisor Account" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Create Supervisor Account</title>
+        <title>Create supervisor account - LIACS Student Project Manager</title>
     </head>
     <body>
   
-        <div class="sidepane">
-          <a href="#">Overview</a>
-          <a href="#">Projects</a>
-          <a href="#">Contact</a>
-          <a href="#">Help</a></a>
-        </div>
+		<!-- TODO: change form to match other create_..._account -->
   
         <div class="main">
             <?php
@@ -55,15 +51,22 @@
                 else {
                     $password = random_str(8);
                     $role = 'Supervisor';
-                    echo "<h5>Please fill in the form below<h5></br>";
+                    echo "<p>Fill in this form to create a new supervisor account.</p>";
                     echo "
                     <form action='attempting_to_email.php' method='post'>
-                        <p>Supervisor's name:</br>
-                        <input type='text' name ='name'><br/></p>
-                        <p>Supervisor's e-mail address:</br>
-                        <input type='text' name ='email'><br/></p>
+						<table class=\"form\">
+							<tr>
+								<td>Full name:</td>
+								<td><input type='text' name ='name'></td>
+							</tr>
+							<tr>
+								<td>Email address:</td>
+								<td><input type='text' name ='email'></td>
+							</tr>
+						</table>
                         <input type='hidden' name ='password' value='$password'>
                         <input type='hidden' name ='role' value='$role'>
+						<br><br>
                         <input type='submit' value='Create account'>
                     </form>";
                 }

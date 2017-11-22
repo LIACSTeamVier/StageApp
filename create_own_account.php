@@ -1,6 +1,8 @@
 <?php
 include "general_functions.php";
 Session_start();
+include 'sidebar_selector.php';
+
 $nameErr = $unameErr = $emailErr = $phoneErr = $passErr = "";
 $name = $uname = $email = $phonenum = $password = "";
 $error = False;
@@ -153,41 +155,48 @@ function insertIntoStudent($uname, $name, $email, $phonenum){
 
         <meta name="Description" content= "Register Account" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Register Account</title>
+        <title>Create an account - LIACS Student Project Manager</title>
     </head>
     <body>
 
-        <div class="sidepane">
-            <a href="main_page.php">Overview</a>
-            <a href="#">Projects</a>
-            <a href="#">Contact</a>
-            <a href="#">Help</a></a>
-        </div>
-
         <div class="main">
             <p>
-            Fill in the forms to register a new account.
+            Fill in this form to create a new account.
             </p>
-            <p><span class="error">* required field.</span></p>
+            <p><span class="error">* Required field.</span></p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-                Full name: <input type="text" name="name" value="<?php  echo $name;?>">
-                <span class="error">* <?php echo $nameErr;?></span>
-                <br>
-                Student number: <input type="text" name="uname" value="<?php  echo $uname;?>">
-				<span class="error">* <?php echo $unameErr;?></span>
-				<br>
-                Email address: <input type="text" name="email" value="<?php echo $email;?>">
-                <span class="error">* <?php echo $emailErr;?></span>
-                <br>
-                Phone number: <input type="text" name="phonenum" value="<?php echo $phonenum;?>">
-                <span class="error"><?php echo $phoneErr;?></span>
-                <br>
-                Password: <input type="password" name="password" value="">
-                <span class="error">* <?php echo $passErr;?></span>
-                <br>
-                Re-type password: <input type="password" name="passwordcheck" value="">
-                <span class="error">*</span>
-                <br><br>
+				<table class="form">
+					<tr>
+						<td>Full name:</td>
+						<td><input type="text" name="name" value="<?php  echo $name;?>">
+						<span class="error">* <?php echo $nameErr;?></span></td>
+					</tr>
+					<tr>
+						<td>Student number:</td>
+						<td><input type="text" name="uname" value="<?php  echo $uname;?>">
+						<span class="error">* <?php echo $unameErr;?></span></td>
+					</tr>
+					<tr>
+						<td>Email address:</td>
+						<td><input type="text" name="email" value="<?php echo $email;?>">
+						<span class="error">* <?php echo $emailErr;?></span></td>
+					</tr>
+					<tr>
+						<td>Phone number:</td>
+						<td><input type="text" name="phonenum" value="<?php echo $phonenum;?>">
+						<span class="error"><?php echo $phoneErr;?></span></td>
+					</tr>
+					<tr>
+						<td>Password:</td>
+						<td><input type="password" name="password" value="">
+						<span class="error">* <?php echo $passErr;?></span></td>
+					</tr>
+					<tr>
+						<td>Repeat password:</td>
+						<td><input type="password" name="passwordcheck" value="">
+						<span class="error">*</span></td>
+					</tr>
+				</table>
                 <input type="submit" value="Create account">
             </form>
         </div>

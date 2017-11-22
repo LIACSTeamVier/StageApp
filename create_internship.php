@@ -1,5 +1,7 @@
 <?php //file made with help from w3schools.com
 session_start();
+include 'sidebar_selector.php';
+
 //TODO put stuff in sessions when logging in, fix the vars in here to match the session, fix the stuff in here to match the correct database, and fix to match the table
 ///!!!! put correct stuff in the session
 //echo "Hello " . $_SESSION["name"] . $_SESSION["surname"]. ".<br>";
@@ -88,29 +90,44 @@ function insertIntoDatabase($name, $email, $tele, $location, $company, $descript
         <meta name="Description" content= "Page To Offer Internships" />
         <style type="text/css">
         </style>
-        <title>Page To Offer Internships</title>
+        <title>Submit internship - LIACS Student Project Manager</title>
     </head>
    <body>
     <p>
-        Fill in the forms to make your internship information available to the
+        Fill in this form to make your internship information available to the
         students.
     </p>
-    <p><span class="error">* required field.</span></p>
+    <p><span class="error">* Required field.</span></p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="stage">
-        Name: <input type="text" name="name" value="<?php  echo $name;?>">
-        <span class="error">* <?php echo $nameErr;?></span>
-        <br><br>
-        E-mail: <input type="text" name="email" value="<?php echo $email;?>">
-        <span class="error">* <?php echo $emailErr;?></span>
-        <br><br>
-        Phone number: <input type="text" name="tele" value="<?php echo $tele;?>">
-        <span class="error"> <?php echo $teleErr;?></span>
-        <br><br>
-        Your internship's location: <input type="text" name="location" value="<?php echo $location;?>">
-        <br><br>
-	Your company's name: <input type="text" name="company" value=<?php echo $company;?>>
-	<br><br>
-        Describe your internship: <textarea name="description" rows="5" cols="40"><?php echo $description;?></textarea>
+        <table class="form">
+			<tr>
+				<td>Name:</td>
+				<td><input type="text" name="name" value="<?php  echo $name;?>">
+				<span class="error">* <?php echo $nameErr;?></span></td>
+			</tr>
+			<tr>
+				<td>Email address:</td>
+				<td><input type="text" name="email" value="<?php echo $email;?>">
+				<span class="error">* <?php echo $emailErr;?></span></td>
+			</tr>
+			<tr>
+				<td>Phone number:</td>
+				<td><input type="text" name="tele" value="<?php echo $tele;?>">
+				<span class="error"> <?php echo $teleErr;?></span></td>
+			</tr>
+			<tr>
+				<td>Location:</td>
+				<td><input type="text" name="location" value="<?php echo $location;?>"></td>
+			</tr>
+			<tr>
+				<td>Company name:</td>
+				<td><input type="text" name="company" value=<?php echo $company;?>></td>
+			</tr>
+			<tr>
+				<td>Internship description:</td>
+			</tr>
+		</table>
+		<textarea name="description" rows="5" cols="40"><?php echo $description;?></textarea>
         <span class="error">* <?php echo $descriptionErr;?></span>
         <br><br>
         <input type="submit" value="Post internship">
