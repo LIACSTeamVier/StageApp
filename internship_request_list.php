@@ -1,6 +1,8 @@
 
 <?php
 	session_start();
+	include 'sidebar_selector.php';
+	
 	$configs = include("config.php");
 	if ($_SERVER["REQUEST_METHOD"] == "GET"){
         $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
@@ -146,17 +148,9 @@
 
         <meta name="Description" content= "Requesting Students" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Requesting Students</title>
+        <title>Requesting students - LIACS Student Project Manager</title>
     </head>
     <body>
-
-        <div class="sidepane">
-            <a href="main_page.php">Overview</a>
-            <a href="project_list.php">Projects</a>
-            <a href="#">Contact</a>
-            <a href="database_table.php">Database</a>
-            <a href="#">Help</a></a>
-        </div>
 
         <div class="main">
             <?php
@@ -174,7 +168,7 @@
         
 		        $project_table = mysqli_query($con, "SELECT * FROM Supervises b WHERE b.SupID='$contactid' AND b.type = 'Internship Contact' AND b.Accepted='0'") or die('Unable to run query:' . mysqli_error());
 		        echo "These students want to join your internship";
-		        echo "<table width='40%' id='1strequest_table'>"; // start a table tag in the HTML
+		        echo "<table width='40%' id='1strequest_table' class=\"list\">"; // start a table tag in the HTML
 		        // column names
 		        echo "<tr><th onclick=\"sortTable(0)\">Student Id</th>
 				          <th onclick=\"sortTable(1)\">Student Name</th></tr>";
