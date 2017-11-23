@@ -88,11 +88,12 @@ function insertIntoDatabase($name, $email, $tele, $location, $company, $descript
         <meta charset="utf-8" /> 
           
         <meta name="Description" content= "Page To Offer Internships" />
-        <style type="text/css">
+        <link rel="stylesheet" type="text/css" href="style.css">
         </style>
         <title>Submit internship - LIACS Student Project Manager</title>
     </head>
    <body>
+   <div class="main">
     <p>
         Fill in this form to make your internship information available to the
         students.
@@ -132,5 +133,6 @@ function insertIntoDatabase($name, $email, $tele, $location, $company, $descript
         <br><br>
         <input type="submit" value="Post internship">
     </form>
+   </div>
    </body>
 </html>

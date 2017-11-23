@@ -37,7 +37,7 @@ include 'sidebar_selector.php';
 					$result = query_our_database("SELECT Student.StuID, Student.StuName, Student.StuEMAIL, Student.StuTel, Does.ProjectName, Project.Progress, Supervisor.SupName FROM Student LEFT JOIN Does ON Student.StuID=Does.StuID LEFT JOIN Project ON Does.ProjectName=Project.ProjectName LEFT JOIN Supervisor ON Project.SupID=Supervisor.SupID");
 					 
 					echo "<h3>Student overview</h3>
-							<table>"; // start a table tag in the HTML
+							<table class=\"list\">"; // start a table tag in the HTML
 				
 					// column names
 					echo "<tr><th>Name</th>
@@ -83,7 +83,7 @@ include 'sidebar_selector.php';
 								<input type='submit' value='Create an admin account'>
 							</form>";
 					//Button for getting full sup history
-					echo "<form action='suphistory.php' method='post'>
+					echo "<form action='supervisor_history.php' method='post'>
 						<input type='text' name='stuHistID' value=''>
 						<input type='submit' value='Get Full Supervision History For Student'>
 						</form>";

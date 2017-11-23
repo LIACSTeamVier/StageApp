@@ -44,7 +44,10 @@
             <h4><a href="internship_request_list.php">Student requests</a></h4>
         </div>
         <div class="menu-item">
-            <h4><a href="index.php">Logout</a></h4>
+            <h4><a href="create_internship.php">Add internship</a></h4>
+        </div>
+        <div class="menu-item">
+            <h4><a href="attempting_Logout.php">Logout</a></h4>
         </div>
     </div> 
 </div> 
