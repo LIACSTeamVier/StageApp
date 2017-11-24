@@ -4,7 +4,7 @@ Session_start();
 include 'sidebar_selector.php';
 
 $nameErr = $unameErr = $emailErr = $phoneErr = $passErr = "";
-$name = $uname = $email = $phonenum = $password = "";
+$name = $uname = $email = $phonenum = $password = $hash = "";
 $error = False;
 if (isset($_SESSION["nameErr"]))
 {
@@ -121,6 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 function attemptRegister($name, $uname, $email, $phonenum, $password, $passwordcheck) {
     $class = "Student";
+    //$hash = password_hash($password, PASSWORD_BCRYPT);
     insertIntoUsers($uname, $class, $name, $password);
     insertIntoStudent($uname, $name, $email, $phonenum);
     if (!isset($_SESSION["regErr"]))

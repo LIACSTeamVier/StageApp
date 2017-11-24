@@ -1,5 +1,6 @@
 <?php
-    require_once "random_compat-2.0.11/lib/random.php";    
+    require_once "random_compat-2.0.11/lib/random.php";
+    //require_once "password_compat-master/lib/password.php"; //FIXME zorgt nog voor problemen.
     
     // Database query
     function query_our_database($query) {
