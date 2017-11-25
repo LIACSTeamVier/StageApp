@@ -83,6 +83,9 @@
             <h4><a href="project_list.php">Projects</a></h4>
         </div>
         <div class="menu-item">
+            <h4><a href="profile.php">My Profile</a></h4>
+        </div>  
+        <div class="menu-item">
             <h4><a href="attempting_Logout.php">Logout</a></h4>
         </div>
     </div>
