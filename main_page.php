@@ -127,15 +127,67 @@ include 'sidebar_selector.php';
 				if ($class == "Student") {
 					//Show your project and supervisors
 					
-					$result = query_our_database("SELECT Does.ProjectName, Project.Description, Project.Progress FROM Does LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE StuID='".$_SESSION["ID"]."'");
+					$result = query_our_database("SELECT Does.ProjectName, Project.Description, Project.Progress, Project.Time, Project.Internship, Project.SupID, Project.IConID FROM Does LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE StuID='".$_SESSION["ID"]."'");
 					$row = mysqli_fetch_array($result);
+                    
+                    
 					
 					echo "<h2>My project</h2>";
 					if ($row['ProjectName'] != "") {
-						echo "<h3>Title: " . $row['ProjectName']. "</h3>";
-						echo "<p style='margin-left: 5px'>". $row['Description'] . "<p>";
-						
-						if ($row['Progress'] != "") 
+                        $type = $row["Internship"];//1 is internship
+                        if($type == "1"){
+                            $result2 = query_our_database("SELECT * FROM Internship_of WHERE ProjectName='".$row["ProjectName"]."'");
+                            $rowinterinfo = mysqli_fetch_array($result2);
+                            $result3 = query_our_database("SELECT * FROM Internship_Contact WHERE IConID='".$row["IConID"]."'");
+                            $rowcontactinfo = mysqli_fetch_array($result3);
+                        }
+                        else{
+                            $result2 = query_our_database("SELECT * FROM Supervisor WHERE SupID='".$row["SupID"]."'");
+                            $rowcontactinfo = mysqli_fetch_array($result2);
+                        }
+						//echo "<h3>Title: " . $row['ProjectName']. "</h3>";
+						//echo "<p style='margin-left: 5px'>". $row['Description'] . "<p>";
+						echo "<table class=\"list\">
+                            <tr>";
+                        if($type == "1"){
+                            echo "<th>Name and Description</th><th>Time</th><th>Project Owner Name</th><th>Owner Email</th><th>Owner Phone Number</th><th>Type</th><th>Company Name</th><th>City</th><th>Street</th><th>Nr</th><th>Travel</th><th>Pay</th>
+                            </tr>
+                            <tr>
+                            <td width='40%'><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
+                            <td>" . $row['Time'] . "</td>
+                            <td>" . $rowcontactinfo['IConName'] . "</td>
+                            <td>" . $rowcontactinfo['IConEMAIL'] . "</td>
+                            <td>" . $rowcontactinfo['IConTel'] . "</td>
+                            <td>Internship</td>
+                            <td>" . $rowinterinfo['CompanyName'] . "</td>
+                            <td>" . $rowinterinfo['LocName'] . "</td>
+                            <td>" . $rowinterinfo['Location'] . "</td>
+                            <td>" . $rowinterinfo['StreetNr'] . "</td>";
+                            if($rowinterinfo["Travel"] == 1)
+                                echo "<td>Travel, </br>" . $rowinterinfo['Tnotes'] . "</td>";
+                            else
+                                echo "<td>No Travel Compensation</td>";
+                            echo "<td>" . $rowinterinfo['Pay'] . "</td>
+                            </tr>";
+                        }
+                        else{
+                            echo "<th>Name and Description</th><th>Time</th><th>Project Owner Name</th><th>Owner Email</th><th>Owner Phone Number</th><th>Owner Topics</th><th>Type</th>
+                            </tr>
+                            <tr>
+                            <td width='40%'><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
+                            <td>" . $row['Time'] . "</td>
+                            <td>" . $rowcontactinfo['SupName'] . "</td>
+                            <td>" . $rowcontactinfo['SupEMAIL'] . "</td>
+                            <td>" . $rowcontactinfo['SupTel'] . "</td>
+                            <td>" . $rowcontactinfo['Topics'] . "</td>
+                            <td>University Project</td>
+                            </tr>";
+                        }
+                        
+                        echo "</table>";
+                        
+                        
+                        if ($row['Progress'] != "") 
 							echo "<h3>Progress: " . $row['Progress'] . "</h3>";
 						else
 							echo "<h3>Progress: -</h3>";
@@ -145,11 +197,29 @@ include 'sidebar_selector.php';
 					}
 					
 					
-					$result = query_our_database("SELECT Supervises.type, Supervisor.SupName, Supervises.Accepted, Supervisor.SupEMAIL, Supervisor.SupTel FROM Supervises LEFT JOIN Supervisor ON Supervises.SupID=Supervisor.SupID WHERE StuID='".$_SESSION["ID"]."' ORDER BY type"); //TODO: when "active" is in database, filter on it
-					
+					//$result = query_our_database("SELECT Supervises.type, Supervisor.SupName, Supervises.Accepted, Supervisor.SupEMAIL, Supervisor.SupTel FROM Supervises LEFT JOIN Supervisor ON Supervises.SupID=Supervisor.SupID WHERE StuID='".$_SESSION["ID"]."' ORDER BY type"); //TODO: when "active" is in database, filter on it
+					$result = query_our_database("SELECT SupID, Accepted FROM Supervises WHERE StuID='".$_SESSION["ID"]."' AND type='First SuperVisor'");
 					
 					//first supervisor
-					$row = mysqli_fetch_array($result); //go through the two (active) rows
+                    $found = false;
+                    while ($row = mysqli_fetch_array($result)){
+                        if ($row['Accepted'] == "0" || $row['Accepted'] == "1"){
+                            $result2 = query_our_database("SELECT * FROM Supervisor WHERE SupID='".$row['SupID']."'");
+                            $rowcontact = mysqli_fetch_array($result2);
+                            $found = true;
+                            echo "<h3>First supervisor: " . $rowcontact['SupName'];
+                            if($row['Accepted'] == "1")
+                                echo "</h3>";
+                            else
+                                echo " (not confirmed yet)</h3>";
+                            echo "<p style='margin-left: 5px'>E-mail: " . $rowcontact['SupEMAIL'] . "</p>";
+                            echo "<p style='margin-left: 5px'>Telephone: " . $rowcontact['SupTel'] . "</p>";
+                            break;
+                        }
+                    }
+                    if (!$found)
+                        echo "<h3>First supervisor: -</h3>";
+					/*$row = mysqli_fetch_array($result); //go through the two (active) rows
 					if ($row['type'] == "First Supervisor") {
 						echo "<h3>First supervisor: " . $row['SupName'];
 					}
@@ -167,9 +237,31 @@ include 'sidebar_selector.php';
 					if ($row['SupName'] != NULL) {
 						echo "<p style='margin-left: 5px'>E-mail: " . $row['SupEMAIL'] . "</p>";
 						echo "<p style='margin-left: 5px'>Telephone: " . $row['SupTel'] . "</p>";
-					}
+					}*/
 					
+                    $result = query_our_database("SELECT SupID, Accepted FROM Supervises WHERE StuID='".$_SESSION["ID"]."' AND type='Second SuperVisor'");
 					
+					//second supervisor
+                    $found = false;
+                    while ($row = mysqli_fetch_array($result)){
+                        if ($row['Accepted'] == "0" || $row['Accepted'] == "1"){
+                            $result2 = query_our_database("SELECT * FROM Supervisor WHERE SupID='".$row['SupID']."'");
+                            $rowcontact = mysqli_fetch_array($result2);
+                            $found = true;
+                            echo "<h3>Second supervisor: " . $rowcontact['SupName'];
+                            if($row['Accepted'] == "1")
+                                echo "</h3>";
+                            else
+                                echo " (not confirmed yet)</h3>";
+                            echo "<p style='margin-left: 5px'>E-mail: " . $rowcontact['SupEMAIL'] . "</p>";
+                            echo "<p style='margin-left: 5px'>Telephone: " . $rowcontact['SupTel'] . "</p>";
+                            break;
+                        }
+                    }
+                    if (!$found)
+                        echo "<h3>Second supervisor: -</h3>";
+                    
+					/*
 					//second supervisor
 					$row = mysqli_fetch_array($result); //go through the two (active) rows
 					if ($row['type'] == "Second Supervisor") {
@@ -190,15 +282,7 @@ include 'sidebar_selector.php';
 						echo "<p style='margin-left: 5px'>E-mail: " . $row['SupEMAIL'] . "</p>";
 						echo "<p style='margin-left: 5px'>Telephone: " . $row['SupTel'] . "</p>";
 					}
-					
-				//}
-				
-				echo "<br>";
-				
-				//Button for requesting a supervisor (TODO: move to supervisor page)
-				echo "<form action='suplist.php' method='post'>
-							<input type='submit' value='Make a request for a supervisor'>
-						</form>";
+					*/
 				}
 			
 			?>
