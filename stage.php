@@ -150,10 +150,11 @@
             //	header("Location: main_page.php");
         }	
 
+	$icid = $_SESSION["ID"];
         $stmt2 = mysqli_prepare($con,
-         "INSERT INTO Project(ProjectName, Description, Time, Studentqualities, Topic, Internship, IConName, CompanyName)
-          VALUES (?,?,?,?,?,'1',?,?)");
-        mysqli_stmt_bind_param($stmt2, 'sssssss', $naam, $description, $tijdrest, $squal, $topic,$intsupname,$compname);
+         "INSERT INTO Project(ProjectName, Description, Time, Studentqualities, Topic, Internship, IConID, IConName, CompanyName)
+          VALUES (?,?,?,?,?,'1',?,?,?)");
+        mysqli_stmt_bind_param($stmt2, 'ssssssss', $naam, $description, $tijdrest, $squal, $topic,$icid, $intsupname,$compname);
         $result2 = mysqli_stmt_execute($stmt2);
         //$result2 = mysqli_stmt_get_result($stmt2);
         mysqli_stmt_close($stmt2);
