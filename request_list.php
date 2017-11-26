@@ -2,6 +2,9 @@
 	session_start();
 	date_default_timezone_set("Europe/Amsterdam");
 	$configs = include("config.php");
+    require_once "sidebar_selector.php";
+    require_once "general_functions.php";
+    
 	if ($_SERVER["REQUEST_METHOD"] == "GET"){
         $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
 		// Check connection
@@ -18,9 +21,9 @@
 
 			if(mysqli_affected_rows($con)>0){
 				mysqli_stmt_close($stmt);
-				
-                        	$stmt3 = mysqli_prepare($con, "SELECT type, SupID, StuID FROM Supervises WHERE ActivationCode=?");
-                	        mysqli_stmt_bind_param($stmt3, 's', $randomstr);
+    
+                $stmt3 = mysqli_prepare($con, "SELECT type, SupID, StuID FROM Supervises WHERE ActivationCode=?");
+                mysqli_stmt_bind_param($stmt3, 's', $randomstr);
 				mysqli_stmt_execute($stmt3);
 				$res3 = mysqli_stmt_get_result($stmt3);
 				$rowres3 = mysqli_fetch_array($res3);
@@ -37,7 +40,7 @@
 					die("mysql error");
 				}
 				mysqli_stmt_close($stmt2);
-                        	sendMailToStudent($con, $configs, $studid, $docid, $type);
+                sendMailToStudent($con, $configs, $studid, $docid, $type);
 				echo "<script>alert(\"Successfully accepted being a supervisor for the student!\");
 						location.href='main_page.php';
 						exit;
@@ -72,33 +75,26 @@
 //		date_default_timezone_set("Europe/Amsterdam");echo date("Y-m-d: H:i:s");
 		$dateacp = date("Y-m-d: H:i:s"); //echo $dateacp;
 		if(!(empty($_POST["FirstStudent"]))){
-			mysqli_query($con, "UPDATE Supervises SET Accepted='1', DateAccepted='$dateacp'  WHERE type='First Supervisor' AND SupID='$docid' AND StuID='".$_POST["FirstStudent"]."'")
+			mysqli_query($con, "UPDATE Supervises SET Accepted='1', DateAccepted='$dateacp', ActivationCode=NULL WHERE type='First Supervisor' AND SupID='$docid' AND StuID='".$_POST["FirstStudent"]."' AND Accepted='0'")
 			or die('Unable to run query:' . mysqli_error());
-			mysqli_query($con, "UPDATE Supervises SET ActivationCode=NULL WHERE type='First Supervisor' AND SupID='$docid' AND StuID='".$_POST["FirstStudent"]."'")
-                        or die('Unable to run query:' . mysqli_error());
+//			mysqli_query($con, "UPDATE Supervises SET ActivationCode=NULL WHERE type='First Supervisor' AND SupID='$docid' AND StuID='".$_POST["FirstStudent"]."'")
+  //                      or die('Unable to run query:' . mysqli_error());
 			$type = 'First Supervisor';
-                        sendMailToStudent($con, $configs, $_POST["FirstStudent"], $docid, $type);
+            sendMailToStudent($con, $configs, $_POST["FirstStudent"], $docid, $type);
 		}
 		if(!(empty($_POST["SecondStudent"]))){
-			mysqli_query($con, "UPDATE Supervises SET Accepted='1', DateAccepted='$dateacp'  WHERE type='Second Supervisor' AND SupID='$docid' AND StuID='".$_POST["SecondStudent"]."'")
+			mysqli_query($con, "UPDATE Supervises SET Accepted='1', DateAccepted='$dateacp', ActivationCode=NULL WHERE type='Second Supervisor' AND SupID='$docid' AND StuID='".$_POST["SecondStudent"]."' AND Accepted='0'")
 			or die('Unable to run query:' . mysqli_error());
-			mysqli_query($con, "UPDATE Supervises SET ActivationCode=NULL WHERE type='Second Supervisor' AND SupID='$docid' AND StuID='".$_POST["SecondStudent"]."'")
-                        or die('Unable to run query:' . mysqli_error());
+//			mysqli_query($con, "UPDATE Supervises SET ActivationCode=NULL WHERE type='Second Supervisor' AND SupID='$docid' AND StuID='".$_POST["SecondStudent"]."'")
+//                        or die('Unable to run query:' . mysqli_error());
 			$type = 'Second Supervisor';
 			sendMailToStudent($con, $configs, $_POST["SecondStudent"], $docid, $type);
 		}
 				
 		mysqli_close($con);
 	}
-
-
-	function test_input($data) {
-		$data = trim($data);
-		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
-		return $data;
-	}
-    	function sendMailToStudent($con, $configs, $studID, $docID, $type){
+    
+    function sendMailToStudent($con, $configs, $studID, $docID, $type){
 		
 		$result = mysqli_query($con, "SELECT SupName FROM Supervisor WHERE SupID='$docID'");
 		$rowres = mysqli_fetch_array($result);
@@ -140,10 +136,7 @@
 		$headers = "MIME-Version: 1.0\r\n";
 		$headers .= "From: $email_from \r\n";
 		$headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
-		//echo "<div class=\"main\">";
-		//var_dump($email, $subject, $messsage, $headers);	echo "</div>";
-		if(!mail($email,$subject,$message,$headers)){
-			//var_dump($email, $subject, $message, $headsers);die();
+        if(!mail($email,$subject,$message,$headers)){
 			echo "Mail sending failed";
 		}
 	}
@@ -160,15 +153,6 @@
         <script src="sortTable.js"></script>
     </head>
     <body>
-
-        <div class="sidepane">
-            <a href="main_page.php">Overview</a>
-            <a href="request_list.php">Student Supervision Requests</a>
-            <a href="project_list.php">Projects</a>
-            <a href="#">Contact</a>
-            <a href="database_table.php">Database</a>
-            <a href="#">Help</a></a>
-        </div>
 
         <div class="main">
             <?php
@@ -187,7 +171,7 @@
                 if($RoleAllow['RoleFirst'] == "yes"){
 		            $project_table = mysqli_query($con, "SELECT * FROM Supervises b WHERE b.SupID='$docid' AND b.type = 'First Supervisor' AND b.Accepted='0'") or die('Unable to run query:' . mysqli_error());
 		            echo "These students want you as FIRST SUPERVISOR";
-		            echo "<table width='40%' id='1strequest_table'>"; // start a table tag in the HTML
+		            echo "<table class=\"list\" width='40%' id='1strequest_table'>"; // start a table tag in the HTML
 		            // column names
 		            echo "<tr><th onclick=\"sortTable(0)\">Student Id</th>
 				              <th onclick=\"sortTable(1)\">Student Name</th></tr>";
@@ -210,7 +194,7 @@
 	            if($RoleAllow['RoleSecond'] == "yes"){
 		            $project_table = mysqli_query($con, "SELECT * FROM Supervises b WHERE b.SupID='$docid' AND b.type = 'Second Supervisor' AND b.Accepted='0'") or die('Unable to run query:' . mysqli_error());
 		            echo "These students want you as SECOND SUPERVISOR";
-		            echo "<table width='40%' id='2ndrequest_table'>"; // start a table tag in the HTML
+		            echo "<table class=\"list\" width='40%' id='2ndrequest_table'>"; // start a table tag in the HTML
 		            // column names
 		            echo "<tr><th onclick=\"sortTable(0)\">Student Id</th>
 				              <th onclick=\"sortTable(1)\">Student Name</th></tr>";
