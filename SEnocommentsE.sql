@@ -87,8 +87,12 @@ CREATE TABLE Supervises(
     StuID	VARCHAR(30),
     Accepted	INT(1),
     ActivationCode	VARCHAR(32) UNIQUE,
-	
-    PRIMARY KEY (type, StuID),
+    DateRequested	 VARCHAR(30),
+    DateAccepted	VARCHAR(30),
+    DateTerminated	 VARCHAR(30),
+
+ 	
+    PRIMARY KEY (type, StuID, DateRequested),
     FOREIGN KEY(type) REFERENCES RelationOptions(type),
     FOREIGN KEY(SupID) REFERENCES Supervisor(SupID),
     FOREIGN KEY(StuID) REFERENCES Student(StuID)
@@ -97,8 +101,13 @@ CREATE TABLE Supervises(
 CREATE TABLE Does(
 	StuID	VARCHAR(30),
 	ProjectName	VARCHAR(30),
-	
-	PRIMARY KEY(StuID, ProjectName),
+	Accepted	INT(1),
+	ActivationCode	VARCHAR(32) UNIQUE,
+	DateRequested	 VARCHAR(30),	
+	DateAccepted	VARCHAR(30),	
+	DateTerminated	 VARCHAR(30),
+
+	PRIMARY KEY(StuID, ProjectName, DateRequested),
 	FOREIGN KEY(StuID) REFERENCES Student(StuID),
 	FOREIGN KEY(ProjectName) REFERENCES Project(ProjectName)
 );
