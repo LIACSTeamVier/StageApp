@@ -2,6 +2,33 @@
 include 'general_functions.php';
 session_start();
 include 'sidebar_selector.php';
+    $configs = include("config.php");
+    $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
+    // Check connection
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }   
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (!empty($_POST["progressupdate"])){
+            //if (!empty($_POST["progupdate"])){
+                if($_POST["progupdate"] != $_POST["progold"]){
+                    $pupupdate = test_input($_POST["progupdate"]);
+                    $resproj = mysqli_query($con,"SELECT * FROM Does WHERE StuID='".$_SESSION["ID"]."'");
+                    $rowproj = mysqli_fetch_array($resproj);
+                    $projname = $rowproj["ProjectName"];
+                    $stmt = mysqli_prepare($con, "UPDATE Project SET Progress=? WHERE ProjectName=?");
+                    mysqli_bind_param($stmt, 'ss', $pupupdate, $projname);
+                    mysqli_stmt_execute($stmt);
+                    $numrow = mysqli_affected_rows($con);
+                    mysqli_stmt_close($stmt);
+                    if($numrow != 1){
+                        die("Error updating progress");
+                    }
+                }
+            //}          
+        }        
+    }
+    mysqli_close($con);
 ?>
 
 <!DOCTYPE html>
@@ -185,19 +212,24 @@ include 'sidebar_selector.php';
                         }
                         
                         echo "</table>";
+                        echo "<h3>Progress:</h3>";
+                        $prog = $row['Progress'];
+                        $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
+                        echo "<form action=\"$temp\" method=\"post\">
+                            <textarea name=\"progupdate\" rows=\"5\" cols=\"40\">$prog</textarea>
+                            <input type=\"hidden\" name=\"progold\" value=\"$prog\">
+                            <input type=\"submit\" name=\"progressupdate\" value=\"Update Your Progress\">
+                        </form>";					
                         
-                        
-                        if ($row['Progress'] != "") 
-							echo "<h3>Progress: " . $row['Progress'] . "</h3>";
-						else
-							echo "<h3>Progress: -</h3>";
 					}
 					else {
 						echo "You currently have no project.<br>";
 					}
 					
-					
-					//$result = query_our_database("SELECT Supervises.type, Supervisor.SupName, Supervises.Accepted, Supervisor.SupEMAIL, Supervisor.SupTel FROM Supervises LEFT JOIN Supervisor ON Supervises.SupID=Supervisor.SupID WHERE StuID='".$_SESSION["ID"]."' ORDER BY type"); //TODO: when "active" is in database, filter on it
+                    /*    if ($row['Progress'] != "") 
+							echo "<h3>Progress: " . $row['Progress'] . "</h3>";
+						else*/
+                   //$result = query_our_database("SELECT Supervises.type, Supervisor.SupName, Supervises.Accepted, Supervisor.SupEMAIL, Supervisor.SupTel FROM Supervises LEFT JOIN Supervisor ON Supervises.SupID=Supervisor.SupID WHERE StuID='".$_SESSION["ID"]."' ORDER BY type"); //TODO: when "active" is in database, filter on it
 					$result = query_our_database("SELECT SupID, Accepted FROM Supervises WHERE StuID='".$_SESSION["ID"]."' AND type='First SuperVisor'");
 					
 					//first supervisor
