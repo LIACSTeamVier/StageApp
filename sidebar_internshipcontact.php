@@ -44,7 +44,7 @@
             <h4><a href="internship_request_list.php">Student requests</a></h4>
         </div>
         <div class="menu-item">
-            <h4><a href="create_internship.php">Add internship</a></h4>
+            <h4><a href="stage.php">Add Internship</a></h4>
         </div>
         <div class="menu-item">
             <h4><a href="profile.php">My Profile</a></h4>
