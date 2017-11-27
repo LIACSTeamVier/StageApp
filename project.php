@@ -1,5 +1,6 @@
 <?php //file made with help from w3schools.com
 session_start();
+require_once "sidebar_supervisor.php";
 //TODO put stuff in sessions when logging in, fix the vars in here to match the session, fix the stuff in here to match the correct database, and fix to match the table
 ///!!!! put correct stuff in the session
 
@@ -117,12 +118,12 @@ function insertIntoDatabase($name, $topic, $description, $squal, $tijdrest, $con
     </head>
    <body>
      
-    <div class="sidepane">
+    <!--<div class="sidepane">
        <a href="main_page.php">Overview</a>
        <a href="#">Projects</a>
        <a href="contact.html">Contact</a>
        <a href="#">Help</a></a>
-    </div>
+    </div>-->
      
     <div class="main">
     <p>
@@ -131,21 +132,31 @@ function insertIntoDatabase($name, $topic, $description, $squal, $tijdrest, $con
     </p>
     <p><span class="error">* required field.</span></p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="project">
-        ProjectName: <input type="text" name="name" value="<?php  echo $name;?>">
-        <span class="error">* <?php echo $nameErr;?></span>
-        <br><br>
-        Topic/keywords: <input type="text" name="topic" value="<?php  echo $topic;?>">
-        <span class="error"><?php echo $topicErr;?></span>
-        <br><br>
-        Describe your project: <textarea name="description" rows="5" cols="40"><?php echo $description;?></textarea>
-        <span class="error">* <?php echo $descriptionErr;?></span>
-        <br><br>
-        Describe the qualities you seek in a student (i.e. skillset):  <textarea name="squal" rows="5" cols="40"><?php echo $squal;?></textarea>
-	<span class="error"> <?php echo $squalErr;?></span>
-	<br><br>
-	Describe time restriction (when the project is available):  <textarea name="tijdrest" rows="5" cols="40"><?php echo $tijdrest;?></textarea>
-	<span class="error"> <?php echo $tijdrestErr;?></span>
-	<br><br>
+        <table class="form">
+        <tr>
+        <td>ProjectName:</td><td><input type="text" name="name" value="<?php  echo $name;?>">
+        <span class="error">* <?php echo $nameErr;?></span></td>
+        </tr>
+        <tr>
+        <td>Topic/keywords:</td><td> <input type="text" name="topic" value="<?php  echo $topic;?>">
+        <span class="error"><?php echo $topicErr;?></span></td>
+        </tr>
+        <tr>
+        <td>Describe your project:</td> 
+        <td> <textarea name="description" rows="5" cols="40"><?php echo $description;?></textarea></td>
+        <td><span class="error">* <?php echo $descriptionErr;?></span></td>
+        </tr>
+        <tr>
+        <td>Describe the qualities you seek in a student (i.e. skillset):</td>  
+        <td>  <textarea name="squal" rows="5" cols="40"><?php echo $squal;?></textarea></td>
+        <td><span class="error"> <?php echo $squalErr;?></span></td>
+        </tr>
+        <tr>
+        <td>Describe time restriction (when the project is available):</td>  
+        <td>  <textarea name="tijdrest" rows="5" cols="40"><?php echo $tijdrest;?></textarea></td>
+        <td><span class="error"> <?php echo $tijdrestErr;?></span></td>
+        </tr>
+        </table>
         <input type="submit" value="Post project">
     </form>
     </div>
