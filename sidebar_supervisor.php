@@ -46,6 +46,9 @@
         <div class="menu-item">
             <h4><a href="request_list.php">Supervision Requests</a></h4>
         </div>
+	<div class="menu-item">
+            <h4><a href="project_request_list.php">Project Join Requests</a></h4>
+        </div>
         <div class="menu-item">
             <h4><a href="supervisor_student_list.php">Students</a></h4>
         </div>
