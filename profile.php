@@ -36,7 +36,7 @@
             else if($newpass != $newpassver){
                 $newpassverErr = "Passwords don't match";
             }
-            else if($currentpass != $hashedpass){//if(hashfunctionTODO($currentpass) != $hashedpass){
+            else if(!password_verify($currentpass, $hashedpass)){
                 $currentpassErr = "Wrong password";
             }
             else {
@@ -45,7 +45,7 @@
                     $newpassErr = "Input too big, max 60 characters";
             }
             if( $newpassErr =="" && $newpassverErr == "" && $currentpassErr ==""){
-                $hashednewpass = $newpass;//hashfunctionTODO($newpass);
+                $hashednewpass = password_hash($newpass, PASSWORD_BCRYPT);
                 $stmt = mysqli_prepare($con, "UPDATE InternshipApp_Users SET Password=? WHERE Identifier='$id'");
                 mysqli_bind_param($stmt, 's', $hashednewpass);
                 mysqli_stmt_execute($stmt);
@@ -142,7 +142,7 @@
                 $numrow = mysqli_affected_rows($con);
                 mysqli_stmt_close($stmt);
                 if($numrow != 1){
-                    die("Error updating topics");
+                    die("Error updating email address");
                 }
             }
         }
@@ -268,3 +268,4 @@
         </div>
     </body>
 </html> 
+

@@ -1,7 +1,7 @@
 <?php
-include "general_functions.php";
 Session_start();
-include 'sidebar_selector.php';
+require_once "general_functions.php";
+require_once "sidebar_selector.php";
 
 $nameErr = $unameErr = $emailErr = $phoneErr = $passErr = "";
 $name = $uname = $email = $phonenum = $password = $hash = "";
@@ -121,8 +121,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 function attemptRegister($name, $uname, $email, $phonenum, $password, $passwordcheck) {
     $class = "Student";
-    //$hash = password_hash($password, PASSWORD_BCRYPT);
-    insertIntoUsers($uname, $class, $name, $password);
+    $hash = password_hash($password, PASSWORD_BCRYPT);
+    insertIntoUsers($uname, $class, $name, $hash);
     insertIntoStudent($uname, $name, $email, $phonenum);
     if (!isset($_SESSION["regErr"]))
         $_SESSION["regErr"] = "Account created successfully!";

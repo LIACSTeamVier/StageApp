@@ -1,6 +1,7 @@
 <?php
+require_once "general_functions.php";
 Session_start();
-include 'sidebar_selector.php';
+require_once 'sidebar_selector.php';
 
 $loginErr = $regErr = "";
 $uname = $password = "";
@@ -33,13 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
 function attemptLogin($uname, $password) {
     $configs = include("config.php");
     $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
@@ -50,7 +44,8 @@ function attemptLogin($uname, $password) {
     $result = mysqli_query($con, "SELECT * FROM InternshipApp_Users g WHERE g.Identifier='$uname'") or die('Unable to run query:' . mysqli_error());
     $row = mysqli_fetch_row($result);
     mysqli_close($con);
-    if ($row[3] == $password) {
+    if (password_verify($password, $row[3])) {
+    //if ($row[3] == $password) {
         // set session vars
         $_SESSION["username"] = "$row[2]";
         $_SESSION["class"] = "$row[1]";

@@ -1,6 +1,6 @@
 <?php
     require_once "random_compat-2.0.11/lib/random.php";
-    //require_once "password_compat-master/lib/password.php"; //FIXME zorgt nog voor problemen.
+    require_once "password_compat-master/lib/password.php"; 
     
     // Database query
     function query_our_database($query) {
@@ -69,7 +69,7 @@
         
         // HTML body
         $message .= "Dear <td>".$name."</td>,</br> An account has been made for you on the
-    <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.</br> Your username and password are as follows:</br> Username: <td>".$email."</td></br> Password: <td>".$password."</td></br> Please do not reply to this e-mail.</br>(notactually)LIACS"; // TODO replace with file
+    <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.</br> Your username and password are as follows:</br> Username: <td>".$uname."</td></br> Password: <td>".$password."</td></br> Please do not reply to this e-mail.</br>(notactually)LIACS"; // TODO replace with file
         $message .= "\r\n\r\n--" . $boundary . "--";
         
         
