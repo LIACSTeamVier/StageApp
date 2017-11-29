@@ -36,7 +36,7 @@ $project = $_GET['prjct'];
 			}
 	}
 	
-	echo "<a href='http://liacs.leidenuniv.nl/~s1551396/StageApp/Login.php'>Return Home</a>";
+	echo "<a href='Location: http://csthesis.liacs.leidenuniv.nl/main_page.php'>Return Home</a>";
 
 ?>
 </body>
