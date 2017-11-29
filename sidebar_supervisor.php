@@ -44,19 +44,19 @@
             <h4><a href="project.php">Create project</a></h4>
         </div>
         <div class="menu-item">
-            <h4><a href="request_list.php">Supervision Requests</a></h4>
+            <h4><a href="request_list.php">Supervision requests</a></h4>
         </div>
 	<div class="menu-item">
-            <h4><a href="project_request_list.php">Project Join Requests</a></h4>
+            <h4><a href="project_request_list.php">Project join requests</a></h4>
         </div>
         <div class="menu-item">
             <h4><a href="supervisor_student_list.php">Students</a></h4>
         </div>
         <div class="menu-item">
-            <h4><a href="profile.php">My Profile</a></h4>
+            <h4><a href="profile.php">My profile</a></h4>
         </div>          
         <div class="menu-item">
-            <h4><a href="attempting_Logout.php">Logout</a></h4>
+            <h4><a href="logout.php">Logout</a></h4>
         </div>
     </div> 
 </div> 

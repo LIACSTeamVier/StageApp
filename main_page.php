@@ -50,8 +50,7 @@ include 'sidebar_selector.php';
 				}
 				$username = $_SESSION["username"];
 				$class = $_SESSION["class"];
-				echo "<h1>Welcome " . "$username" ."</h1>";
-				echo "You are logged in as " . "$class" . "." ."<p>"; //TODO temp, remove line.
+				echo "<h1>LIACS Student Project Manager</h1>";
 
 				// After sending an e-mail
 				if (isset($_SESSION["regErr"])) {
@@ -104,16 +103,12 @@ include 'sidebar_selector.php';
 
 					echo "</table><br>"; //Close the table in HTML
 
-					//Button for creating admin account (TODO: move to accounts page)
-					echo "<h3>Actions</h3>
-							<form action='create_admin_account.php' method='head'>
-								<input type='submit' value='Create an admin account'>
-							</form>";
+					//TODO: create link to supervisor history in students table
 					//Button for getting full sup history
-					echo "<form action='supervisor_history.php' method='post'>
-						<input type='text' name='stuHistID' value=''>
-						<input type='submit' value='Get Full Supervision History For Student'>
-						</form>";
+					//echo "<form action='supervisor_history.php' method='post'>
+					//	<input type='text' name='stuHistID' value=''>
+					//	<input type='submit' value='Get Full Supervision History For Student'>
+					//	</form>";
 				}
 				if ($class == "Supervisor") {
 					//List assigned students and their projects

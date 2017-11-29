@@ -155,13 +155,13 @@
 	<head>
 		<meta charset="utf-8" /> 
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<title>Profile Information - LIACS Student Project Manager</title>
+		<title>Profile information - LIACS Student Project Manager</title>
 	</head>
     <body>
         <div class="main">
         <?php
         if($class != "Admin"){
-            echo "<h3>Hello $name, this is your profile information</h3>";
+			echo "<h3>Profile information</h3>";
             echo "<table class=\"list\">";
         }
         if ($class == "Supervisor"){
@@ -212,7 +212,7 @@
             echo "<form action=\"$temp\" method=\"post\">
                 <table class=\"form\">
                     <tr>
-                        <td>New Email address:</td>
+                        <td>New email address:</td>
                         <td><input type=\"text\" name=\"newemailaddress\" value=\"\">
                         <span class=\"error\">$newemailErr</span></td>
                     </tr>
@@ -223,7 +223,7 @@
             echo "<form action=\"$temp\" method=\"post\">
                 <table class=\"form\">
                     <tr>
-                        <td>New Phone Number:</td>
+                        <td>New phone number:</td>
                         <td><input type=\"text\" name=\"newtelnum\" value=\"\">
                         <span class=\"error\">$newtelErr</span></td>
                     </tr>
@@ -235,7 +235,7 @@
             echo "<form action=\"$temp\" method=\"post\">
                 <table class=\"form\">
                     <tr>
-                        <td>Update Topics:</td>
+                        <td>Update topics:</td>
                         <td><input type=\"text\" name=\"newsuptopics\" value=\"\">
                         <span class=\"error\">$newtopicsErr</span></td>
                     </tr>
@@ -247,20 +247,20 @@
         
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
             <table class="form">
+				<tr>
+                    <td>Current password:</td>
+                    <td><input type="password" name="passwordcheck" value="">
+                    <span class="error"><?php echo $currentpassErr;?></span></td>
+                </tr>
                 <tr>
-                    <td>New Password:</td>
+                    <td>New password:</td>
                     <td><input type="password" name="newpassword" value="">
                     <span class="error"><?php echo $newpassErr;?></span></td>
                 </tr>
                 <tr>
-                    <td>Repeat New Password:</td>
+                    <td>Repeat new password:</td>
                     <td><input type="password" name="newpasswordver" value="">
                     <span class="error"><?php echo $newpassverErr;?></span></td>
-                </tr>
-                <tr>
-                    <td>Current Password:</td>
-                    <td><input type="password" name="passwordcheck" value="">
-                    <span class="error"><?php echo $currentpassErr;?></span></td>
                 </tr>
             </table>
             <input type="submit" name="passupdate" value="Update Password">

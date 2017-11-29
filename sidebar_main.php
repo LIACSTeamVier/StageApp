@@ -41,7 +41,7 @@
             <h4><a href="index.php">Login</a></h4>
         </div>
         <div class="menu-item">
-            <h4><a href="create_own_account.php">Create Account</a></h4>
+            <h4><a href="create_own_account.php">Create account</a></h4>
         </div>
         <div class="menu-item">
             <h4><a href="contact.php">Contact</a></h4>
