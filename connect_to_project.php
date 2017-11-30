@@ -41,7 +41,7 @@ $result = $conn->query($sql);
 </form>
 <?php
 if(isset($_POST['submit'])){
-$stmt = $conn->prepare("INSERT INTO volbrengt (afstudeerderID, ProjectNaam) VALUES (?,?);
+$stmt = $conn->prepare("INSERT INTO volbrengt (afstudeerderID, ProjectNaam) VALUES (?,?)");
 $stmt->bind_param("ss", $id, $selected_val);
 
 $selected_val = $_POST['Projects'];  // Storing Selected Value In Variable
