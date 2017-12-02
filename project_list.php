@@ -1,6 +1,6 @@
 <?php
-include 'general_functions.php';
 session_start();
+include 'general_functions.php';
 include 'sidebar_selector.php';
 ?>
 
@@ -13,7 +13,7 @@ include 'sidebar_selector.php';
         <link rel="stylesheet" type="text/css" href="style.css">
         <title>Projects and Internships</title>
         <script src="sortTable.js"></script>
-        <style>
+ <!--       <style>
         table, th, td {
 			border: 1px solid black;
 			border-collapse: collapse;
@@ -23,7 +23,7 @@ include 'sidebar_selector.php';
 		}
 		th {
 			text-align: left;
-		}
+		}-->
         </style>
     </head>
     <body>
@@ -47,7 +47,7 @@ include 'sidebar_selector.php';
                 }
                 
                 $project_table = mysqli_query($con, "SELECT * FROM Project") or die('Unable to run query:' . mysqli_error());
-                echo "<table width='100%' id='project_table'>"; // start a table tag in the HTML
+                echo "<table class=\"list\" width='100%' id='project_table'>"; // start a table tag in the HTML
                 
                 // column names
                 echo "<tr><th onclick=\"sortTable(0)\">Name and description</th>
@@ -80,9 +80,9 @@ include 'sidebar_selector.php';
 					if ($_SESSION["class"] == "Student"){
 					echo "<td> 
 					
-					<form method=\"POST\" action=\"Subscription.php?prjct=" . $row['ProjectName'] . "\">
+					<form method=\"POST\" action=\"subscription.php?prjct=" . $row['ProjectName'] . "\">
 					
-						<input type=\"submit\" name=" . $row['ProjectName'] . " value=\"Suscribe\" />
+						<input type=\"submit\" name=" . $row['ProjectName'] . " value=\"Subscribe\" />
 						
 					</form>
 					
