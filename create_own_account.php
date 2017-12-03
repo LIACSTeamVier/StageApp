@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $name = test_input($_POST["name"]); 
         if(strlen($name) > 30) {
-            $nameErr = "Input too big";
+            $nameErr = "Input can be no more than 30 characters";
             $error = True;
         }
     }
@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $uname = test_input($_POST["uname"]); 
         if(strlen($uname) > 10) {
-            $unameErr = "Input too big";
+            $unameErr = "Input can be no more than 10 characters";
             $error = True;
         }
     }
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $email = test_input($_POST["email"]); 
         if(strlen($email) > 50) {
-            $emailErr = "Input too big";
+            $emailErr = "Input can be no more than 50 characters";
             $error = True;
         }
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = test_input($_POST["password"]);
         $passwordcheck = test_input($_POST["passwordcheck"]);  
         if(strlen($password) > 30) {
-            $passErr = "Input too big";
+            $passErr = "Input can be no more than 30 characters";
             $error = True;
         }
         if($password != $passwordcheck) {

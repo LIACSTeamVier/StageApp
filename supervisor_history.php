@@ -1,6 +1,7 @@
 <?php
-	session_start();
-	include 'sidebar_selector.php';
+	Session_start();
+	require_once "sidebar_selector.php";
+	require_once "general_functions.php";
 	
 	$configs = include("config.php");
 	$con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
@@ -8,13 +9,8 @@
 	if (mysqli_connect_errno()) {
 			echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
-	
-	function test_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
+    
+    $stuid = test_input($_POST["stuHistID"]);
 
 ?>
 <!DOCTYPE html>
@@ -26,9 +22,8 @@
 	</head>
 	<body>
 		<div class="main">
-			<?php 
-				$stuid = test_input($_POST["stuHistID"]);
-				if($_SESSION["class"] != "Admin" || empty($stuid)){
+			<?php
+				if($_SESSION["class"] != "Admin" || empty($stuid)) {
 					header("Location: main_page.php");
 					die();
 				}

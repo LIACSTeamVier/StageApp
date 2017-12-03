@@ -42,7 +42,7 @@
             else {
                 $newpass = test_input($newpass);
                 if(strlen($newpass) > 60)
-                    $newpassErr = "Input too big, max 60 characters";
+                    $newpassErr = "Input can be no more than 60 characters";
             }
             if( $newpassErr =="" && $newpassverErr == "" && $currentpassErr ==""){
                 $hashednewpass = password_hash($newpass, PASSWORD_BCRYPT);
@@ -99,7 +99,7 @@
             else {
                 $newemail = test_input($newemail);
                 if(strlen($newemail) > 50) {
-                    $newemailErr = "Email address too big, max 50 characters";
+                    $newemailErr = "Email address can be no more than 50 characters";
                 }
                 if (!filter_var($newemail, FILTER_VALIDATE_EMAIL)) {
                     $newemailErr = "Invalid email format"; // W3Schools
@@ -132,7 +132,7 @@
             else {
                 $newtopics = test_input($newtopics);
                 if(strlen($newtopics) > 144) {
-                    $newtopicsErr = "No bigger than a tweet, 144 characters";
+                    $newtopicsErr = "Input can be no more than 144 characters";
                 }
             }
             if($newtopicsErr ==""){
@@ -155,13 +155,13 @@
 	<head>
 		<meta charset="utf-8" /> 
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<title>Profile information - LIACS Student Project Manager</title>
+		<title>Profile Information - LIACS Student Project Manager</title>
 	</head>
     <body>
         <div class="main">
         <?php
         if($class != "Admin"){
-			echo "<h3>Profile information</h3>";
+            echo "<h3>Hello $name, this is your profile information</h3>";
             echo "<table class=\"list\">";
         }
         if ($class == "Supervisor"){
@@ -212,7 +212,7 @@
             echo "<form action=\"$temp\" method=\"post\">
                 <table class=\"form\">
                     <tr>
-                        <td>New email address:</td>
+                        <td>New Email address:</td>
                         <td><input type=\"text\" name=\"newemailaddress\" value=\"\">
                         <span class=\"error\">$newemailErr</span></td>
                     </tr>
@@ -223,7 +223,7 @@
             echo "<form action=\"$temp\" method=\"post\">
                 <table class=\"form\">
                     <tr>
-                        <td>New phone number:</td>
+                        <td>New Phone Number:</td>
                         <td><input type=\"text\" name=\"newtelnum\" value=\"\">
                         <span class=\"error\">$newtelErr</span></td>
                     </tr>
@@ -235,7 +235,7 @@
             echo "<form action=\"$temp\" method=\"post\">
                 <table class=\"form\">
                     <tr>
-                        <td>Update topics:</td>
+                        <td>Update Topics:</td>
                         <td><input type=\"text\" name=\"newsuptopics\" value=\"\">
                         <span class=\"error\">$newtopicsErr</span></td>
                     </tr>
@@ -247,20 +247,20 @@
         
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
             <table class="form">
-				<tr>
-                    <td>Current password:</td>
-                    <td><input type="password" name="passwordcheck" value="">
-                    <span class="error"><?php echo $currentpassErr;?></span></td>
-                </tr>
                 <tr>
-                    <td>New password:</td>
+                    <td>New Password:</td>
                     <td><input type="password" name="newpassword" value="">
                     <span class="error"><?php echo $newpassErr;?></span></td>
                 </tr>
                 <tr>
-                    <td>Repeat new password:</td>
+                    <td>Repeat New Password:</td>
                     <td><input type="password" name="newpasswordver" value="">
                     <span class="error"><?php echo $newpassverErr;?></span></td>
+                </tr>
+                <tr>
+                    <td>Current Password:</td>
+                    <td><input type="password" name="passwordcheck" value="">
+                    <span class="error"><?php echo $currentpassErr;?></span></td>
                 </tr>
             </table>
             <input type="submit" name="passupdate" value="Update Password">

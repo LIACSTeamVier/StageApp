@@ -1,7 +1,7 @@
 <?php
-require_once "general_functions.php";
 Session_start();
-require_once 'sidebar_selector.php';
+require_once "sidebar_selector.php";
+require_once "general_functions.php";
 
 $loginErr = $regErr = "";
 $uname = $password = "";
@@ -19,6 +19,11 @@ if (isset($_SESSION["regErr"]))
     unset($_SESSION["regErr"]);
     session_unset();
     session_destroy();
+}
+
+if (isset($_SESSION["username"]) && !empty($_SESSION["username"])) {
+    header("Location: main_page.php");
+    exit;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

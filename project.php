@@ -26,7 +26,7 @@ else{
 		} else {
 			$name = test_input($_POST["name"]);
                 if(strlen($name) > 30)
-                    $nameErr = "Input too big";
+                    $nameErr = "Input can be no more than 30 characters";
 
                 //test if name is taken
                 $stmt = mysqli_prepare($con, "SELECT * FROM Project p WHERE p.ProjectName = ?");
@@ -49,7 +49,7 @@ else{
 		} else {
 			$topic = test_input($_POST["topic"]);
 			if  (strlen($topic) > 127)
-				$topicErr = "Input too big";
+				$topicErr = "Input can be no more than 127 characters";
 		}
 		
 		if (empty($_POST["description"])) {
@@ -142,20 +142,20 @@ function insertIntoDatabase($name, $topic, $description, $squal, $tijdrest, $con
         <span class="error"><?php echo $topicErr;?></span></td>
         </tr>
         <tr>
-        <td>Describe your project:</td> 
-        <td> <textarea name="description" rows="5" cols="40"><?php echo $description;?></textarea></td>
-        <td><span class="error">* <?php echo $descriptionErr;?></span></td>
+        <td>Describe your project:</td>
+        <td> <textarea name="description" rows="5" cols="40"><?php echo $description;?></textarea>
+        <span class="error">* <?php echo $descriptionErr;?></span></td>
         </tr>
         <tr>
-        <td>Describe the qualities you seek in a student (i.e. skillset):</td>  
+        <td>Describe the qualities you seek in a student (i.e. skillset):</td>
         <td>  <textarea name="squal" rows="5" cols="40"><?php echo $squal;?></textarea></td>
-        <td><span class="error"> <?php echo $squalErr;?></span></td>
-        </tr>
+	<td><span class="error"> <?php echo $squalErr;?></span></td>
+	</tr>
         <tr>
-        <td>Describe time restriction (when the project is available):</td>  
+	<td>Describe time restriction (when the project is available):</td>
         <td>  <textarea name="tijdrest" rows="5" cols="40"><?php echo $tijdrest;?></textarea></td>
         <td><span class="error"> <?php echo $tijdrestErr;?></span></td>
-        </tr>
+	</tr>
         </table>
         <input type="submit" value="Post project">
     </form>

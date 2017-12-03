@@ -1,6 +1,6 @@
 <?php
-session_start();
-include 'sidebar_selector.php';
+    Session_start();
+    require_once "sidebar_selector.php";
 ?>
 
 <!DOCTYPE html>
@@ -31,15 +31,16 @@ include 'sidebar_selector.php';
                     // column names
                     echo "<tr><th>Student ID</th>
                           <th>Name</th>
-                          <th>E-mail</th>
-                          <th>Telephone</th></tr>";
+                          <th>Supervision history</th></tr>";
         
                     // rows of the database
                     while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
                         echo "<tr><td>" . $row['StuID'] . "</td>
                               <td>" . $row['StuName'] . "</td>
-                              <td>" . $row['StuEMAIL'] . "</td>
-                              <td>" . $row['StuTel'] . "</td></tr>";  //$row['index'] the index here is a field name
+                              <td><form action=\"supervisor_history.php\" method=\"post\">
+                              <input type=\"submit\" name=\"suphist\" value=\"Get supervision history\">
+                              <input type=\"hidden\" name=\"stuHistID\" value=\"".$row['StuID']."\">
+                              </form></td></tr>";
                     }
 
                     echo "</table>"; //Close the table in HTML

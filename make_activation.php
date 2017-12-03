@@ -166,9 +166,10 @@ function test_input($data) {
 				<textarea name="studentmessage" rows="5" cols="40"><?php echo $smessage;?></textarea></br>
 				<input type="submit" name="confirmed" value="Confirm Request">
 			</form>
-			<form action="suplist.php" method="post">
+			<form action="supervisor_list.php" method="post">
 				<input type="submit" name="cancel" value="Cancel Request">
 			</form>
 		</div>
 	</body>
 </html>
+
