@@ -48,8 +48,9 @@ include 'sidebar_selector.php';
 				}
 				$username = $_SESSION["username"];
 				$class = $_SESSION["class"];
-				echo "<h1>Welcome " . "$username" ."</h1>";
-				echo "You are logged in as " . "$class" . "." ."<p>"; //TODO temp, remove line.
+                echo "<h1>LIACS Student Project Manager</h1>";
+				//echo "<h1>Welcome " . "$username" ."</h1>";
+				//echo "You are logged in as " . "$class" . "." ."<p>"; //TODO temp, remove line.
 
 				// After sending an e-mail
 				if (isset($_SESSION["regErr"])) {
@@ -175,7 +176,7 @@ include 'sidebar_selector.php';
 
                         echo "</table><br>"; //Close the table in HTML	
                     }
-                    $result = query_our_database("SELECT Does.ProjectName, Description, Student.StuID, StuName, StuEMAIL, StuTel, Progress FROM Student LEFT JOIN Does ON Student.StuID=Does.StuID LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE Project.SupID='".$_SESSION["ID"]."'");
+                    $result = query_our_database("SELECT Project.ProjectName, Description, Does.StuID, StuName, StuEMAIL, StuTel, Progress FROM Project LEFT JOIN Does ON Project.ProjectName=Does.ProjectName LEFT JOIN Student ON Does.StuID=Student.StuID WHERE Project.SupID='".$_SESSION["ID"]."'");
                     
                     if(mysqli_num_rows($result) > 0){
                         echo "<h3>Project Overview</h3>
@@ -204,7 +205,42 @@ include 'sidebar_selector.php';
                     }
 				}
                 if ($class == "Internship Contact") {
-					//TODO here: add information on internship + participating students
+					$result = query_our_database("SELECT Project.ProjectName, Description, Does.StuID, StuName, StuEMAIL, StuTel, Progress, Pay, LocName, Location, StreetNr, Travel, Tnotes FROM Project LEFT JOIN Does ON Project.ProjectName=Does.ProjectName LEFT JOIN Student ON Does.StuID=Student.StuID LEFT JOIN Internship_of ON Project.ProjectName=Internship_of.ProjectName WHERE Project.IConID='".$_SESSION["ID"]."'");
+                    if(mysqli_num_rows($result) > 0){
+                        echo "<h3>Internship Overview</h3>
+                                    <table class=\"list\">"; // start a table tag in the HTML
+                        
+                        // column names
+                        echo "<tr><th>Name and Description</th>
+                                <th>Student Name</th>
+                                <th>Student E-mail</th>
+                                <th>Student Phone Number</th>
+                                <th>Progress</th>
+                                <th>Location</th>
+                                <th>Pay</th>
+                                <th>Travel</th>
+                                </tr>";
+                        
+                        
+                        // rows of the database
+                        while($row = mysqli_fetch_array($result)){	 //Creates a loop to loop through results
+                            echo "<tr><td width='40%'><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
+                                        <td>" . $row['StuName'] . "</td>
+                                        <td>" . $row['StuEMAIL'] . "</td>
+                                        <td>" . $row['StuTel'] . "</td>
+                                        <td>" . $row['Progress'] . "</td>
+                                        <td>" . $row['Location']. " " . $row['StreetNr'] . ", " . $row['LocName'] . "</td>
+                                        <td>" . $row['Pay'] . "</td>";
+                                        if($row["Travel"] == 1)
+                                            echo "<td>Travel, </br>" . $row['Tnotes'] . "</td>";
+                                        else
+                                            echo "<td>No Travel Compensation</td>";
+                                        echo "</tr>";	//$row['index'] the index here is a field name
+                        }
+
+                        
+                        echo "</table><br>"; //Close the table in HTML	
+                    }
                 }
                 if ($class == "Student") {
                     //Show your project and supervisors
