@@ -364,9 +364,9 @@ include 'sidebar_selector.php';
 				}
 			
 			?>
-			<form action="attempting_Logout.php" method="post">
+			<!--<form action="attempting_Logout.php" method="post">
 				<input type="submit" value="Logout">
-			</form>
+			</form>-->
 
 		</div>
 
