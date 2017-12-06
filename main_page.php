@@ -37,6 +37,7 @@ include 'sidebar_selector.php';
 		<meta name="Description" content= "Home" />
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<title>Overview - LIACS Student Project Manager</title>
+		<script src="sortTable.js"></script>
 	</head>
 	<body>
 
@@ -63,17 +64,17 @@ include 'sidebar_selector.php';
 					$result = query_our_database("SELECT Student.StuID, Student.StuName, Student.StuEMAIL, Student.StuTel, Does.ProjectName, Project.Progress, Supervisor.SupName FROM Student LEFT JOIN Does ON Student.StuID=Does.StuID LEFT JOIN Project ON Does.ProjectName=Project.ProjectName LEFT JOIN Supervisor ON Project.SupID=Supervisor.SupID");
 					 
 					echo "<h3>Student overview</h3>
-							<table class=\"list\">"; // start a table tag in the HTML
+							<table class=\"list\" width='100%' id='admin_table'>"; // start a table tag in the HTML
 				
 					// column names
-					echo "<tr><th>Name</th>
-								<th>Project</th>
-								<th>Progress</th>
-								<th>First Supervisor</th>
-								<th>Second Supervisor</th>
-								<th>Student ID</th>
-								<th>E-mail</th>
-								<th>Telephone</th>
+					echo "<tr><th onclick=\"sortTable(0, 'admin_table')\">Name</th>
+								<th onclick=\"sortTable(1, 'admin_table')\">Project</th>
+								<th onclick=\"sortTable(2, 'admin_table')\">Progress</th>
+								<th onclick=\"sortTable(3, 'admin_table')\">First Supervisor</th>
+								<th onclick=\"sortTable(4, 'admin_table')\">Second Supervisor</th>
+								<th onclick=\"sortTable(5, 'admin_table')\">Student ID</th>
+								<th onclick=\"sortTable(6, 'admin_table')\">E-mail</th>
+								<th onclick=\"sortTable(7, 'admin_table')\">Telephone</th>
 								</tr>";
 
 					// rows of the database
@@ -109,18 +110,18 @@ include 'sidebar_selector.php';
                     $result = query_our_database("SELECT Supervises.StuID, StuName, StuEMAIL, StuTel, type, Supervises.SupID, Supervises.Accepted as SupAccepted, Does.ProjectName, Does.Accepted as ProjectAccepted, Description, Progress FROM Student LEFT JOIN Supervises ON Student.StuID=Supervises.StuID LEFT JOIN Does ON Student.StuID=Does.StuID LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE Supervises.SupID='".$_SESSION["ID"]."' AND Supervises.Accepted='1' ORDER BY StuID");
                     if(mysqli_num_rows($result) > 0){
                         echo "<h3>Student overview</h3>
-                                    <table class=\"list\">"; // start a table tag in the HTML
+                                    <table class=\"list\" width='100%' id='sup_table'>"; // start a table tag in the HTML
                     
                         // column names
-                        echo "<tr><th>Name</th>
-                                <th>First Supervisor</th>
-                                <th>Second Supervisor</th>
-                                <th>Project Name and Description</th>
-                                <th>Project Accepted</th>
-                                <th>Progress</th>
-                                <th>Student ID</th>
-                                <th>E-mail</th>
-                                <th>Phone Number</th>
+                        echo "<tr><th onclick=\"sortTable(0, 'sup_table')\">Name</th>
+                                <th onclick=\"sortTable(1, 'sup_table')\">First Supervisor</th>
+                                <th onclick=\"sortTable(2, 'sup_table')\">Second Supervisor</th>
+                                <th onclick=\"sortTable(3, 'sup_table')\">Project Name and Description</th>
+                                <th onclick=\"sortTable(4, 'sup_table')\">Project Accepted</th>
+                                <th onclick=\"sortTable(5, 'sup_table')\">Progress</th>
+                                <th onclick=\"sortTable(6, 'sup_table')\">Student ID</th>
+                                <th onclick=\"sortTable(7, 'sup_table')\">E-mail</th>
+                                <th onclick=\"sortTable(8, 'sup_table')\">Phone Number</th>
                                 </tr>";
 
                         // rows of the database
@@ -180,14 +181,14 @@ include 'sidebar_selector.php';
                     
                     if(mysqli_num_rows($result) > 0){
                         echo "<h3>Project Overview</h3>
-                                    <table class=\"list\">"; // start a table tag in the HTML
+                                    <table class=\"list\" width='100%' id='sup_table2'>"; // start a table tag in the HTML
                         
                         // column names
-                        echo "<tr><th>Name and Description</th>
-                                <th>Student Name</th>
-                                <th>Student E-mail</th>
-                                <th>Student Phone Number</th>
-                                <th>Progress</th>
+                        echo "<tr><th onclick=\"sortTable(0, 'sup_table2')\">Name and Description</th>
+                                <th onclick=\"sortTable(1, 'sup_table2')\">Student Name</th>
+                                <th onclick=\"sortTable(2, 'sup_table2')\">Student E-mail</th>
+                                <th onclick=\"sortTable(3, 'sup_table2')\">Student Phone Number</th>
+                                <th onclick=\"sortTable(4, 'sup_table2')\">Progress</th>
                                 </tr>";
                         
                         
@@ -208,17 +209,17 @@ include 'sidebar_selector.php';
 					$result = query_our_database("SELECT Project.ProjectName, Description, Does.StuID, StuName, StuEMAIL, StuTel, Progress, Pay, LocName, Location, StreetNr, Travel, Tnotes FROM Project LEFT JOIN Does ON Project.ProjectName=Does.ProjectName LEFT JOIN Student ON Does.StuID=Student.StuID LEFT JOIN Internship_of ON Project.ProjectName=Internship_of.ProjectName WHERE Project.IConID='".$_SESSION["ID"]."'");
                     if(mysqli_num_rows($result) > 0){
                         echo "<h3>Internship Overview</h3>
-                                    <table class=\"list\">"; // start a table tag in the HTML
+                                    <table class=\"list\" width='100%' id='icon_table'>"; // start a table tag in the HTML
                         
                         // column names
-                        echo "<tr><th>Name and Description</th>
-                                <th>Student Name</th>
-                                <th>Student E-mail</th>
-                                <th>Student Phone Number</th>
-                                <th>Progress</th>
-                                <th>Location</th>
-                                <th>Pay</th>
-                                <th>Travel</th>
+                        echo "<tr><th onclick=\"sortTable(0, 'icon_table')\">Name and Description</th>
+                                <th onclick=\"sortTable(1, 'icon_table')\">Student Name</th>
+                                <th onclick=\"sortTable(2, 'icon_table')\">Student E-mail</th>
+                                <th onclick=\"sortTable(3, 'icon_table')\">Student Phone Number</th>
+                                <th onclick=\"sortTable(4, 'icon_table')\">Progress</th>
+                                <th onclick=\"sortTable(5, 'icon_table')\">Location</th>
+                                <th onclick=\"sortTable(6, 'icon_table')\">Pay</th>
+                                <th onclick=\"sortTable(7, 'icon_table')\">Travel</th>
                                 </tr>";
                         
                         
@@ -264,10 +265,21 @@ include 'sidebar_selector.php';
                             $rowcontactinfo = mysqli_fetch_array($result2);
                         }
                         
-                        echo "<table class=\"list\">
+                        echo "<table class=\"list\" width='100%' id='student_table'>
                             <tr>";
                         if($type == "1"){
-                            echo "<th>Name and Description</th><th>Time</th><th>Project Owner Name</th><th>Owner Email</th><th>Owner Phone Number</th><th>Type</th><th>Company Name</th><th>City</th><th>Street</th><th>Nr</th><th>Travel</th><th>Pay</th>
+                            echo "<th onclick=\"sortTable(0, 'student_table')\">Name and Description</th>
+                                  <th onclick=\"sortTable(1, 'student_table')\">Time</th>
+                                  <th onclick=\"sortTable(2, 'student_table')\">Project Owner Name</th>
+                                  <th onclick=\"sortTable(3, 'student_table')\">Owner Email</th>
+                                  <th onclick=\"sortTable(4, 'student_table')\">Owner Phone Number</th>
+                                  <th onclick=\"sortTable(5, 'student_table')\">Type</th>
+                                  <th onclick=\"sortTable(6, 'student_table')\">Company Name</th>
+                                  <th onclick=\"sortTable(7, 'student_table')\">City</th>
+                                  <th onclick=\"sortTable(8, 'student_table')\">Street</th>
+                                  <th onclick=\"sortTable(9, 'student_table')\">Nr</th>
+                                  <th onclick=\"sortTable(10, 'student_table')\">Travel</th>
+                                  <th onclick=\"sortTable(11, 'student_table')\">Pay</th>
                             </tr>
                             <tr>
                             <td width='40%'><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
@@ -288,7 +300,13 @@ include 'sidebar_selector.php';
                             </tr>";
                         }
                         else{
-                            echo "<th>Name and Description</th><th>Time</th><th>Project Owner Name</th><th>Owner Email</th><th>Owner Phone Number</th><th>Owner Topics</th><th>Type</th>
+                            echo "<th onclick=\"sortTable(0, 'student_table')\">Name and Description</th>
+                                  <th onclick=\"sortTable(1, 'student_table')\">Time</th>
+                                  <th onclick=\"sortTable(2, 'student_table')\">Project Owner Name</th>
+                                  <th onclick=\"sortTable(3, 'student_table')\">Owner Email</th>
+                                  <th onclick=\"sortTable(4, 'student_table')\">Owner Phone Number</th>
+                                  <th onclick=\"sortTable(5, 'student_table')\">Owner Topics</th>
+                                  <th onclick=\"sortTable(6, 'student_table')\">Type</th>
                             </tr>
                             <tr>
                             <td width='40%'><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
@@ -372,4 +390,5 @@ include 'sidebar_selector.php';
 
 	</body>
 </html> 
+
 

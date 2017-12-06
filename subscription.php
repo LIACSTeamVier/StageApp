@@ -25,7 +25,7 @@ $project = $_GET['prjct'];
 			$stmt->bind_param("sss", $id, $project, date('Y-m-d:h:i:s'));
 			$stmt->execute();
 			
-			$sql = "SELECT SupEMAIL, SupID FROM InternshipApp_Users AS I, Supervises AS S WHERE I.SupID = S.SupID";
+			$sql = "SELECT SupEMAIL, SupID FROM Supervisor AS I, Supervises AS S WHERE I.SupID = S.SupID";
 			$results = $con->query($sql);
 			if(!$result){
 				echo "ERROR: you have no supervisor <br>\n ";
@@ -36,7 +36,7 @@ $project = $_GET['prjct'];
 			}
 	}
 	
-	echo "<a href='http://csthesis.liacs.leidenuniv.nl/main_page.php'>Return Home</a>";
+	echo "<a href= 'main_page.php'>Return Home</a>";
 
 ?>
 </body>

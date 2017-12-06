@@ -140,6 +140,7 @@
         <meta name="Description" content= "Requesting Students" />
         <link rel="stylesheet" type="text/css" href="style.css">
         <title>Requesting students - LIACS Student Project Manager</title>
+        <script src="sortTable.js"></script>
     </head>
     <body>
 
@@ -159,11 +160,11 @@
             echo "<table width='40%' id='1strequest_table' class=\"list\">"; // start a table tag in the HTML
             // column names
             echo "<tr>
-                  <th onclick=\"sortTable(0)\">Project Name and Description</th>
-                  <th onclick=\"sortTable(1)\">Student Name</th>
-                  <th onclick=\"sortTable(2)\">Student Id</th>
-                  <th onclick=\"sortTable(3)\">Student PhoneNumber</th>
-                  <th onclick=\"sortTable(4)\">Student Email</th>
+                  <th onclick=\"sortTable(0, '1strequest_table')\">Project Name and Description</th>
+                  <th onclick=\"sortTable(1, '1strequest_table')\">Student Name</th>
+                  <th onclick=\"sortTable(2, '1strequest_table')\">Student Id</th>
+                  <th onclick=\"sortTable(3, '1strequest_table')\">Student PhoneNumber</th>
+                  <th onclick=\"sortTable(4, '1strequest_table')\">Student Email</th>
                   </tr>";
     
             // rows of the database
@@ -190,3 +191,4 @@
 
     </body>
 </html>
+

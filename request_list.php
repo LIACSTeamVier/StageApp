@@ -173,8 +173,8 @@
 		            echo "These students want you as FIRST SUPERVISOR";
 		            echo "<table class=\"list\" width='40%' id='1strequest_table'>"; // start a table tag in the HTML
 		            // column names
-		            echo "<tr><th onclick=\"sortTable(0)\">Student Id</th>
-				              <th onclick=\"sortTable(1)\">Student Name</th></tr>";
+		            echo "<tr><th onclick=\"sortTable(0, '1strequest_table')\">Student Id</th>
+				              <th onclick=\"sortTable(1, '1strequest_table')\">Student Name</th></tr>";
 		
 		            // rows of the database
 		            while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
@@ -196,8 +196,8 @@
 		            echo "These students want you as SECOND SUPERVISOR";
 		            echo "<table class=\"list\" width='40%' id='2ndrequest_table'>"; // start a table tag in the HTML
 		            // column names
-		            echo "<tr><th onclick=\"sortTable(0)\">Student Id</th>
-				              <th onclick=\"sortTable(1)\">Student Name</th></tr>";
+		            echo "<tr><th onclick=\"sortTable(0, '2ndrequest_table')\">Student Id</th>
+				              <th onclick=\"sortTable(1, '2ndrequest_table')\">Student Name</th></tr>";
 		
 		            // rows of the database
 		            while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
@@ -224,3 +224,4 @@
 
     </body>
 </html>
+

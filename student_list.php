@@ -11,6 +11,7 @@
         <meta name="Description" content= "Registered Students" />
         <link rel="stylesheet" type="text/css" href="style.css">
         <title>Student list - LIACS Student Project Manager</title>
+        <script src="sortTable.js"></script>
     </head>
     <body>
 
@@ -26,11 +27,11 @@
                 else {
                     $result = query_our_database("SELECT * FROM Student");
         
-                    echo "<table class=\"list\">"; // start a table tag in the HTML
+                    echo "<table class=\"list\" id='student_table'>"; // start a table tag in the HTML
         
                     // column names
-                    echo "<tr><th>Student ID</th>
-                          <th>Name</th>
+                    echo "<tr><th onclick=\"sortTable(0, 'student_table')\">Student ID</th>
+                          <th onclick=\"sortTable(1, 'student_table')\">Name</th>
                           <th>Supervision history</th></tr>";
         
                     // rows of the database

@@ -50,14 +50,14 @@ include 'sidebar_selector.php';
                 echo "<table class=\"list\" width='100%' id='project_table'>"; // start a table tag in the HTML
                 
                 // column names
-                echo "<tr><th onclick=\"sortTable(0)\">Name and description</th>
-                          <th onclick=\"sortTable(1)\">Topic</th>
-                          <th onclick=\"sortTable(2)\">Time</th>
-                          <th onclick=\"sortTable(3)\">Progress</th>
-                          <th onclick=\"sortTable(4)\">Student type</th>
-                          <th onclick=\"sortTable(5)\">Internship</th>
-                          <th onclick=\"sortTable(6)\">Teacher</th>
-                          <th onclick=\"sortTable(7)\">Company</th></tr>";
+                echo "<tr><th onclick=\"sortTable(0, 'project_table')\">Name and description</th>
+                          <th onclick=\"sortTable(1, 'project_table')\">Topic</th>
+                          <th onclick=\"sortTable(2, 'project_table')\">Time</th>
+                          <th onclick=\"sortTable(3, 'project_table')\">Progress</th>
+                          <th onclick=\"sortTable(4, 'project_table')\">Student type</th>
+                          <th onclick=\"sortTable(5, 'project_table')\">Internship</th>
+                          <th onclick=\"sortTable(6, 'project_table')\">Teacher</th>
+                          <th onclick=\"sortTable(7, 'project_table')\">Company</th></tr>";
                           
                 // rows of the database
                 while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results

@@ -175,11 +175,12 @@
 
 <!DOCTYPE html>
 <html lang="en-UK">
-<head>
-<link rel="stylesheet" type="text/css" href="style.css">
-<script src="sortTable.js"></script>
-<title>Supervisor list - LIACS Student Project Manager</title>
-</head>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="sortTable.js"></script>
+        <title>Supervisor list - LIACS Student Project Manager</title>
+        <script src="sortTable.js"></script>
+    </head>
 <body>
 
 <div class="main">
@@ -237,12 +238,12 @@
 	echo "<table width='80%' id='1strequest_table' class=\"list\">"; // start a table tag in the HTML
 	
 	// column names
-	echo "<tr><th onclick=\"sortTable(0)\">Supervisor Name</th>
-			  <th onclick=\"sortTable(1)\">Supervisor Email</th>
-			  <th onclick=\"sortTable(2)\">Supervisor Topics</th>
-			  <th onclick=\"sortTable(3)\">First Supervisor</th>
-			  <th onclick=\"sortTable(4)\">Second Supervisor</th>
-			  <th onclick=\"sortTable(5)\">Background</th></tr>";
+	echo "<tr><th onclick=\"sortTable(0, '1strequest_table')\">Supervisor Name</th>
+			  <th onclick=\"sortTable(1, '1strequest_table')\">Supervisor Email</th>
+			  <th onclick=\"sortTable(2, '1strequest_table')\">Supervisor Topics</th>
+			  <th onclick=\"sortTable(3, '1strequest_table')\">First Supervisor</th>
+			  <th onclick=\"sortTable(4, '1strequest_table')\">Second Supervisor</th>
+			  <th onclick=\"sortTable(5, '1strequest_table')\">Background</th></tr>";
 	
 	// rows of the database
 	while($row = mysqli_fetch_array($sup_table)){   //Creates a loop to loop through results
