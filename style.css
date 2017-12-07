@@ -75,11 +75,6 @@ h3 {
   margin-left: 140px; /* Same as the width of the sidenav + 20px */
 }
 
-.main_nopane {
-  background-color: white;
-  margin-left: 20px;
-}
-
 @media screen and (max-height: 450px) {
 }
 
