@@ -42,17 +42,17 @@ h3 {
 
 /* tables */
 .list table {
+	max-width: 100%;
+	table-layout: fixed;
     border-collapse: collapse;
 }
 
 .list th, td {
+	max-width: 250px;
+	word-wrap: break-word;
     text-align: left;
     vertical-align: top;
     padding: 6px 10px;
-}
-
-.list tr:nth-child(odd){
-    background-color: #d2d8ef;
 }
 
 .list th {
@@ -60,6 +60,10 @@ h3 {
     color: black;
     border-bottom-style: solid;
     cursor:pointer;
+}
+
+.list tr:nth-child(odd){
+    background-color: #d2d8ef;
 }
 
 .form td {
@@ -71,5 +75,11 @@ h3 {
   margin-left: 140px; /* Same as the width of the sidenav + 20px */
 }
 
+.main_nopane {
+  background-color: white;
+  margin-left: 20px;
+}
+
 @media screen and (max-height: 450px) {
 }
+

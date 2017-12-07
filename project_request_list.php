@@ -157,7 +157,7 @@
        
             $project_table = mysqli_query($con, "SELECT p.ProjectName, Description, SupID, d.StuID, Accepted, StuName, StuTel, StuEMAIL FROM Project p LEFT JOIN Does d ON d.ProjectName=p.ProjectName LEFT JOIN Student s ON d.StuID=s.StuID WHERE SupID='$supid' AND Accepted='0'") or die('Unable to run query:' . mysqli_error());
             echo "These students want to join your project, they should probably have contacted you already";
-            echo "<table width='40%' id='1strequest_table' class=\"list\">"; // start a table tag in the HTML
+            echo "<table id='1strequest_table' class=\"list\">"; // start a table tag in the HTML
             // column names
             echo "<tr>
                   <th onclick=\"sortTable(0, '1strequest_table')\">Project Name and Description</th>
@@ -170,7 +170,7 @@
             // rows of the database
             while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
                 echo "<tr><form action=\"$temp\" method=\"post\">
-                      <td width='40%'><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
+                      <td><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
                       <td>".$row['StuName']."</td>
                       <td>".$row['StuID']."</td>
                       <td>".$row['StuTel']."</td>

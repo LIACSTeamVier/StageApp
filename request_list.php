@@ -171,7 +171,7 @@
                 if($RoleAllow['RoleFirst'] == "yes"){
 		            $project_table = mysqli_query($con, "SELECT * FROM Supervises b WHERE b.SupID='$docid' AND b.type = 'First Supervisor' AND b.Accepted='0'") or die('Unable to run query:' . mysqli_error());
 		            echo "These students want you as FIRST SUPERVISOR";
-		            echo "<table class=\"list\" width='40%' id='1strequest_table'>"; // start a table tag in the HTML
+		            echo "<table class=\"list\" id='1strequest_table'>"; // start a table tag in the HTML
 		            // column names
 		            echo "<tr><th onclick=\"sortTable(0, '1strequest_table')\">Student Id</th>
 				              <th onclick=\"sortTable(1, '1strequest_table')\">Student Name</th></tr>";
@@ -194,7 +194,7 @@
 	            if($RoleAllow['RoleSecond'] == "yes"){
 		            $project_table = mysqli_query($con, "SELECT * FROM Supervises b WHERE b.SupID='$docid' AND b.type = 'Second Supervisor' AND b.Accepted='0'") or die('Unable to run query:' . mysqli_error());
 		            echo "These students want you as SECOND SUPERVISOR";
-		            echo "<table class=\"list\" width='40%' id='2ndrequest_table'>"; // start a table tag in the HTML
+		            echo "<table class=\"list\" id='2ndrequest_table'>"; // start a table tag in the HTML
 		            // column names
 		            echo "<tr><th onclick=\"sortTable(0, '2ndrequest_table')\">Student Id</th>
 				              <th onclick=\"sortTable(1, '2ndrequest_table')\">Student Name</th></tr>";

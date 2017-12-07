@@ -235,7 +235,7 @@
 		echo "You need one supervisor with a background in Computer Science(ICT), and one with background in Business(BUS).</br>";
 		echo "Supervisors with background 'BOTH' can fill either role</br>";
 	}
-	echo "<table width='80%' id='1strequest_table' class=\"list\">"; // start a table tag in the HTML
+	echo "<table id='1strequest_table' class=\"list\">"; // start a table tag in the HTML
 	
 	// column names
 	echo "<tr><th onclick=\"sortTable(0, '1strequest_table')\">Supervisor Name</th>

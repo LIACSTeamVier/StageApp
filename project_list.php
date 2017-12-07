@@ -47,7 +47,7 @@ include 'sidebar_selector.php';
                 }
                 
                 $project_table = mysqli_query($con, "SELECT * FROM Project") or die('Unable to run query:' . mysqli_error());
-                echo "<table class=\"list\" width='100%' id='project_table'>"; // start a table tag in the HTML
+                echo "<table class=\"list\" id='project_table'>"; // start a table tag in the HTML
                 
                 // column names
                 echo "<tr><th onclick=\"sortTable(0, 'project_table')\">Name and description</th>
@@ -63,7 +63,7 @@ include 'sidebar_selector.php';
                 while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
                     $teacher_name_get = mysqli_query($con, "SELECT SupName FROM Supervisor WHERE SupID='".$row['SupID']."'")or die('Unable to run query:' . mysqli_error());
                     $teacher_name = mysqli_fetch_array($teacher_name_get);
-                    echo "<tr><td width='10%'><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
+                    echo "<tr><td><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
                           <td>" . $row['Topic'] . "</td>
                           <td>" . $row['Time'] . "</td>
                           <td>" . $row['Progress'] . "</td>
