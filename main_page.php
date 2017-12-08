@@ -78,18 +78,24 @@ include 'sidebar_selector.php';
 								</tr>";
 
 					// rows of the database
-					while($row = mysqli_fetch_array($result)){	 //Creates a loop to loop through results
-						$SupName1 ="";
-						$SupName2 ="";
-						$supervisorresult = query_our_database("SELECT * FROM Supervises WHERE StuID='".$row['StuID']."' AND Accepted='1'");
+	            while($row = mysqli_fetch_array($result)){	 //Creates a loop to loop through results
+	                $SupName1 ="";
+	                $SupName2 ="";
+	                $supervisorresult = query_our_database("SELECT * FROM Supervises WHERE StuID='".$row['StuID']."' AND (Accepted='1' OR Accepted='0')");
                         while($suprow = mysqli_fetch_array($supervisorresult)){
                             if($suprow['type'] == "First Supervisor"){
                                 $NameRow1 = mysqli_fetch_array(query_our_database("SELECT SupName FROM Supervisor WHERE SupID='".$suprow['SupID']."'"));
-                                $SupName1 = $NameRow1['SupName'];						    	
+                                if($suprow['Accepted'] == '1')
+                                   $SupName1 = $NameRow1['SupName'];
+                                else
+                                   $SupName1 = $NameRow1['SupName'] . " (not accepted yet)";
                             }
                             if($suprow['type'] == "Second Supervisor"){
                                 $NameRow2 = mysqli_fetch_array(query_our_database("SELECT SupName FROM Supervisor WHERE SupID='".$suprow['SupID']."'"));
-                                $SupName2 = $NameRow2['SupName'];
+                                if($suprow['Accepted'] == '1')
+                                    $SupName2 = $NameRow2['SupName'];
+                                else
+                                    $SupName2 = $NameRow2['SupName'] . " (not accepted yet)";
                             }
 						}
 						echo "<tr><td>" . $row['StuName'] . "</td>
@@ -139,7 +145,7 @@ include 'sidebar_selector.php';
                                             if($suprow['Accepted']=='1')
                                                 $SupName1 = $suprow['SupName'];
                                             else
-                                                $SupName1 = $suprow['SupName']."(not accepted yet)";
+                                                $SupName1 = $suprow['SupName']." (not accepted yet)";
                                         }
                                     }
                                     if($suprow['type'] == "Second Supervisor"){
@@ -149,7 +155,7 @@ include 'sidebar_selector.php';
                                             if($suprow['Accepted']=='1')
                                                 $SupName2 = $suprow['SupName'];
                                             else
-                                                $SupName2 = $suprow['SupName']."(not accepted yet)";
+                                                $SupName2 = $suprow['SupName']." (not accepted yet)";
                                         }
                                     }
                                 }
