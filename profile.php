@@ -159,6 +159,7 @@
 	</head>
     <body>
         <div class="main">
+        <h1>LIACS Student Project Manager</h1>
         <?php
         if($class != "Admin"){
             echo "<h3>Hello $name, this is your profile information</h3>";
