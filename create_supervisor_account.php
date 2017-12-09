@@ -199,6 +199,7 @@ function deleteUser($email) {
     <body>
 
         <div class="main">
+            <h1>LIACS Student Project Manager</h1>	
             <p>
             Fill in this form to create a new student account.
             </p>
