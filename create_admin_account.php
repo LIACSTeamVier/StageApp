@@ -107,7 +107,7 @@ function deleteUser($uname){
         <title>Create administrator account - LIACS Student Project Manager</title>
     </head>
     <body>
-
+        <h1>LIACS Student Project Manager</h1>
         <div class="main">
             <p>
             Fill in this form to create a new administrator account.
