@@ -7,6 +7,12 @@ CREATE TABLE InternshipApp_Users(
 	PRIMARY KEY(Identifier)
 );
 
+CREATE TABLE BackgroundOptions(
+    Background VARCHAR(20),
+    
+    PRIMARY KEY (Background)
+);
+
 CREATE TABLE Supervisor(
 	SupID	VARCHAR(30),
 	SupName	VARCHAR(30),
@@ -14,9 +20,10 @@ CREATE TABLE Supervisor(
 	SupTel	VARCHAR(10),
 	RoleFirst       VARCHAR(3),
 	RoleSecond      VARCHAR(3),
-	Background      VARCHAR(4),
+	Background      VARCHAR(20),
 	
 	PRIMARY KEY(SupID),
+        FOREIGN KEY(Background) REFERENCES BackgroundOptions(Background),
 	FOREIGN KEY(SupID) REFERENCES InternshipApp_Users(Identifier)
 );
 
