@@ -155,6 +155,7 @@
     <body>
 
         <div class="main">
+            <h1>LIACS Student Project Manager</h1>
             <?php
                 $configs = include("config.php");
                 $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
