@@ -159,8 +159,8 @@ function insertIntoStudent($uname, $name, $email, $phonenum){
         <title>Create an account - LIACS Student Project Manager</title>
     </head>
     <body>
-        <h1>LIACS Student Project Manager</h1>
         <div class="main">
+        <h1>LIACS Student Project Manager</h1>	
             <p>
             Fill in this form to create a new account.
             </p>
