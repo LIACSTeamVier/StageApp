@@ -198,6 +198,7 @@
         <title>Offer Internship</title>
     </head>
     <body>
+        <h1>LIACS Student Project Manager</h1>    
         <div class="main">
             <p>
             Fill in the forms to make your internship information available to the
