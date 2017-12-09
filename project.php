@@ -126,6 +126,7 @@ function insertIntoDatabase($name, $topic, $description, $squal, $tijdrest, $con
     </div>-->
      
     <div class="main">
+    <h1>LIACS Student Project Manager</h1>
     <p>
         Fill in the forms to make your project information available to the
         students.
