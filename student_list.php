@@ -18,6 +18,7 @@
         <?php include 'general_functions.php';?>
 
         <div class="main">
+            <h1>LIACS Student Project Manager</h1>
             <?php
                 $class = $_SESSION["class"];
                 if ($class != "Admin") {
