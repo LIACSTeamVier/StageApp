@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }   
 
-    if (checkDuplicates($email, &$emailErr))
+    if (checkDuplicates($email, &$emailErr, $email, &$emailErr))
         $error = True;
     
     if (!$error) {
@@ -108,7 +108,13 @@ function deleteUser($uname){
     </head>
     <body>
         <div class="main">
-        <h1>LIACS Student Project Manager</h1>	
+            <?php
+                if ($_SESSION["class"] != "Admin") {
+                    header("Location: main_page.php");
+                    exit()
+                }
+            ?>
+            <h1>LIACS Student Project Manager</h1>
             <p>
             Fill in this form to create a new administrator account.
             </p>
@@ -117,13 +123,13 @@ function deleteUser($uname){
 				<table class="form">
 					<tr>
 						<td>Full name:</td>
-						<td><input type="text" name="name" value="<?php  echo $name;?>">
-						<span class="error">* <?php echo $nameErr;?></span></td>
+						<td><input type="text" name="name" value="<?php  echo $name;?>"></td>
+						<td><span class="error">* <?php echo $nameErr;?></span></td>
 					</tr>
 					<tr>
 						<td>Email address:</td>
-						<td><input type="text" name="email" value="<?php echo $email;?>">
-						<span class="error">* <?php echo $emailErr;?></span></td>
+						<td><input type="text" name="email" value="<?php echo $email;?>"></td>
+						<td><span class="error">* <?php echo $emailErr;?></span></td>
 					</tr>
 				</table>
 				<br><br>

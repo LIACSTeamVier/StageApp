@@ -7,6 +7,7 @@ $regErr = $nameErr = $emailErr = $phoneErr = $roleErr = $backErr = $topicErr = "
 $name = $email = $phonenum = $role1 = $role2 = $back1 = $back2 = $background = $topics = "";
 $password = random_str(8);
 $error = False;
+
 if (isset($_SESSION["regErr"]))
 {
     $regErr = $_SESSION["regErr"];
@@ -119,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = True;
     }
 
-    if (checkDuplicates($email, &$emailErr))
+    if (checkDuplicates($email, &$emailErr, $email, &$emailErr))
         $error = True;
     
     if (!$error) {
@@ -197,11 +198,16 @@ function deleteUser($email) {
         <title>Create supervisor account - LIACS Student Project Manager</title>
     </head>
     <body>
-
         <div class="main">
-            <h1>LIACS Student Project Manager</h1>	
+            <?php
+                if ($_SESSION["class"] != "Admin") {
+                    header("Location: main_page.php");
+                    exit;
+                }
+            ?>
+            <h1>LIACS Student Project Manager</h1>
             <p>
-            Fill in this form to create a new student account.
+            Fill in this form to create a new supervisor account.
             </p>
             <p><span class="error">* Required field.</span></p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">

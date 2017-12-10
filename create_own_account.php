@@ -104,6 +104,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $passErr = "Input can be no more than 30 characters";
             $error = True;
         }
+        if(strlen($passwordcheck) > 30) {
+            $passErr = "Input can be no more than 30 characters";
+            $error = True;
+        }
         if($password != $passwordcheck) {
             $passErr = "Password doesn't match the one entered below.";
             $error = True;
@@ -111,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
 
-    if (checkDuplicates($uname, &$unameErr))
+    if (checkDuplicates($uname, &$unameErr, $email, &$emailErr))
         $error = True;
     
     if (!$error) {
@@ -160,7 +164,13 @@ function insertIntoStudent($uname, $name, $email, $phonenum){
     </head>
     <body>
         <div class="main">
-        <h1>LIACS Student Project Manager</h1>	
+            <?php
+                if (isset($_SESSION["username"]) && !empty($_SESSION["username"])) {
+					header("Location: main_page.php");
+					exit;
+				}
+            ?>
+            <h1>LIACS Student Project Manager</h1>
             <p>
             Fill in this form to create a new account.
             </p>
@@ -169,33 +179,33 @@ function insertIntoStudent($uname, $name, $email, $phonenum){
 				<table class="form">
 					<tr>
 						<td>Full name:</td>
-						<td><input type="text" name="name" value="<?php  echo $name;?>">
-						<span class="error">* <?php echo $nameErr;?></span></td>
+						<td><input type="text" name="name" value="<?php  echo $name;?>"></td>
+						<td><span class="error">* <?php echo $nameErr;?></span></td>
 					</tr>
 					<tr>
 						<td>Student number:</td>
-						<td><input type="text" name="uname" value="<?php  echo $uname;?>">
-						<span class="error">* <?php echo $unameErr;?></span></td>
+						<td><input type="text" name="uname" value="<?php  echo $uname;?>"></td>
+						<td><span class="error">* <?php echo $unameErr;?></span></td>
 					</tr>
 					<tr>
 						<td>Email address:</td>
-						<td><input type="text" name="email" value="<?php echo $email;?>">
-						<span class="error">* <?php echo $emailErr;?></span></td>
+						<td><input type="text" name="email" value="<?php echo $email;?>"></td>
+						<td><span class="error">* <?php echo $emailErr;?></span></td>
 					</tr>
 					<tr>
 						<td>Phone number:</td>
-						<td><input type="text" name="phonenum" value="<?php echo $phonenum;?>">
-						<span class="error"><?php echo $phoneErr;?></span></td>
+						<td><input type="text" name="phonenum" value="<?php echo $phonenum;?>"></td>
+						<td><span class="error"><?php echo $phoneErr;?></span></td>
 					</tr>
 					<tr>
 						<td>Password:</td>
-						<td><input type="password" name="password" value="">
-						<span class="error">* <?php echo $passErr;?></span></td>
+						<td><input type="password" name="password" value=""></td>
+						<td><span class="error">* <?php echo $passErr;?></span></td>
 					</tr>
 					<tr>
 						<td>Repeat password:</td>
-						<td><input type="password" name="passwordcheck" value="">
-						<span class="error">*</span></td>
+						<td><input type="password" name="passwordcheck" value=""></td>
+						<td><span class="error">*</span></td>
 					</tr>
 				</table>
                 <input type="submit" value="Create account">

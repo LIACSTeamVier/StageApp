@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }   
 
-    if (checkDuplicates($email, &$emailErr))
+    if (checkDuplicates($email, &$emailErr, $email, &$emailErr))
         $error = True;
     
     if (!$error) {
@@ -150,29 +150,34 @@ function deleteUser($uname) {
         <title>Create internship account - LIACS Student Project Manager</title>
     </head>
     <body>
-
         <div class="main">
+            <?php
+                if ($_SESSION["class"] != "Admin") {
+                    header("Location: main_page.php");
+                    exit();
+                }
+            ?>
             <h1>LIACS Student Project Manager</h1>
             <p>
-            Fill in this form to create a new internship account.
+            Fill in this form to create a new internship contact account.
             </p>
             <p><span class="error">* Required field.</span></p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 				<table class="form">
 					<tr>
 						<td>Full name:</td>
-						<td><input type="text" name="name" value="<?php  echo $name;?>">
-						<span class="error">* <?php echo $nameErr;?></span></td>
+						<td><input type="text" name="name" value="<?php  echo $name;?>"></td>
+						<td><span class="error">* <?php echo $nameErr;?></span></td>
 					</tr>
 					<tr>
 						<td>Email address:</td>
-						<td><input type="text" name="email" value="<?php echo $email;?>">
-						<span class="error">* <?php echo $emailErr;?></span></td>
+						<td><input type="text" name="email" value="<?php echo $email;?>"></td>
+						<td><span class="error">* <?php echo $emailErr;?></span></td>
 					</tr>
 					<tr>
 						<td>Company name:</td>
-						<td><input type="text" name="cName" value="<?php  echo $cName;?>">
-						<span class="error">* <?php echo $cNameErr;?></span></td>
+						<td><input type="text" name="cName" value="<?php  echo $cName;?>"></td>
+						<td><span class="error">* <?php echo $cNameErr;?></span></td>
 					</tr>
 				</table>
                 <input type="hidden" name ="password" value="<?php echo $password;?>">

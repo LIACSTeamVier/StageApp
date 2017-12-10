@@ -50,7 +50,7 @@
     function sendEmail($name, $email, $uname, $password) {
         $configs = include("config.php");
         $email_from = $configs["noreply"];
-        $subject = "An account has been made for you on the LIACS Student Project Manager";
+        $subject = "An account has been made for you on the LIACS InternshipApp";
         $boundary = uniqid('np');
         
         $headers = "MIME-Version: 1.0\r\n";
@@ -63,13 +63,47 @@
         $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
         
         // Plain text body
-        $message .= "Dear ".$name.",\nAn account has been made for you on the LIACS Student Project Manager. Please follow the following link:\nhttp://csthesis.liacs.leidenuniv.nl\nYour username and password are as follows:\nUsername: ".$uname."\nPassword: ".$password."\nPlease do not reply to this e-mail.\n(notactually)LIACS"; // TODO replace with file
+        $message .= "Dear ".$name.",\nAn account has been made for you on the LIACS InternshipApp. Please follow the following link:\nhttp://csthesis.liacs.leidenuniv.nl\nYour username and password are as follows:\nUsername: ".$uname."\nPassword: ".$password."\nPlease do not reply to this e-mail.\n(notactually)LIACS"; // TODO replace with file
         $message .= "\r\n\r\n--" . $boundary . "\r\n";
         $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
         
         // HTML body
         $message .= "Dear <td>".$name."</td>,</br> An account has been made for you on the
-    <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS Student Project Manager</a>.</br> Your username and password are as follows:</br> Username: <td>".$uname."</td></br> Password: <td>".$password."</td></br> Please do not reply to this e-mail.</br>(notactually)LIACS"; // TODO replace with file
+    <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.</br> Your username and password are as follows:</br> Username: <td>".$uname."</td></br> Password: <td>".$password."</td></br> Please do not reply to this e-mail.</br>(notactually)LIACS"; // TODO replace with file
+        $message .= "\r\n\r\n--" . $boundary . "--";
+        
+        
+        $headers = "MIME-Version: 1.0\r\n";
+        $headers .= "From: $email_from \r\n";
+        $headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
+        //var_dump($email);
+        //die();
+        return mail($email,$subject,$message,$headers);
+    }
+    
+    function forgot_password_email($name, $email, $uname, $password) {
+        $configs = include("config.php");
+        $email_from = $configs["noreply"];
+        $subject = "Your new password for the LIACS InternshipApp";
+        $boundary = uniqid('np');
+        
+        $headers = "MIME-Version: 1.0\r\n";
+        $headers .= "From: $email_from \r\n";
+        $headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
+        
+        // MIME stuff
+        $message = "This is a MIME encoded message.";
+        $message .= "\r\n\r\n--" . $boundary . "\r\n";
+        $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
+        
+        // Plain text body
+        $message .= "Dear ".$name.",\nYou requested a password reset for your account on the LIACS InternshipApp\nhttp://csthesis.liacs.leidenuniv.nl\nYour username and password are as follows:\nUsername: ".$uname."\nPassword: ".$password."\nPlease do not reply to this e-mail.\n(notactually)LIACS"; // TODO replace with file
+        $message .= "\r\n\r\n--" . $boundary . "\r\n";
+        $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
+        
+        // HTML body
+        $message .= "Dear <td>".$name."</td>,</br> You requested a password reset for your account on the
+    <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.</br> Your username and password are as follows:</br> Username: <td>".$uname."</td></br> Password: <td>".$password."</td></br> Please do not reply to this e-mail.</br>(notactually)LIACS"; // TODO replace with file
         $message .= "\r\n\r\n--" . $boundary . "--";
         
         
@@ -88,7 +122,7 @@
     return $data;
     }
     
-    function checkDuplicates($uname, &$unameErr) {
+    function checkDuplicates($uname, &$unameErr, $email, &$emailErr) {
         $error = False;
         $configs = include("config.php");
         $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
@@ -111,6 +145,54 @@
                 $row = mysqli_fetch_row($result);
             if(!empty($row)) {
                 $unameErr = "Username already taken";
+                $error = True;
+            }
+            
+           $stmt = mysqli_prepare($con, "SELECT * FROM Student s WHERE s.StuEMAIL=?");
+           mysqli_stmt_bind_param($stmt,'s', $email);
+           mysqli_stmt_execute($stmt);
+           $result = mysqli_stmt_get_result($stmt);
+           mysqli_stmt_close($stmt);
+           if (!$result){
+                echo "database error!";
+                die ('Unable to run query:' . mysqli_error());
+            }
+            else
+                $row = mysqli_fetch_row($result);
+            if(!empty($row)) {
+                $emailErr = "Email already taken";
+                $error = True;
+            }
+            
+            $stmt = mysqli_prepare($con, "SELECT * FROM Supervisor s WHERE s.SupEMAIL=?");
+            mysqli_stmt_bind_param($stmt,'s', $email);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            mysqli_stmt_close($stmt);
+            if (!$result){
+                echo "database error!";
+                die ('Unable to run query:' . mysqli_error());
+            }
+            else
+                $row = mysqli_fetch_row($result);
+            if(!empty($row)) {
+                $emailErr = "Email already taken";
+                $error = True;
+            }
+            
+            $stmt = mysqli_prepare($con, "SELECT * FROM Internship_Contact i WHERE i.IConEMAIL=?");
+            mysqli_stmt_bind_param($stmt,'s', $email);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            mysqli_stmt_close($stmt);
+            if (!$result){
+                echo "database error!";
+                die ('Unable to run query:' . mysqli_error());
+            }
+            else
+                $row = mysqli_fetch_row($result);
+            if(!empty($row)) {
+                $emailErr = "Email already taken";
                 $error = True;
             }
             mysqli_close($con);

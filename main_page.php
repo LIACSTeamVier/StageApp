@@ -78,10 +78,10 @@ include 'sidebar_selector.php';
 								</tr>";
 
 					// rows of the database
-	            while($row = mysqli_fetch_array($result)){	 //Creates a loop to loop through results
-	                $SupName1 ="";
-	                $SupName2 ="";
-	                $supervisorresult = query_our_database("SELECT * FROM Supervises WHERE StuID='".$row['StuID']."' AND (Accepted='1' OR Accepted='0')");
+                    while($row = mysqli_fetch_array($result)){	 //Creates a loop to loop through results
+                        $SupName1 ="";
+                        $SupName2 ="";
+                        $supervisorresult = query_our_database("SELECT * FROM Supervises WHERE StuID='".$row['StuID']."' AND (Accepted='1' OR Accepted='0')");
                         while($suprow = mysqli_fetch_array($supervisorresult)){
                             if($suprow['type'] == "First Supervisor"){
                                 $NameRow1 = mysqli_fetch_array(query_our_database("SELECT SupName FROM Supervisor WHERE SupID='".$suprow['SupID']."'"));
@@ -388,6 +388,7 @@ include 'sidebar_selector.php';
 				}
 			
 			?>
+
 		</div>
 
 	</body>
