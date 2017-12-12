@@ -121,6 +121,25 @@
                             </table>";            
                     echo "</br></br></br>";
                 }
+                
+                if(($propacc == "False") || ($startpro == "False") || ($midrev == "False") || 
+                    ($thesissub == "False") || ($thesisacc != "False") || ($pressched == "False")){
+                    echo "<p>No progess yet in: ";
+                    if($propacc == "False")
+                        echo "</br>Research Proposal Accepted";
+                    if($startpro == "False")
+                        echo "</br>Started Project";
+                    if($midrev == "False")
+                        echo "</br>Midterm Review";
+                    if($thesissub == "False")
+                        echo "</br>Thesis Submitted";
+                    if($thesisacc == "False")
+                        echo "</br>Thesis Accepted";
+                    if($pressched == "False")
+                        echo "</br>Presentation Scheduled";
+                    echo "</p>";
+                }
+                
                 ?>
         </div>
     </body>
