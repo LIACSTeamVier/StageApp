@@ -3,15 +3,10 @@ Session_start();
 require_once "general_functions.php";
 require_once "sidebar_selector.php";
 
-$emailErr = "";
+$emailErr = $resetErr = "";
 $name = $uname = $email = $password = "";
 $error = False;
-if (isset($_SESSION["emailErr"]))
-{
-    $emailErr = $_SESSION["emailErr"];
-    unset($_SESSION["emailErr"]);
-    $error = True;
-}
+
 if ($error) {
     session_unset();
     session_destroy();
@@ -39,25 +34,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
         // check connection
         if (mysqli_connect_errno()) {
-            $_SESSION["resetErr"] = "Failed to connect to MySQL: " . mysqli_connect_error();
+            $resetErr = "Failed to connect to MySQL: " . mysqli_connect_error();
             $error = True;
         }
         else {
             $stmt1 = mysqli_prepare($con, "SELECT * FROM Student s WHERE s.StuEMAIL=?");
             $stmt2 = mysqli_prepare($con, "SELECT * FROM Supervisor s WHERE s.SupEMAIL=?");
             $stmt3 = mysqli_prepare($con, "SELECT * FROM Internship_Contact i WHERE i.IConEMAIL=?");
-            if (find_user($stmt1))
-                password_reset();
-            else if (find_user($stmt2))
-                password_reset();
-            else if (find_user($stmt3))
-                password_reset();
+            if (find_user($stmt1, 1)){
+                password_reset(&$con);
+            }
+            elseif (find_user($stmt2, 1)){
+                password_reset(&$con);
+            }
+            elseif (find_user($stmt3, 2)){
+                password_reset(&$con);
+            }
             else {
-                $_SESSION["resetErr"] = "E-mail not registered.";
+                $emailErr = "E-mail not registered.";
                 $error = True;
             }
             if (!$error && !forgot_password_email($name, $email, $uname, $password)) {
-                $_SESSION["resetErr"] = "E-mail could not be delivered.";
+                $resetErr = "E-mail could not be delivered.";
                 $error = True;
             }
             mysqli_close($con);
@@ -70,13 +68,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } 
 }
 
-function find_user($stmt) {
+function find_user($stmt, $namecolumn) {
+    global $error, $resetErr, $email, $uname, $name;
     mysqli_stmt_bind_param($stmt,'s', $email);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     mysqli_stmt_close($stmt);
     if (!$result){
-        $_SESSION["resetErr"] = "Unable to run query:" . mysqli_error();
+        $resetErr = "Unable to run query:" . mysqli_error();
         $error = True;
         return False;
     }
@@ -84,24 +83,30 @@ function find_user($stmt) {
         $row = mysqli_fetch_row($result);
         if(!empty($row)) {
             $uname = "$row[0]";
-            $name = "$row[2]";
+            $name = "$row[$namecolumn]";
         }
-        else
+        else {
             return False;
+        }
     }
     return True;
 }
 
-function password_reset() {
+function password_reset(&$con) {
+    global $error, $resetErr, $uname, $password;
     $password = random_str(8);
     $hash = password_hash($password, PASSWORD_BCRYPT);
-    $stmt = mysqli_prepare($con, "UPDATE InternshipApp_Users SET password=? WHERE Identifier=?");
-    mysqli_stmt_bind_param($stmt,'ss', $hash, $uname);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    mysqli_stmt_close($stmt);
-    if (!$result){
-        $_SESSION["resetErr"] = "Unable to run query:" . mysqli_error();
+    $stmt4 = mysqli_prepare($con, "UPDATE InternshipApp_Users SET Password=? WHERE Identifier=?");
+    mysqli_stmt_bind_param($stmt4,'ss', $hash, $uname);
+    mysqli_stmt_execute($stmt4);
+    $result = mysqli_stmt_affected_rows($stmt4);
+    mysqli_stmt_close($stmt4);
+    if ($result == -1){
+        $resetErr = "Unable to run query:" . mysqli_error();
+        $error = True;
+    }
+    elseif ($result == 0){
+        $resetErr = "Could not update your password, please contact the administrator.";
         $error = True;
     }
 }
@@ -138,7 +143,7 @@ function password_reset() {
 					</tr>
 				</table>
                 <input type="submit" value="Reset password">
-            </form>
+            </form><?php echo $resetErr; ?>
         </div>
 
     </body>
