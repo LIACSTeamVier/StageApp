@@ -80,6 +80,47 @@
                             </table>";            
                     echo "</br></br></br>";
                 }
+                if ( preg_match('/False /',$propacc) || preg_match('/False /',$startpro) || preg_match('/False /',$midrev) || 
+                    preg_match('/False /',$thesissub) || preg_match('/False /',$thesisacc) || preg_match('/False /',$pressched) ){
+                    echo "<h3>Progress Removal History for the student:</h3>
+                            <table class=\"list\">
+                                <tr>
+                                    <th>Progress</th><th>Date Progress Removed</th>
+                                </tr>";
+                    if(preg_match('/False /',$propacc)){
+                        echo "<tr><td>Research Proposal Accepted</td><td>";
+                        echo substr($propacc, 6);
+                        echo "</td></tr>";
+                    }
+                    if(preg_match('/False /',$startpro)){
+                        echo "<tr><td>Started Project</td><td>";
+                        echo substr($startpro, 6);
+                        echo "</td></tr>";
+                    }
+                    if(preg_match('/False /',$midrev)){
+                        echo "<tr><td>Midterm Review</td><td>";
+                        echo substr($midrev, 6);
+                        echo "</td></tr>";
+                    }
+                    if(preg_match('/False /',$thesissub)){
+                        echo "<tr><td>Thesis Submitted</td><td>";
+                        echo substr($thesissub, 6);
+                        echo "</td></tr>";
+                    }
+                    if(preg_match('/False /',$thesisacc)){
+                        echo "<tr><td>Thesis Accepted</td><td>";
+                        echo substr($thesisacc, 6);
+                        echo "</td></tr>";
+                    }
+                    if(preg_match('/False /',$pressched)){
+                        echo "<tr><td>Presentation Scheduled</td><td>";
+                        echo substr($pressched, 6);
+                        echo "</td></tr>";
+                    }    
+                    echo "     </tr>
+                            </table>";            
+                    echo "</br></br></br>";
+                }
                 ?>
         </div>
     </body>
