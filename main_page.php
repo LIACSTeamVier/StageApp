@@ -62,54 +62,51 @@
 
 <!DOCTYPE html>
 <html lang="en-UK">
-	<head>
-		<meta charset="utf-8" /> 
+    <head>
+        <meta charset="utf-8" /> 
 
-		<meta name="Description" content= "Home" />
-		<link rel="stylesheet" type="text/css" href="style.css">
-		<title>Overview - LIACS Student Project Manager</title>
-		<script src="sortTable.js"></script>
-	</head>
-	<body>
+        <meta name="Description" content= "Home" />
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Overview - LIACS Student Project Manager</title>
+        <script src="sortTable.js"></script>
+    </head>
+    <body>
 
-		<div class="main">
-			<?php
-				if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
-					header("Location: index.php");
-					exit;
-				}
-				$username = $_SESSION["username"];
-				$class = $_SESSION["class"];
+        <div class="main">
+            <?php
+                if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
+                    header("Location: index.php");
+                    exit;
+                }
+                $username = $_SESSION["username"];
+                $class = $_SESSION["class"];
                 echo "<h1>LIACS Student Project Manager</h1>";
-				//echo "<h1>Welcome " . "$username" ."</h1>";
-				//echo "You are logged in as " . "$class" . "." ."<p>"; //TODO temp, remove line.
-
-				// After sending an e-mail
-				if (isset($_SESSION["regErr"])) {
-					echo $_SESSION["regErr"];
-				}
-				unset($_SESSION["regErr"]);
-
-				if ($class == "Admin") {
-					//List all students with their projects
-					$result = query_our_database("SELECT Student.StuID, Student.StuName, Student.StuEMAIL, Student.StuTel, Does.ProjectName, Project.Progress, Supervisor.SupName FROM Student LEFT JOIN Does ON Student.StuID=Does.StuID LEFT JOIN Project ON Does.ProjectName=Project.ProjectName LEFT JOIN Supervisor ON Project.SupID=Supervisor.SupID");
-					 
-					echo "<h3>Student overview</h3>
-							<table class=\"list\" id='admin_table'>"; // start a table tag in the HTML
-				
-					// column names
-					echo "<tr><th onclick=\"sortTable(0, 'admin_table')\">Name</th>
-								<th onclick=\"sortTable(1, 'admin_table')\">Project</th>
-								<th onclick=\"sortTable(2, 'admin_table')\">Progress</th>
-								<th onclick=\"sortTable(3, 'admin_table')\">First Supervisor</th>
-								<th onclick=\"sortTable(4, 'admin_table')\">Second Supervisor</th>
-								<th onclick=\"sortTable(5, 'admin_table')\">Student ID</th>
-								<th onclick=\"sortTable(6, 'admin_table')\">E-mail</th>
-								<th onclick=\"sortTable(7, 'admin_table')\">Telephone</th>
-								</tr>";
-
-					// rows of the database
-                    while($row = mysqli_fetch_array($result)){	 //Creates a loop to loop through results
+                //echo "<h1>Welcome " . "$username" ."</h1>";
+                //echo "You are logged in as " . "$class" . "." ."<p>"; //TODO temp, remove line.
+                // After sending an e-mail
+                if (isset($_SESSION["regErr"])) {
+                    echo $_SESSION["regErr"];
+                }
+                unset($_SESSION["regErr"]);
+                if ($class == "Admin") {
+                    //List all students with their projects
+                    $result = query_our_database("SELECT Student.StuID, Student.StuName, Student.StuEMAIL, Student.StuTel, Does.ProjectName, Project.Progress, Supervisor.SupName FROM Student LEFT JOIN Does ON Student.StuID=Does.StuID LEFT JOIN Project ON Does.ProjectName=Project.ProjectName LEFT JOIN Supervisor ON Project.SupID=Supervisor.SupID");
+                     
+                    echo "<h3>Student overview</h3>
+                            <table class=\"list\" id='admin_table'>"; // start a table tag in the HTML
+                
+                    // column names
+                    echo "<tr><th onclick=\"sortTable(0, 'admin_table')\">Name</th>
+                                <th onclick=\"sortTable(1, 'admin_table')\">Project</th>
+                                <th onclick=\"sortTable(2, 'admin_table')\">Progress</th>
+                                <th onclick=\"sortTable(3, 'admin_table')\">First Supervisor</th>
+                                <th onclick=\"sortTable(4, 'admin_table')\">Second Supervisor</th>
+                                <th onclick=\"sortTable(5, 'admin_table')\">Student ID</th>
+                                <th onclick=\"sortTable(6, 'admin_table')\">E-mail</th>
+                                <th onclick=\"sortTable(7, 'admin_table')\">Telephone</th>
+                                </tr>";
+                    // rows of the database
+                    while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
                         $SupName1 ="";
                         $SupName2 ="";
                         $supervisorresult = query_our_database("SELECT * FROM Supervises WHERE StuID='".$row['StuID']."' AND (Accepted='1' OR Accepted='0')");
@@ -128,23 +125,22 @@
                                 else
                                     $SupName2 = $NameRow2['SupName'] . " (not accepted yet)";
                             }
-						}
-						echo "<tr><td>" . $row['StuName'] . "</td>
-									<td>" . $row['ProjectName'] . "</td>
-									<td>" . $row['Progress'] . "</td>
-									<td>" . $SupName1 . "</td>
-									<td>" . $SupName2 . "</td>
-									<td>" . $row['StuID'] . "</td>
-									<td>" . $row['StuEMAIL'] . "</td>
-									<td>" . $row['StuTel'] . "</td></tr>";	//$row['index'] the index here is a field name
-					}
-
-					echo "</table><br>"; //Close the table in HTML
-				}
-				if ($class == "Supervisor") {
-					//List assigned students and their projects
-					//$result = query_our_database("SELECT Student.StuID, Student.StuName, Student.StuEMAIL, Student.StuTel, Does.ProjectName, Project.Progress FROM Student LEFT JOIN Does ON Student.StuID=Does.StuID LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE Project.SupID='".$_SESSION["ID"]."'");
-                    $result = query_our_database("SELECT Supervises.StuID, StuName, StuEMAIL, StuTel, type, Supervises.SupID, Supervises.Accepted as SupAccepted, Does.ProjectName, Does.Accepted as ProjectAccepted, Description, Progress FROM Student LEFT JOIN Supervises ON Student.StuID=Supervises.StuID LEFT JOIN Does ON Student.StuID=Does.StuID LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE Supervises.SupID='".$_SESSION["ID"]."' AND Supervises.Accepted='1' ORDER BY StuID");
+                        }
+                        echo "<tr><td>" . $row['StuName'] . "</td>
+                                    <td>" . $row['ProjectName'] . "</td>
+                                    <td>" . $row['Progress'] . "</td>
+                                    <td>" . $SupName1 . "</td>
+                                    <td>" . $SupName2 . "</td>
+                                    <td>" . $row['StuID'] . "</td>
+                                    <td>" . $row['StuEMAIL'] . "</td>
+                                    <td>" . $row['StuTel'] . "</td></tr>";  //$row['index'] the index here is a field name
+                    }
+                    echo "</table><br>"; //Close the table in HTML
+                }
+                if ($class == "Supervisor") {
+                    //List assigned students and their projects
+                    //$result = query_our_database("SELECT Student.StuID, Student.StuName, Student.StuEMAIL, Student.StuTel, Does.ProjectName, Project.Progress FROM Student LEFT JOIN Does ON Student.StuID=Does.StuID LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE Project.SupID='".$_SESSION["ID"]."'");
+                    $result = query_our_database("SELECT Supervises.StuID, StuName, StuEMAIL, StuTel, PropAccept, StartPro, MidRev, ThesisSub, ThesisAcc, PresSched, type, Supervises.SupID, Supervises.Accepted as SupAccepted, Does.ProjectName, Does.Accepted as ProjectAccepted, Description, Progress FROM Student LEFT JOIN Supervises ON Student.StuID=Supervises.StuID LEFT JOIN Does ON Student.StuID=Does.StuID LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE Supervises.SupID='".$_SESSION["ID"]."' AND Supervises.Accepted='1' ORDER BY StuID");
                     if(mysqli_num_rows($result) > 0){
                         echo "<h3>Student overview</h3>
                                     <table class=\"list\" id='sup_table'>"; // start a table tag in the HTML
@@ -160,10 +156,9 @@
                                 <th onclick=\"sortTable(7, 'sup_table')\">E-mail</th>
                                 <th onclick=\"sortTable(8, 'sup_table')\">Phone Number</th>
                                 </tr>";
-
                         // rows of the database
                         $prevStuID = "";
-                        while($row = mysqli_fetch_array($result)){	 //Creates a loop to loop through results
+                        while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
                             $SupName1 ="";
                             $SupName2 ="";
                             if (!($prevStuID == $row['StuID'])){//prevent duplicate rows
@@ -191,28 +186,56 @@
                                     }
                                 }
                                 $pAccepted = "";
-                                $prog = "";
+                                //$prog = "";
                                 if ($row['ProjectAccepted'] == '1'){
                                     $pAccepted = "Yes";
-                                    $prog = $row['Progress'];
+                                    //$prog = $row['Progress'];
                                 }
                                 else if ($row['ProjectAccepted'] == '0'){
                                     $pAccepted = "No";
                                 }
+                                if(preg_match('/True/', $row['PropAccept']))
+                                    $p1 = "True";
+                                else
+                                    $p1 = "False";
+                                if(preg_match('/True/', $row['StartPro']))
+                                    $p2 = "True";
+                                else
+                                    $p2 = "False";
+                                if(preg_match('/True/', $row['MidRev']))
+                                    $p3 = "True";
+                                else
+                                    $p3 = "False";
+                                if(preg_match('/True/', $row['ThesisSub']))
+                                    $p4 = "True";
+                                else
+                                    $p4 = "False";
+                                if(preg_match('/True/', $row['ThesisAcc']))
+                                    $p5 = "True";
+                                else
+                                    $p5 = "False";
+                                if(preg_match('/True/', $row['PresSched']))
+                                    $p6 = "True";
+                                else
+                                    $p6 = "False";
                                 echo "<tr><td>" . $row['StuName'] . "</td>
                                             <td>" . $SupName1 . "</td>
                                             <td>" . $SupName2 . "</td>
                                             <td><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
                                             <td>$pAccepted</td>
-                                            <td>$prog</td>
+                                            <td>Research&nbsp;proposal&nbsp;accepted: <b>$p1</b>
+                                            </br>Started&nbsp;Project: <b>$p2</b>
+                                            </br>Midterm&nbsp;review: <b>$p3</b>
+                                            </br>Thesis&nbsp;submitted: <b>$p4</b>
+                                            </br>Thesis&nbsp;accepted: <b>$p5</b>
+                                            </br>Presentation&nbsp;scheduled: <b>$p6</b></td>
                                             <td>" . $row['StuID'] . "</td>
                                             <td>" . $row['StuEMAIL'] . "</td>
-                                            <td>" . $row['StuTel'] . "</td></tr>";	//$row['index'] the index here is a field name
+                                            <td>" . $row['StuTel'] . "</td></tr>";  //$row['index'] the index here is a field name
                             }
                             $prevStuID = $row['StuID'];
                         }
-
-                        echo "</table><br>"; //Close the table in HTML	
+                        echo "</table><br>"; //Close the table in HTML  
                     }
                     $result = query_our_database("SELECT Project.ProjectName, Description, Does.StuID, StuName, StuEMAIL, StuTel, Progress FROM Project LEFT JOIN Does ON Project.ProjectName=Does.ProjectName LEFT JOIN Student ON Does.StuID=Student.StuID WHERE Project.SupID='".$_SESSION["ID"]."'");
                     
@@ -230,20 +253,19 @@
                         
                         
                         // rows of the database
-                        while($row = mysqli_fetch_array($result)){	 //Creates a loop to loop through results
+                        while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
                             echo "<tr><td><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
                                         <td>" . $row['StuName'] . "</td>
                                         <td>" . $row['StuEMAIL'] . "</td>
                                         <td>" . $row['StuTel'] . "</td>
-                                        <td>" . $row['Progress'] . "</td></tr>";	//$row['index'] the index here is a field name
+                                        <td>" . $row['Progress'] . "</td></tr>";    //$row['index'] the index here is a field name
                         }
-
                         
-                        echo "</table><br>"; //Close the table in HTML	
+                        echo "</table><br>"; //Close the table in HTML  
                     }
-				}
+                }
                 if ($class == "Internship Contact") {
-					$result = query_our_database("SELECT Project.ProjectName, Description, Does.StuID, StuName, StuEMAIL, StuTel, Progress, Pay, LocName, Location, StreetNr, Travel, Tnotes FROM Project LEFT JOIN Does ON Project.ProjectName=Does.ProjectName LEFT JOIN Student ON Does.StuID=Student.StuID LEFT JOIN Internship_of ON Project.ProjectName=Internship_of.ProjectName WHERE Project.IConID='".$_SESSION["ID"]."'");
+                    $result = query_our_database("SELECT Project.ProjectName, Description, Does.StuID, StuName, StuEMAIL, StuTel, Progress, Pay, LocName, Location, StreetNr, Travel, Tnotes FROM Project LEFT JOIN Does ON Project.ProjectName=Does.ProjectName LEFT JOIN Student ON Does.StuID=Student.StuID LEFT JOIN Internship_of ON Project.ProjectName=Internship_of.ProjectName WHERE Project.IConID='".$_SESSION["ID"]."'");
                     if(mysqli_num_rows($result) > 0){
                         echo "<h3>Internship Overview</h3>
                                     <table class=\"list\" id='icon_table'>"; // start a table tag in the HTML
@@ -261,7 +283,7 @@
                         
                         
                         // rows of the database
-                        while($row = mysqli_fetch_array($result)){	 //Creates a loop to loop through results
+                        while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
                             echo "<tr><td><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
                                         <td>" . $row['StuName'] . "</td>
                                         <td>" . $row['StuEMAIL'] . "</td>
@@ -273,21 +295,16 @@
                                             echo "<td>Travel, </br>" . $row['Tnotes'] . "</td>";
                                         else
                                             echo "<td>No Travel Compensation</td>";
-                                        echo "</tr>";	//$row['index'] the index here is a field name
+                                        echo "</tr>";   //$row['index'] the index here is a field name
                         }
-
                         
-                        echo "</table><br>"; //Close the table in HTML	
+                        echo "</table><br>"; //Close the table in HTML  
                     }
                 }
                 if ($class == "Student") {
                     //Show your project and supervisors
-
                     $result = query_our_database("SELECT Does.ProjectName, Project.Description, Project.Progress, Project.Time, Project.Internship, Project.SupID, Project.IConID FROM Does LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE StuID='".$_SESSION["ID"]."'");
                     $row = mysqli_fetch_array($result);
-
-
-
                     echo "<h2>My project</h2>";
                     if ($row['ProjectName'] != "") {
                         $type = $row["Internship"];//1 is internship
@@ -388,15 +405,40 @@
                             </br>
                             <input type=\"submit\" name=\"progressupdate\" value=\"Update Your Progress\">
                         </form>
-                        <span class=\"error\">$progressupdated</span>";					
+                        <span class=\"error\">$progressupdated</span>";                 
                         
                     }
                     else {
                         echo "You currently have no project.<br>";
+                        $result = query_our_database("SELECT * FROM Student WHERE StuID='".$_SESSION["ID"]."'");
+                        $row = mysqli_fetch_row($result);
+                        $check = array("", "", "", "", "", ""); // Keeps track of previously checked checkboxes
+                        if (preg_match('/True/',$row[4]))
+                            $check[0] = "checked";
+                        if (preg_match('/True/',$row[5]))
+                            $check[1] = "checked";
+                        if (preg_match('/True/',$row[6]))
+                            $check[2] = "checked";
+                        if (preg_match('/True/',$row[7]))
+                            $check[3] = "checked";
+                        if (preg_match('/True/',$row[8]))
+                            $check[4] = "checked";
+                        if (preg_match('/True/',$row[9]))
+                            $check[5] = "checked";
+                        $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
+                        echo "<form action=\"$temp\" method=\"post\">
+                            </br>
+                            <td><input type=\"checkbox\" name=\"newcheck0\" $check[0]>Research proposal accepted</td></br>
+                            <td><input type=\"checkbox\" name=\"newcheck1\" $check[1]>Started project</td></br>
+                            <td><input type=\"checkbox\" name=\"newcheck2\" $check[2]>Midterm review</td></br>
+                            <td><input type=\"checkbox\" name=\"newcheck3\" $check[3]>Thesis submitted</td></br>
+                            <td><input type=\"checkbox\" name=\"newcheck4\" $check[4]>Thesis accepted</td></br>
+                            <td><input type=\"checkbox\" name=\"newcheck5\" $check[5]>Presentation scheduled</td></br>
+                            </br>
+                            <input type=\"submit\" name=\"progressupdate\" value=\"Update Your Progress\">
+                        </form>";
                     }
-
                     $result = query_our_database("SELECT SupID, Accepted FROM Supervises WHERE StuID='".$_SESSION["ID"]."' AND type='First SuperVisor'");
-
                     //first supervisor
                     $found = false;
                     while ($row = mysqli_fetch_array($result)){
@@ -416,10 +458,7 @@
                     }
                     if (!$found)
                         echo "<h3>First supervisor: -</h3>";
-
-
                     $result = query_our_database("SELECT SupID, Accepted FROM Supervises WHERE StuID='".$_SESSION["ID"]."' AND type='Second SuperVisor'");
-
                     //second supervisor
                     $found = false;
                     while ($row = mysqli_fetch_array($result)){
@@ -440,12 +479,11 @@
                     if (!$found)
                         echo "<h3>Second supervisor: -</h3>";
                     
-				}
-			
-			?>
+                }
+            
+            ?>
 
-		</div>
+        </div>
 
-	</body>
+    </body>
 </html> 
-
