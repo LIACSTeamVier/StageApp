@@ -18,7 +18,7 @@
         <?php include 'general_functions.php';?>
 
         <div class="main">
-            <h1>LIACS Student Project Manager</h1>
+            <h1>LIACS Student Project Manager</h1> 
             <?php
                 $class = $_SESSION["class"];
                 if ($class != "Admin") {
@@ -33,7 +33,8 @@
                     // column names
                     echo "<tr><th onclick=\"sortTable(0, 'student_table')\">Student ID</th>
                           <th onclick=\"sortTable(1, 'student_table')\">Name</th>
-                          <th>Supervision history</th></tr>";
+                          <th>Supervision history</th>
+                          <th>Progress history</th></tr>";
         
                     // rows of the database
                     while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
@@ -41,6 +42,10 @@
                               <td>" . $row['StuName'] . "</td>
                               <td><form action=\"supervisor_history.php\" method=\"post\">
                               <input type=\"submit\" name=\"suphist\" value=\"Get supervision history\">
+                              <input type=\"hidden\" name=\"stuHistID\" value=\"".$row['StuID']."\">
+                              </form></td>
+                              <td><form action=\"progress_history.php\" method=\"post\">
+                              <input type=\"submit\" name=\"proghist\" value=\"Get progress history\">
                               <input type=\"hidden\" name=\"stuHistID\" value=\"".$row['StuID']."\">
                               </form></td></tr>";
                     }
@@ -51,4 +56,4 @@
 </div>
 
 </body>
-</html> 
+</html>
