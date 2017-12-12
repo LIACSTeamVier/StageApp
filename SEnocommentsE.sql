@@ -32,6 +32,12 @@ CREATE TABLE Student(
 	StuName	VARCHAR(30),
 	StuEMAIL	VARCHAR(50),
 	StuTel	VARCHAR(10),
+	PropAccept VARCHAR(30),
+	StartPro VARCHAR(30),
+	MidRev VARCHAR(30),
+	ThesisSub VARCHAR(30),
+	ThesisAcc VARCHAR(30),
+	PresSched VARCHAR(30),
 	
 	PRIMARY KEY(StuID),
 	FOREIGN KEY(StuID) REFERENCES InternshipApp_Users(Identifier)
