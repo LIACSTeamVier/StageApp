@@ -68,8 +68,8 @@
         $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
         
         // HTML body
-        $message .= "Dear <td>".$name."</td>,</br> An account has been made for you on the
-    <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.</br> Your username and password are as follows:</br> Username: <td>".$uname."</td></br> Password: <td>".$password."</td></br> Please do not reply to this e-mail.</br>(notactually)LIACS"; // TODO replace with file
+        $message .= "Dear ".$name.",<br> An account has been made for you on the
+    <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.<br> Your username and password are as follows:<br> Username: ".$uname."<br> Password: ".$password."<br> Please do not reply to this e-mail.<br>(notactually)LIACS"; // TODO replace with file
         $message .= "\r\n\r\n--" . $boundary . "--";
         
         
@@ -102,8 +102,8 @@
         $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
         
         // HTML body
-        $message .= "Dear <td>".$name."</td>,</br> You requested a password reset for your account on the
-    <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.</br> Your username and password are as follows:</br> Username: <td>".$uname."</td></br> Password: <td>".$password."</td></br> Please do not reply to this e-mail.</br>(notactually)LIACS"; // TODO replace with file
+        $message .= "Dear ".$name.",<br> You requested a password reset for your account on the
+    <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.<br> Your username and password are as follows:<br> Username: ".$uname."<br> Password: ".$password."<br> Please do not reply to this e-mail.<br>(notactually)LIACS"; // TODO replace with file
         $message .= "\r\n\r\n--" . $boundary . "--";
         
         
