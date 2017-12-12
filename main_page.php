@@ -1,13 +1,15 @@
 <?php
-include 'general_functions.php';
-session_start();
-include 'sidebar_selector.php';
+    Session_start();
+    require_once "sidebar_selector.php";
+    require_once "general_functions.php";
+    
+    date_default_timezone_set("Europe/Amsterdam");
     $configs = include("config.php");
     $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
     // Check connection
     if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
-    }   
+    } 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($_POST["progressupdate"])){
             if($_POST["progupdate"] != $_POST["progold"]){
@@ -24,6 +26,35 @@ include 'sidebar_selector.php';
                     die("Error updating progress");
                 }
             }
+            $result = query_our_database("SELECT s.PropAccept, s.StartPro, s.MidRev, s.ThesisSub, s.ThesisAcc, s.PresSched FROM Student s WHERE StuID='".$_SESSION["ID"]."'");
+            $row = mysqli_fetch_row($result);
+            $date = date("Y-m-d: H:i:s");
+            if(isset($_POST["newcheck0"]) && preg_match("/False/",$row[0]))             // change True to False 
+                query_our_database("UPDATE Student SET PropAccept ='True ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+            elseif(!isset($_POST["newcheck0"]) && preg_match("/True/",$row[0]))         // or vice versa for each
+                query_our_database("UPDATE Student SET PropAccept ='False ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+            if(isset($_POST["newcheck1"]) && preg_match("/False/",$row[1]))             // possible progresscheck.
+                query_our_database("UPDATE Student SET StartPro ='True ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+            elseif(!isset($_POST["newcheck1"]) && preg_match("/True/",$row[1]))
+                query_our_database("UPDATE Student SET StartPro ='False ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+            if(isset($_POST["newcheck2"]) && preg_match("/False/",$row[2]))
+                query_our_database("UPDATE Student SET MidRev ='True ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+            elseif(!isset($_POST["newcheck2"]) && preg_match("/True/",$row[2]))
+                query_our_database("UPDATE Student SET MidRev ='False ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+            if(isset($_POST["newcheck3"]) && preg_match("/False/",$row[3]))
+                query_our_database("UPDATE Student SET ThesisSub ='True ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+            elseif(!isset($_POST["newcheck3"]) && preg_match("/True/",$row[3]))
+                query_our_database("UPDATE Student SET ThesisSub ='False ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+            if(isset($_POST["newcheck4"]) && preg_match("/False/",$row[4]))
+                query_our_database("UPDATE Student SET ThesisAcc ='True ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+            elseif(!isset($_POST["newcheck4"]) && preg_match("/True/",$row[4]))
+                query_our_database("UPDATE Student SET ThesisAcc ='False ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+            if(isset($_POST["newcheck5"]) && preg_match("/False/",$row[5]))
+                query_our_database("UPDATE Student SET PresSched ='True ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+            elseif(!isset($_POST["newcheck5"]) && preg_match("/True/",$row[5]))
+                query_our_database("UPDATE Student SET PresSched ='False ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+            
+            $progressupdated = "Progress has been updated!";
         }        
     }
     mysqli_close($con);
@@ -328,12 +359,36 @@ include 'sidebar_selector.php';
                         echo "</table>";
                         echo "<h3>Progress:</h3>";
                         $prog = $row['Progress'];
+                        $result = query_our_database("SELECT * FROM Student WHERE StuID='".$_SESSION["ID"]."'");
+                        $row = mysqli_fetch_row($result);
+                        $check = array("", "", "", "", "", ""); // Keeps track of previously checked checkboxes
+                        if (preg_match('/True/',$row[4]))
+                            $check[0] = "checked";
+                        if (preg_match('/True/',$row[5]))
+                            $check[1] = "checked";
+                        if (preg_match('/True/',$row[6]))
+                            $check[2] = "checked";
+                        if (preg_match('/True/',$row[7]))
+                            $check[3] = "checked";
+                        if (preg_match('/True/',$row[8]))
+                            $check[4] = "checked";
+                        if (preg_match('/True/',$row[9]))
+                            $check[5] = "checked";
                         $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
                         echo "<form action=\"$temp\" method=\"post\">
                             <textarea name=\"progupdate\" rows=\"5\" cols=\"40\">$prog</textarea>
+                            </br>
+                            <td><input type=\"checkbox\" name=\"newcheck0\" $check[0]>Research proposal accepted</td></br>
+                            <td><input type=\"checkbox\" name=\"newcheck1\" $check[1]>Started project</td></br>
+                            <td><input type=\"checkbox\" name=\"newcheck2\" $check[2]>Midterm review</td></br>
+                            <td><input type=\"checkbox\" name=\"newcheck3\" $check[3]>Thesis submitted</td></br>
+                            <td><input type=\"checkbox\" name=\"newcheck4\" $check[4]>Thesis accepted</td></br>
+                            <td><input type=\"checkbox\" name=\"newcheck5\" $check[5]>Presentation scheduled</td></br>
                             <input type=\"hidden\" name=\"progold\" value=\"$prog\">
+                            </br>
                             <input type=\"submit\" name=\"progressupdate\" value=\"Update Your Progress\">
-                        </form>";					
+                        </form>
+                        <span class=\"error\">$progressupdated</span>";					
                         
                     }
                     else {
@@ -393,5 +448,4 @@ include 'sidebar_selector.php';
 
 	</body>
 </html> 
-
 
