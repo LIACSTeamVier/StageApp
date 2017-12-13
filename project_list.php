@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(); 
 include 'general_functions.php';
 include 'sidebar_selector.php';
 ?>
@@ -37,7 +37,7 @@ include 'sidebar_selector.php';
         </div>
 -->
         <div class="main">
-	    <h1>LIACS Student Project Manager</h1>
+            <h1>LIACS Student Project Manager</h1>
             <?php
                 $configs = include("config.php");
                 $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
@@ -46,6 +46,9 @@ include 'sidebar_selector.php';
                 if (mysqli_connect_errno()) {
                     echo "Failed to connect to MySQL: " . mysqli_connect_error();
                 }
+                
+                $in_a_project = mysqli_query($con, "SELECT ProjectName FROM Does WHERE StuID = '" . $_SESSION["ID"] ."'") or die('Unable to run query:' . mysqli_error());
+                $project_name = mysqli_fetch_array($in_a_project);
                 
                 $project_table = mysqli_query($con, "SELECT * FROM Project") or die('Unable to run query:' . mysqli_error());
                 echo "<table class=\"list\" id='project_table'>"; // start a table tag in the HTML
@@ -79,15 +82,29 @@ include 'sidebar_selector.php';
                           <td>" . $row['CompanyName'] . "</td>";
                           
 					if ($_SESSION["class"] == "Student"){
-					echo "<td> 
-					
-					<form method=\"POST\" action=\"subscription.php?prjct=" . $row['ProjectName'] . "\">
-					
-						<input type=\"submit\" name=" . $row['ProjectName'] . " value=\"Subscribe\" />
+						echo "<td> ";
 						
-					</form>
-					
-					 </td>";
+						if($project_name){
+							echo "
+							
+							<form method=\"POST\" action=\"Subscription_alt.php?prjct=" . $row['ProjectName'] . "\">
+							
+								<input type=\"submit\" name=" . $row['ProjectName'] . " value=\"Subscribe\" />
+								
+							</form>
+							
+							 </td>";
+						}else{
+							echo "
+							
+							<form method=\"POST\" action=\"Subscription.php?prjct=" . $row['ProjectName'] . "\">
+							
+								<input type=\"submit\" name=" . $row['ProjectName'] . " value=\"Subscribe\" />
+								
+							</form>
+							
+							 </td>";
+						}
 					}
 					
 					

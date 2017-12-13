@@ -15,7 +15,10 @@ $project = $_GET['prjct'];
 <?php
 
 	$configs = include("config.php");
-    $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
+	$con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
+	if(!$con){
+		echo "error, no connection";
+	}
 
 	$sql = "DELETE FROM Does WHERE StuID= '" . $id . "'";
 	if (!$con->query($sql)){
@@ -25,18 +28,23 @@ $project = $_GET['prjct'];
 			$stmt->bind_param("sss", $id, $project, date('Y-m-d:h:i:s'));
 			$stmt->execute();
 			
-			$sql = "SELECT SupEMAIL, SupID FROM InternshipApp_Users AS I, Supervises AS S WHERE I.SupID = S.SupID";
-			$results = $con->query($sql);
+			
+			
+			$sql2 = "SELECT * FROM Supervisor INNER JOIN Supervises ON Supervisor.SupID = Supervises.SupID WHERE Supervises.StuID = '" . $_SESSION['ID'] . "' AND Supervises.Accepted = '1'";
+			
+			$result = $con->query($sql2);
 			if(!$result){
-				echo "ERROR: you have no supervisor <br>\n ";
+				echo "ERROR: Connection time-out";
 			}else{
 			$to = $result->fetch_assoc();	
-			mail($to["SupEMAIL"], "Subscription Request", "Student " .$id. "has requested access to the project" .$prjct. ".");
+			echo $to["SupEMAIL"];
+			mail($to["SupEMAIL"], "Subscription Request", "Student " .$id. " has requested access to the project " .$project. ".");
 			header( 'Location: http://csthesis.liacs.leidenuniv.nl/main_page.php' );
 			}
+			
 	}
 	
-	echo "<a href='Location: http://csthesis.liacs.leidenuniv.nl/main_page.php'>Return Home</a>";
+	echo "<a href= 'main_page.php'>Return Home</a>";
 
 ?>
 </body>
