@@ -11,7 +11,7 @@ include 'sidebar_selector.php';
 
         <meta name="Description" content= "Projects and Internships" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Projects and Internships</title>
+        <title>Projects and internships - LIACS Student Project Manager</title>
         <script src="sortTable.js"></script>
  <!--       <style>
         table, th, td {

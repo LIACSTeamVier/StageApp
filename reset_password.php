@@ -119,7 +119,7 @@ function password_reset(&$con) {
 
         <meta name="Description" content= "Reset Password" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Reset your Password - LIACS Student Project Manager</title>
+        <title>Reset your password - LIACS Student Project Manager</title>
     </head>
     <body>
         <div class="main">

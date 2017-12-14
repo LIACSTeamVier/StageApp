@@ -114,16 +114,9 @@ function insertIntoDatabase($name, $topic, $description, $squal, $tijdrest, $con
           
         <meta name="Description" content= "Offer Project" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Offer Project</title>
+        <title>Submit project - LIACS Student Project Manager</title>
     </head>
    <body>
-     
-    <!--<div class="sidepane">
-       <a href="main_page.php">Overview</a>
-       <a href="#">Projects</a>
-       <a href="contact.html">Contact</a>
-       <a href="#">Help</a></a>
-    </div>-->
      
     <div class="main">
     <h1>LIACS Student Project Manager</h1>

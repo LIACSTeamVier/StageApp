@@ -9,9 +9,10 @@ $project = $_GET['prjct'];
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src="sortTable.js"></script>
+<title>Request is being processed - LIACS Student Project Manager</title>
 </head>
 <body>
-<h1>Your request is being processed, please wait...</h1>
+<h2>Your request is being processed, please wait...</h2>
 <?php
 
 	$configs = include("config.php");
@@ -36,7 +37,7 @@ $project = $_GET['prjct'];
 			}
 	}
 	
-	echo "<a href= 'main_page.php'>Return Home</a>";
+	echo "<a href= 'main_page.php'>Return home</a>";
 
 ?>
 </body>

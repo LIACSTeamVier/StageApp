@@ -195,60 +195,60 @@
 
         <meta name="Description" content= "Offer Internship" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Offer Internship</title>
+        <title>Submit internship - LIACS Student Project Manager</title>
     </head>
-    <body>
-        <h1>LIACS Student Project Manager</h1>    
+    <body> 
         <div class="main">
+        <h1>LIACS Student Project Manager</h1>
             <p>
             Fill in the forms to make your internship information available to the
             students.
             </p>
-            <p><span class="error">* required field.</span></p>
+            <p><span class="error">* Required field.</span></p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                 <table class="form">
                 <tr>
-                <td>ProjectName:</td><td><input type="text" name="naam" value="<?php  echo $naam;?>">
-                <span class="error">* <?php echo $naamErr;?></span></td>
+                <td>Project name:</td><td><input type="text" name="naam" value="<?php  echo $naam;?>"></td>
+                <td><span class="error">* <?php echo $naamErr;?></span></td>
                 </tr>
                 <tr>
-                <td>Topic/keywords:</td><td><input type="text" name="topic" value="<?php  echo $topic;?>">
-				<span class="error"><?php echo $topicErr;?></span></td>
+                <td>Topic/keywords:</td><td><input type="text" name="topic" value="<?php  echo $topic;?>"></td>
+				<td><span class="error"><?php echo $topicErr;?></span></td>
 				</tr>
 				<tr>
-                <td>Your internship's City:</td><td><input type="text" name="location" value="<?php echo $location;?>">
-                <span class="error">* <?php echo $locationErr;?></span></td>
+                <td>Your internship's city:</td><td><input type="text" name="location" value="<?php echo $location;?>"></td>
+                <td><span class="error">* <?php echo $locationErr;?></span></td>
                 </tr>
 				<tr>
-                <td>Street:</td><td><input type="text" name="street" value="<?php echo $street;?>">
-                <span class="error"> <?php echo $streetErr;?></span></td>
+                <td>Street:</td><td><input type="text" name="street" value="<?php echo $street;?>"></td>
+                <td><span class="error"> <?php echo $streetErr;?></span></td>
                 </tr>
 				<tr>
-                <td>StreetNumber:</td><td><input type="text" name="streetnr" value="<?php echo $streetnr;?>">
-                <span class="error"> <?php echo $streetnrErr;?></span></td>
+                <td>Street number:</td><td><input type="text" name="streetnr" value="<?php echo $streetnr;?>"></td>
+                <td><span class="error"> <?php echo $streetnrErr;?></span></td>
                 </tr>
 				<tr>
-                <td>Pay:</td><td><input type="text" name="pay" value="<?php echo $pay;?>">
-                <span class="error"> <?php echo $payErr;?></span></td>
+                <td>Pay:</td><td><input type="text" name="pay" value="<?php echo $pay;?>"></td>
+                <td><span class="error"> <?php echo $payErr;?></span></td>
                 </tr>
 				<tr>
-                <td>Travel Arrangements:</td><td><input type="radio" name="travel" value="1">Included <input type="radio" name="travel" value="0">Excluded</td>
+                <td>Travel arrangements:</td><td><input type="radio" name="travel" value="1">Included <input type="radio" name="travel" value="0">Excluded</td>
                 </tr>
 				<tr>
-                <td>Notes:</td><td><input type="text" name="tnotes" value="<?php echo $tnotes;?>">
-                <span class="error"> <?php echo $tnotesErr;?></span></td>
+                <td>Notes:</td><td><input type="text" name="tnotes" value="<?php echo $tnotes;?>"></td>
+                <td><span class="error"> <?php echo $tnotesErr;?></span></td>
                 </tr>
 				<tr>
-                <td>Describe your internship:</td><td><textarea name="description" rows="5" cols="40"><?php echo $description;?></textarea>
-                <span class="error">* <?php echo $descriptionErr;?></span></td>
+                <td>Describe your internship:</td><td><textarea name="description" rows="5" cols="40"><?php echo $description;?></textarea></td>
+                <td><span class="error">* <?php echo $descriptionErr;?></span></td>
                 </tr>
 				<tr>
-                <td>Describe the qualities you seek in a student (i.e. skillset):</td><td><textarea name="squal" rows="5" cols="40"><?php echo $squal;?></textarea>
-                <span class="error"> <?php echo $squalErr;?></span></td>
+                <td>Describe the qualities you seek in a student (i.e. skillset):</td><td><textarea name="squal" rows="5" cols="40"><?php echo $squal;?></textarea></td>
+                <td><span class="error"> <?php echo $squalErr;?></span></td>
                 </tr>
 				<tr>
-                <td>Describe time restriction (when the internship is available):</td><td><textarea name="tijdrest" rows="5" cols="40"><?php echo $tijdrest;?></textarea>
-                <span class="error"> <?php echo $tijdrestErr;?></span></td>
+                <td>Describe time restriction (when the internship is available):</td><td><textarea name="tijdrest" rows="5" cols="40"><?php echo $tijdrest;?></textarea></td>
+                <td><span class="error"> <?php echo $tijdrestErr;?></span></td>
                 </tr>
                 </table>
                 <input type="submit" value="Post internship">

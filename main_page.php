@@ -73,6 +73,7 @@
     <body>
 
         <div class="main">
+			<h1>LIACS Student Project Manager</h1>
             <?php
                 if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
                     header("Location: index.php");
@@ -80,9 +81,6 @@
                 }
                 $username = $_SESSION["username"];
                 $class = $_SESSION["class"];
-                echo "<h1>LIACS Student Project Manager</h1>";
-                //echo "<h1>Welcome " . "$username" ."</h1>";
-                //echo "You are logged in as " . "$class" . "." ."<p>"; //TODO temp, remove line.
                 // After sending an e-mail
                 if (isset($_SESSION["regErr"])) {
                     echo $_SESSION["regErr"];

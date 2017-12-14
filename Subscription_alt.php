@@ -9,9 +9,10 @@ $project = $_GET['prjct'];
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src="sortTable.js"></script>
+<title>Unsubscribe from project - LIACS Student Project Manager</title>
 </head>
 <body>
-<h1>Are you certain you want to unsuscribe from your current project?</h1>
+<h2>Are you certain you want to unsubscribe from your current project?</h2>
 
 <form method="POST" action= <?php echo $_SERVER['PHP_SELF']; ?> >
 							

@@ -149,7 +149,7 @@
 
         <meta name="Description" content= "Requesting Students" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Requesting Students</title>
+        <title>Requesting students - LIACS Student Project Manager</title>
         <script src="sortTable.js"></script>
     </head>
     <body>

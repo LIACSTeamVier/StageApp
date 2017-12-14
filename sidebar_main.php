@@ -26,7 +26,7 @@
 	padding: 6px 6px 6px 6px;
 	text-align: center;
 	text-decoration: none;
-	text-shadow: 2px 2px 8px #000000
+	text-shadow: 2px 2px 8px #000000;
 	font-size: 14px;
 	color: #ffffff;
 	font-family: "Verdana";

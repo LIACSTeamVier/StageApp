@@ -94,6 +94,7 @@ function insertIntoDatabase($name, $email, $tele, $location, $company, $descript
     </head>
    <body>
    <div class="main">
+	<h1>LIACS Student Project Manager</h1>
     <p>
         Fill in this form to make your internship information available to the
         students.

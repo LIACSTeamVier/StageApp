@@ -154,9 +154,11 @@ function test_input($data) {
 	<head>
 		<meta charset="utf-8" /> 
         <link rel="stylesheet" type="text/css" href="style.css">
+		<title>Confirm supervisor - LIACS Student Project Manager</title>
 	</head>
 	<body>
 		<div class="main">
+			<h1>LIACS Student Project Manager</h1>
 			<p>The request you have made should have been already been confirmed informally with the supervisor</p>
 			<p>Click confirm to enter the request into the system if you have already communicated with the supervisor</p></br>
 			<p>If you have not discussed the request with the supervisor click cancel</p></br>

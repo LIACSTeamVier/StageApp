@@ -155,7 +155,7 @@
 	<head>
 		<meta charset="utf-8" /> 
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<title>Profile Information - LIACS Student Project Manager</title>
+		<title>Profile information - LIACS Student Project Manager</title>
 	</head>
     <body>
         <div class="main">
