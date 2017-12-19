@@ -301,10 +301,10 @@
                 }
                 if ($class == "Student") {
                     //Show your project and supervisors
-                    $result = query_our_database("SELECT Does.ProjectName, Project.Description, Project.Progress, Project.Time, Project.Internship, Project.SupID, Project.IConID FROM Does LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE StuID='".$_SESSION["ID"]."'");
+                    $result = query_our_database("SELECT Does.ProjectName, Does.Accepted, Project.Description, Project.Progress, Project.Time, Project.Internship, Project.SupID, Project.IConID FROM Does LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE StuID='".$_SESSION["ID"]."'");
                     $row = mysqli_fetch_array($result);
                     echo "<h2>My project</h2>";
-                    if ($row['ProjectName'] != "") {
+                    if ($row['ProjectName'] != "" && $row['Accepted'] == "1") {
                         $type = $row["Internship"];//1 is internship
                         if($type == "1"){
                             $result2 = query_our_database("SELECT * FROM Internship_of WHERE ProjectName='".$row["ProjectName"]."'");
@@ -407,7 +407,10 @@
                         
                     }
                     else {
-                        echo "You currently have no project.<br>";
+                        if($row['ProjectName'] != "")
+                            echo "You made a request to join the project: ".$row['ProjectName'].".";
+                        else
+                            echo "You currently have no project.<br>";
                         $result = query_our_database("SELECT * FROM Student WHERE StuID='".$_SESSION["ID"]."'");
                         $row = mysqli_fetch_row($result);
                         $check = array("", "", "", "", "", ""); // Keeps track of previously checked checkboxes
