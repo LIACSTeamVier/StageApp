@@ -1,5 +1,5 @@
 <?php
-	Session_start();
+	session_start();
 	require_once "sidebar_selector.php";
 	require_once "general_functions.php";
 	
@@ -22,7 +22,7 @@
 	</head>
 	<body>
 		<div class="main">
-                        <h1>LIACS Student Project Manager</h1>
+                       <h1>LIACS Student Project Manager</h1>
 			<?php
 				if($_SESSION["class"] != "Admin" || empty($stuid)) {
 					header("Location: main_page.php");

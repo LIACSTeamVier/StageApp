@@ -1,5 +1,5 @@
 <?php
-    Session_start();
+    session_start();
     require_once "sidebar_selector.php";
     require_once "general_functions.php";
     

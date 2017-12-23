@@ -2,8 +2,8 @@
 	session_start();
 	date_default_timezone_set("Europe/Amsterdam");
 	$configs = include("config.php");
-    require_once "sidebar_selector.php";
     require_once "general_functions.php";
+    require_once "sidebar_selector.php";
     
 	if ($_SERVER["REQUEST_METHOD"] == "GET"){
         $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
@@ -50,9 +50,19 @@
 			}
 			//header("Location: main_page.php");
 			//die("Wrong Code");
-			echo "<div class=\"main\"><a>Wrong or Expired code</a>
-                              <a href=\"main_page.php\">Go to the main page</a>
-                              </div>";
+            ?>
+            <link rel="stylesheet" type="text/css" href="style.css">
+			<div class="main">
+                <table class="form">
+                    <tr>
+                        <td>Wrong or Expired url.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="index.php">Return to the login page</a></td>
+                    </tr>
+                </table>
+            </div>
+            <?php
 			die();
 		}
 

@@ -1,6 +1,6 @@
 <?php //file made with help from w3schools.com
 session_start();
-require_once "sidebar_supervisor.php";
+require_once "sidebar_selector.php";
 //TODO put stuff in sessions when logging in, fix the vars in here to match the session, fix the stuff in here to match the correct database, and fix to match the table
 ///!!!! put correct stuff in the session
 
@@ -128,17 +128,17 @@ function insertIntoDatabase($name, $topic, $description, $squal, $tijdrest, $con
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="project">
         <table class="form">
         <tr>
-        <td>ProjectName:</td><td><input type="text" name="name" value="<?php  echo $name;?>">
-        <span class="error">* <?php echo $nameErr;?></span></td>
+        <td>ProjectName:</td><td><input type="text" name="name" value="<?php  echo $name;?>"></td>
+        <td><span class="error">* <?php echo $nameErr;?></span></td>
         </tr>
         <tr>
-        <td>Topic/keywords:</td><td> <input type="text" name="topic" value="<?php  echo $topic;?>">
-        <span class="error"><?php echo $topicErr;?></span></td>
+        <td>Topic/keywords:</td><td> <input type="text" name="topic" value="<?php  echo $topic;?>"></td>
+        <td><span class="error"><?php echo $topicErr;?></span></td>
         </tr>
         <tr>
         <td>Describe your project:</td>
-        <td> <textarea name="description" rows="5" cols="40"><?php echo $description;?></textarea>
-        <span class="error">* <?php echo $descriptionErr;?></span></td>
+        <td> <textarea name="description" rows="5" cols="40"><?php echo $description;?></textarea></td>
+        <td><span class="error">* <?php echo $descriptionErr;?></span></td>
         </tr>
         <tr>
         <td>Describe the qualities you seek in a student (i.e. skillset):</td>

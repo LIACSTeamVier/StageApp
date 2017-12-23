@@ -1,7 +1,7 @@
 <?php
 session_start(); 
-include 'general_functions.php';
-include 'sidebar_selector.php';
+require_once "general_functions.php";
+require_once "sidebar_selector.php";
 ?>
 
 <!DOCTYPE html>
@@ -61,8 +61,10 @@ include 'sidebar_selector.php';
                           <th onclick=\"sortTable(4, 'project_table')\">Student type</th>
                           <th onclick=\"sortTable(5, 'project_table')\">Internship</th>
                           <th onclick=\"sortTable(6, 'project_table')\">Teacher</th>
-                          <th onclick=\"sortTable(7, 'project_table')\">Company</th></tr>";
+                          <th onclick=\"sortTable(7, 'project_table')\">Company</th>
+                          <th onclick=\"sortTable(8, 'project_table')\"></th></tr>";
                           
+                $row = mysqli_fetch_array($project_table);
                 // rows of the database
                 while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
                     $teacher_name_get = mysqli_query($con, "SELECT SupName FROM Supervisor WHERE SupID='".$row['SupID']."'")or die('Unable to run query:' . mysqli_error());

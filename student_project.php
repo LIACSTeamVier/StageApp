@@ -1,7 +1,7 @@
 <?php
-include 'general_functions.php';
 session_start();
-include 'sidebar_selector.php';
+require_once "general_functions.php";
+require_once "sidebar_selector.php";
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +23,7 @@ include 'sidebar_selector.php';
     
     $configs = include("config.php");
     $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
-    $stmt = $con->prepare( "INSERT INTO Project(ProjectName, Description, Progress, Time, Studentqualities, Topic, Internship) VALUES (?,?, NULL,?,?,?,'0')");
+    $stmt = $con->prepare( "INSERT INTO Project(ProjectName, Description, Progress, Time, Studentqualities, Topic, Internship, SupID) VALUES (?,?, NULL,?,?,?,'0')");
 
 
 	$sql = "SELECT StuID, ProjectName FROM Does WHERE StuID = " . $_SESSION['ID'];

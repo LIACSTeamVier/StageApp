@@ -1,11 +1,12 @@
 <?php
+    session_start();
 	require_once "random_compat-2.0.11/lib/random.php";
-	require_once "sidebar_student.php";
+	require_once "sidebar_selector.php";
 	date_default_timezone_set("Europe/Amsterdam");
-	session_start();
+	
 	if( ($_SESSION["class"] != "Student") || empty($_SESSION["ReqDocID"]) || empty($_SESSION["ReqType"]) || empty($_SESSION["ReqStudentID"]) ){
-		//header("Location: main_page.php");
-		die("Wrong Session Vars");
+		header("Location: main_page.php");
+		die();
 	}
 	$smessage = "";
 	if($_POST["confirmed"] == "Confirm Request"){

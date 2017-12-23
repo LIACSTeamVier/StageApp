@@ -1,7 +1,7 @@
 <?php
-Session_start();
-include "general_functions.php";
-include "sidebar_selector.php";
+session_start();
+require_once "general_functions.php";
+require_once "sidebar_selector.php";
 
 $regErr = $nameErr = $unameErr = $emailErr = "";
 $name = $uname = $email = "";
@@ -86,7 +86,7 @@ function attemptRegister($name, $uname, $email, $password) {
     insertIntoStudent($email, $name, $uname);
     if (!isset($_SESSION["regErr"])) {
         $_SESSION["regErr"] = "Account created successfully!";
-        if (!sendEmail($name, $email, $uname, $password)) {
+        if (!account_created_email($name, $email, $uname, $password)) {
             $_SESSION["regErr"] = "E-mail could not be delivered. Account not created.";
             deleteUser($uname);
         }

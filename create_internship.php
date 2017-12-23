@@ -1,6 +1,6 @@
 <?php //file made with help from w3schools.com
 session_start();
-include 'sidebar_selector.php';
+require_once "sidebar_selector.php";
 
 //TODO put stuff in sessions when logging in, fix the vars in here to match the session, fix the stuff in here to match the correct database, and fix to match the table
 ///!!!! put correct stuff in the session

@@ -1,5 +1,5 @@
 <?php
-Session_start();
+session_start();
 require_once "general_functions.php";
 require_once "sidebar_selector.php";
 
@@ -69,7 +69,7 @@ function attemptRegister($name, $email, $password) {
     insertIntoUsers($email, $class, $name, $hash);
     if (!isset($_SESSION["regErr"])) {
         $_SESSION["regErr"] = "Account created successfully!";
-        if (!sendEmail($name, $email, $uname, $password)) {
+        if (!account_created_email($name, $email, $uname, $password)) {
             $_SESSION["regErr"] = "E-mail could not be delivered. Account not created.";
             deleteUser($email);
         }
@@ -111,7 +111,7 @@ function deleteUser($uname){
             <?php
                 if ($_SESSION["class"] != "Admin") {
                     header("Location: main_page.php");
-                    exit()
+                    exit();
                 }
             ?>
             <h1>LIACS Student Project Manager</h1>
@@ -138,6 +138,5 @@ function deleteUser($uname){
                 <input type="submit" value="Create account">
             </form>
         </div>
-
     </body>
 </html>

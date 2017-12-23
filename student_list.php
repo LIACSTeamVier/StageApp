@@ -1,5 +1,6 @@
 <?php
-    Session_start();
+    session_start();
+    require_once "general_functions.php";
     require_once "sidebar_selector.php";
 ?>
 
@@ -14,9 +15,6 @@
         <script src="sortTable.js"></script>
     </head>
     <body>
-
-        <?php include 'general_functions.php';?>
-
         <div class="main">
             <h1>LIACS Student Project Manager</h1> 
             <?php
@@ -56,4 +54,4 @@
 </div>
 
 </body>
-</html>
+</html> 

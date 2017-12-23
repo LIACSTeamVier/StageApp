@@ -1,6 +1,6 @@
 <?php 
 	session_start();
-	include 'sidebar_selector.php';
+	require_once "sidebar_selector.php";
 	
 	date_default_timezone_set("Europe/Amsterdam");
 	$configs = include("config.php");

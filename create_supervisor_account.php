@@ -1,7 +1,7 @@
 <?php
-Session_start();
-include "general_functions.php";
-include "sidebar_selector.php";
+session_start();
+require_once "general_functions.php";
+require_once "sidebar_selector.php";
 
 $regErr = $nameErr = $emailErr = $phoneErr = $roleErr = $backErr = $topicErr = "";
 $name = $email = $phonenum = $role1 = $role2 = $back1 = $back2 = $background = $topics = "";
@@ -135,7 +135,7 @@ function attemptRegister($name, $email, $password, $phonenum, $role1, $role2, $b
     insertIntoSupervisor($email, $name, $phonenum, $role1, $role2, $background, $topics);
     if (!isset($_SESSION["regErr"])) {
         $_SESSION["regErr"] = "Account created successfully!";
-        if (!sendEmail($name, $email, $uname, $password)) {
+        if (!account_created_email($name, $email, $uname, $password)) {
             $_SESSION["regErr"] = "E-mail could not be delivered. Account not created.";
             deleteUser($email);
         }

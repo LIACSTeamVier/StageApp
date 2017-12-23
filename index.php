@@ -1,7 +1,7 @@
 <?php
-Session_start();
-require_once "sidebar_selector.php";
+session_start();
 require_once "general_functions.php";
+require_once "sidebar_selector.php";
 
 $loginErr = $regErr = "";
 $uname = $password = "";
@@ -46,28 +46,37 @@ function attemptLogin($uname, $password) {
     if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
-    $result = mysqli_query($con, "SELECT * FROM InternshipApp_Users g WHERE g.Identifier='$uname'") or die('Unable to run query:' . mysqli_error());
-    $row = mysqli_fetch_row($result);
-    mysqli_close($con);
-    if (password_verify($password, $row[3])) {
-    //if ($row[3] == $password) {
-        // set session vars
-        $_SESSION["username"] = "$row[2]";
-        $_SESSION["class"] = "$row[1]";
-
-
-	/*****TEMP*****/
-	$_SESSION["ID"] = $uname;
-
-
-        // redirect to main page
-        header("Location: main_page.php");
+    $stmt = mysqli_prepare($con, "SELECT * FROM InternshipApp_Users i WHERE i.Identifier=?");
+    mysqli_stmt_bind_param($stmt,'s', $uname);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+    if (!$result) {
+        $_SESSION["loginErr"] = "Unable to run query: " . mysqli_error($con);
+        header("Location: index.php");
         exit();
     }
     else {
-        $_SESSION["loginErr"] = "Invalid username and password combination";
-        header("Location: index.php");
-        exit();
+        $row = mysqli_fetch_row($result);
+        mysqli_close($con);
+        if (password_verify($password, $row[3])) {
+            // set session vars
+            $_SESSION["username"] = "$row[2]";
+            $_SESSION["class"] = "$row[1]";
+
+            /*****TEMP*****/
+	        $_SESSION["ID"] = $uname;
+
+
+            // redirect to main page
+            header("Location: main_page.php");
+            exit();
+        }
+        else {
+            $_SESSION["loginErr"] = "Invalid username and password combination";
+            header("Location: index.php");
+            exit();
+        }
     }
     die();
 }

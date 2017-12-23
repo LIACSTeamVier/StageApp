@@ -1,5 +1,5 @@
 <?php
-Session_start();
+session_start();
 require_once "general_functions.php";
 require_once "sidebar_selector.php";
 
@@ -110,6 +110,40 @@ function password_reset(&$con) {
         $error = True;
     }
 }
+
+function forgot_password_email($name, $email, $uname, $password) {
+        $configs = include("config.php");
+        $email_from = $configs["noreply"];
+        $subject = "Your new password for the LIACS InternshipApp";
+        $boundary = uniqid('np');
+        
+        $headers = "MIME-Version: 1.0\r\n";
+        $headers .= "From: $email_from \r\n";
+        $headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
+        
+        // MIME stuff
+        $message = "This is a MIME encoded message.";
+        $message .= "\r\n\r\n--" . $boundary . "\r\n";
+        $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
+        
+        // Plain text body
+        $message .= "Dear ".$name.",\nYou requested a password reset for your account on the LIACS InternshipApp\nhttp://csthesis.liacs.leidenuniv.nl\nYour username and password are as follows:\nUsername: ".$uname."\nPassword: ".$password."\nPlease do not reply to this e-mail.\n(notactually)LIACS"; // TODO replace with file
+        $message .= "\r\n\r\n--" . $boundary . "\r\n";
+        $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
+        
+        // HTML body
+        $message .= "Dear ".$name.",<br> You requested a password reset for your account on the
+    <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.<br> Your username and password are as follows:<br> Username: ".$uname."<br> Password: ".$password."<br> Please do not reply to this e-mail.<br>(notactually)LIACS"; // TODO replace with file
+        $message .= "\r\n\r\n--" . $boundary . "--";
+        
+        
+        $headers = "MIME-Version: 1.0\r\n";
+        $headers .= "From: $email_from \r\n";
+        $headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
+        //var_dump($email);
+        //die();
+        return mail($email,$subject,$message,$headers);
+    }
 ?>
 
 <!DOCTYPE html>

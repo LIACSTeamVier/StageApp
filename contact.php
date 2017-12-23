@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'sidebar_selector.php';
+require_once "sidebar_selector.php";
 ?>
 
 <!DOCTYPE html>
