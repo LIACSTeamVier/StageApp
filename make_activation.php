@@ -1,6 +1,6 @@
 <?php
     session_start();
-	require_once "random_compat-2.0.11/lib/random.php";
+	require_once "general_functions.php";
 	require_once "sidebar_selector.php";
 	date_default_timezone_set("Europe/Amsterdam");
 	
@@ -26,7 +26,7 @@
 		$randstring = random_str(32); 
 		$res = mysqli_query($con, "SELECT * FROM Supervises WHERE ActivationCode='$randstring'");
 		$numrow = mysqli_num_rows($res);
-		while($numrow > 0){//make sure the activation code is unique
+		while($numrow > 0){ // make sure the activation code is unique
 			$randstring = random_str(32);
 			$res = mysqli_query($con, "SELECT * FROM Supervises WHERE ActivationCode='$randstring'");
 			$numrow = mysqli_num_rows($res);
@@ -36,7 +36,6 @@
 			  VALUES (?,?,?,'0',?,?)");
 		mysqli_stmt_bind_param($stmt,'sssss', $_SESSION["ReqType"], $_SESSION["ReqDocID"], $_SESSION["ReqStudentID"], $randstring, $datereq);
 		$result = mysqli_stmt_execute($stmt);
-		//$result = mysqli_stmt_get_result($stmt);
 		mysqli_stmt_close($stmt);
 		if(!$result){echo "query 1";
 			die('Unable to run query1:' . mysqli_error());}
@@ -72,30 +71,20 @@
 		$message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
 		
 		// Plain text body
-		$message .= "Dear $DocName,\nThe student: $StudentName, $StudentID, has requested you to be their $type.\nEnter this url 'http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring' in your browser to accept their request.\n$smessage\nPlease do not reply to this e-mail."; //"Hello,\nPlease open this e-mail in HTML-mode to view its contents.\nPlease do not reply to this e-mail.\n\nThanks"; 
+		$message .= "Dear $DocName,\nThe student: $StudentName, $StudentID, has requested you to be their $type.\nEnter this url 'http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring' in your browser to accept their request.\n$smessage\nPlease do not reply to this e-mail.";
 		$message .= "\r\n\r\n--" . $boundary . "\r\n";
 		$message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
 		
 		// HTML body
 		$message .= "<html lang=\"en-UK\">
-					<body>
-					  <p>Dear $DocName,</p><br/>
-					  <p>The student: $StudentName, $StudentID, has requested you to be their $type.</p>
-					  "//<p>Click this <a href=\"http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring\">LINK</a> to accept their request.<p><br/>
-					 ."<p>Enter this url 'http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring' in your browser to accept their request</p></br>
-					 $smessage
-					  <p>Please do not reply to this e-mail.</p><br/>
-					</body>
+					   <body>
+					     <p>Dear $DocName,</p>
+					     <p>The student: $StudentName, $StudentID, has requested you to be their $type.</p>
+					     <p><a href=\"http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=".$randstring."\">Click here</a> to accept their request.<p>
+					     $smessage
+					     <p>Please do not reply to this e-mail.</p>
+					  </body>
 					</html> ";
-		//$message .= "<p>Dear $DocName,</p><br/>";
-		//$message .="<p>The student: $StudentName , $StudentID , has requested you to";
-		//$message .=" be their $type .</p></br>";
-		//$message .="<p>Click this ";
-		//$message .="<a href=\"http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randomstr\">LINK</a>";
-		//$message .="to accept their request.<p><br/>";
-		//$message .=" <p>Please do not reply to this e-mail.</p><br/>";
-		//$message .= "\r\n\r\n--" . $boundary . "--";
-			
 
 		$headers = "MIME-Version: 1.0\r\n";
 		$headers .= "From: $email_from \r\n";
@@ -118,38 +107,8 @@
 				die();
 		}
 	}
-	
-/** From StackOverFlow https://stackoverflow.com/a/31107425 
- *  Under Creative Commons Licence Attribution-ShareAlike 3.0 
- * 
- * Generate a random string, using a cryptographically secure 
- * pseudorandom number generator (random_int)
- * 
- * For PHP 7, random_int is a PHP core function
- * For PHP 5.x, depends on https://github.com/paragonie/random_compat
- * 
- * @param int $length      How many characters do we want?
- * @param string $keyspace A string of all possible characters
- *                         to select from
- * @return string
- */
-function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
-{
-    $str = '';
-    $max = mb_strlen($keyspace, '8bit') - 1;
-    for ($i = 0; $i < $length; ++$i) {
-        $str .= $keyspace[random_int(0, $max)];
-    }
-    return $str;
-}
-
-function test_input($data) {
-		$data = trim($data);
-		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
-		return $data;
-	}
 ?>
+
 <!DOCTYPE HTML>
 <html>
 	<head>

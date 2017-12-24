@@ -13,36 +13,16 @@ require_once "sidebar_selector.php";
         <link rel="stylesheet" type="text/css" href="style.css">
         <title>Projects and internships - LIACS Student Project Manager</title>
         <script src="sortTable.js"></script>
- <!--       <style>
-        table, th, td {
-			border: 1px solid black;
-			border-collapse: collapse;
-		}
-		th, td {
-			padding: 5px;
-		}
-		th {
-			text-align: left;
-		}-->
         </style>
     </head>
     <body>
-<!--
-        <div class="sidepane">
-            <a href="main_page.php">Overview</a>
-            <a href="project_list.php">Projects</a>
-            <a href="#">Contact</a>
-            <a href="database_table.php">Database</a>
-            <a href="#">Help</a></a>
-        </div>
--->
         <div class="main">
             <h1>LIACS Student Project Manager</h1>
             <?php
                 $configs = include("config.php");
                 $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
                 
-                // check connection
+                // Check connection
                 if (mysqli_connect_errno()) {
                     echo "Failed to connect to MySQL: " . mysqli_connect_error();
                 }
@@ -51,9 +31,9 @@ require_once "sidebar_selector.php";
                 $project_name = mysqli_fetch_array($in_a_project);
                 
                 $project_table = mysqli_query($con, "SELECT * FROM Project") or die('Unable to run query:' . mysqli_error());
-                echo "<table class=\"list\" id='project_table'>"; // start a table tag in the HTML
+                echo "<table class=\"list\" id='project_table'>"; // Start a table tag in the HTML
                 
-                // column names
+                // Column names
                 echo "<tr><th onclick=\"sortTable(0, 'project_table')\">Name and description</th>
                           <th onclick=\"sortTable(1, 'project_table')\">Topic</th>
                           <th onclick=\"sortTable(2, 'project_table')\">Time</th>
@@ -65,8 +45,8 @@ require_once "sidebar_selector.php";
                           <th onclick=\"sortTable(8, 'project_table')\"></th></tr>";
                           
                 $row = mysqli_fetch_array($project_table);
-                // rows of the database
-                while($row = mysqli_fetch_array($project_table)){   //Creates a loop to loop through results
+                // Rows of the database
+                while($row = mysqli_fetch_array($project_table)){ // Creates a loop to loop through results
                     $teacher_name_get = mysqli_query($con, "SELECT SupName FROM Supervisor WHERE SupID='".$row['SupID']."'")or die('Unable to run query:' . mysqli_error());
                     $teacher_name = mysqli_fetch_array($teacher_name_get);
                     echo "<tr><td><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
@@ -85,51 +65,25 @@ require_once "sidebar_selector.php";
                           
 					if ($_SESSION["class"] == "Student"){
 						echo "<td> ";
-						
 						if($project_name){
 							echo "
-							
 							<form method=\"POST\" action=\"Subscription_alt.php?prjct=" . $row['ProjectName'] . "\">
-							
 								<input type=\"submit\" name=" . $row['ProjectName'] . " value=\"Subscribe\" />
-								
 							</form>
-							
-							 </td>";
-						}else{
+							</td>";
+						} else {
 							echo "
-							
 							<form method=\"POST\" action=\"Subscription.php?prjct=" . $row['ProjectName'] . "\">
-							
 								<input type=\"submit\" name=" . $row['ProjectName'] . " value=\"Subscribe\" />
-								
 							</form>
-							
-							 </td>";
+							</td>";
 						}
 					}
-					
-					
-                    echo      "</tr>";  //$row['index'] the index here is a field name
+                    echo "</tr>";  // $row['index'] the index here is a field name
                 }
-        
-                echo "</table>"; //Close the table in HTML
-        
+                echo "</table>"; // Close the table in HTML
                 mysqli_close($con);
-      
-      
-        
             ?>
         </div>
-        
-        <?php
-        //$all_projects = mysqli_query($con, "SELECT ProjectName, Topic FROM Project") or die('Unable to run query:' . mysqli_error());
-		//	while($row2 = mysqli_fetch_array($all_projects)){
-		//		if(isset($_POST['' .$row2['ProjectName'] . ''])){
-		//			alert("test");
-		//	} 
-        ?>
-        
-
     </body>
 </html>

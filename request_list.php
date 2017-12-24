@@ -35,7 +35,6 @@
 				$stmt2 = mysqli_prepare($con, "UPDATE Supervises SET ActivationCode=NULL WHERE ActivationCode=?");
 				mysqli_stmt_bind_param($stmt2,'s', $randomstr);
 				$result2 = mysqli_stmt_execute($stmt2);
-				//$result2 = mysqli_stmt_get_result($stmt2);
 				if(!$result2){
 					die("mysql error");
 				}
@@ -48,8 +47,6 @@
 				die();
 
 			}
-			//header("Location: main_page.php");
-			//die("Wrong Code");
             ?>
             <link rel="stylesheet" type="text/css" href="style.css">
 			<div class="main">
@@ -69,7 +66,7 @@
 	}
 
 	if (($_SESSION["class"] != "Admin") && ($_SESSION["class"] != "Supervisor")){
-		//redirect to main page
+		// Redirect to main page
 		header("Location: main_page.php");
 		die();
 	}
@@ -82,21 +79,16 @@
 			echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}
 		//TODO set activation codes op null
-//		date_default_timezone_set("Europe/Amsterdam");echo date("Y-m-d: H:i:s");
-		$dateacp = date("Y-m-d: H:i:s"); //echo $dateacp;
+		$dateacp = date("Y-m-d: H:i:s");
 		if(!(empty($_POST["FirstStudent"]))){
 			mysqli_query($con, "UPDATE Supervises SET Accepted='1', DateAccepted='$dateacp', ActivationCode=NULL WHERE type='First Supervisor' AND SupID='$docid' AND StuID='".$_POST["FirstStudent"]."' AND Accepted='0'")
 			or die('Unable to run query:' . mysqli_error());
-//			mysqli_query($con, "UPDATE Supervises SET ActivationCode=NULL WHERE type='First Supervisor' AND SupID='$docid' AND StuID='".$_POST["FirstStudent"]."'")
-  //                      or die('Unable to run query:' . mysqli_error());
 			$type = 'First Supervisor';
             sendMailToStudent($con, $configs, $_POST["FirstStudent"], $docid, $type);
 		}
 		if(!(empty($_POST["SecondStudent"]))){
 			mysqli_query($con, "UPDATE Supervises SET Accepted='1', DateAccepted='$dateacp', ActivationCode=NULL WHERE type='Second Supervisor' AND SupID='$docid' AND StuID='".$_POST["SecondStudent"]."' AND Accepted='0'")
 			or die('Unable to run query:' . mysqli_error());
-//			mysqli_query($con, "UPDATE Supervises SET ActivationCode=NULL WHERE type='Second Supervisor' AND SupID='$docid' AND StuID='".$_POST["SecondStudent"]."'")
-//                        or die('Unable to run query:' . mysqli_error());
 			$type = 'Second Supervisor';
 			sendMailToStudent($con, $configs, $_POST["SecondStudent"], $docid, $type);
 		}
@@ -129,20 +121,20 @@
 		$message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
 	
 		// Plain text body
-		$message .= "Dear $StudentName,\n$DocName, has accepted being your $type\nPlease do not reply to this e-mail."; //"Hello,\nPlease open this e-mail in HTML-mode to view its contents.\nPlease do not reply to this e-mail.\n\nThanks"; 
+		$message .= "Dear $StudentName,\n$DocName, has accepted being your $type\n Enter this url'http://csthesis.liacs.leidenuniv.nl' in your browser to go to the LIACS InternshipApp.\nPlease do not reply to this e-mail.";
 		$message .= "\r\n\r\n--" . $boundary . "\r\n";
 		$message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
 	
 		// HTML body
 		$message .= "<html lang=\"en-UK\">
 				<body>
-				  <p>Dear $StudentName,</p><br/>
-				  <p>$DocName, has accepted being your $type</p></br>
-				  <p>Please do not reply to this e-mail.</p><br/>
+				  <p>Dear $StudentName,</p>
+				  <p>$DocName has accepted being your $type.</p>
+                  <p><a href='http://csthesis.liacs.leidenuniv.nl'>Click here</a> to go to the LIACS InternshipApp.<p>
+				  <p>Please do not reply to this e-mail.</p>
 				</body>
 				</html> ";
 
-		
 		$headers = "MIME-Version: 1.0\r\n";
 		$headers .= "From: $email_from \r\n";
 		$headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
