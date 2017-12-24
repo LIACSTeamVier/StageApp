@@ -1,8 +1,10 @@
 body {
+  margin-top: 0;
   font-family: "Georgia"; /* font voor digitale tekst universiteit */
 }
 
 h1 {
+  margin-top: 0;
   color: #001158; /* huisstijlkleur universiteit */
   font-family: "Verdana"; /* font voor digitale headers ed universiteit */
 }
