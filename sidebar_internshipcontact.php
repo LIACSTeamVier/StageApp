@@ -4,7 +4,6 @@
 
 .sidebar {
     position: fixed;
-    margin-top: -10px;
     margin-left: -10px;
     padding-bottom: -10px;
     min-height: 100vh;
