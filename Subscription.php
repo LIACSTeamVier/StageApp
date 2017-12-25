@@ -11,11 +11,13 @@ $project = $_GET["prjct"];
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src="sortTable.js"></script>
+<title>Subscribe to project - LIACS Student Project Manager</title>
 </head>
 <body>
 <h1>Your request is being processed, please wait...</h1>
 <?php
 	$configs = include("config.php");
+    
 	$con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
 	if(!$con){
 		echo "error, no connection";
@@ -51,19 +53,20 @@ $project = $_GET["prjct"];
 	        $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
 	
 	        // Plain text body
-	        $message .= "Dear " . $to["SupName"] . ",\n\nThe student: " . $_SESSION["username"] . ", $id, has requested access to the project:\n$project.\nEnter this url 'http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring' in your browser to accept their request.\n\nPlease do not reply to this e-mail.";
+	        $message .= "Dear ".$to["SupName"].",\n\nThe student: ".$_SESSION["username"].", $id, has requested access to the project:\n$project.\nEnter this url 'http://csthesis.liacs.leidenuniv.nl/request_list.php?code=$randstring' in your browser to accept their request.\n\nPlease do not reply to this e-mail.";
 	        $message .= "\r\n\r\n--" . $boundary . "\r\n";
 	        $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
 	
 	        // HTML body
 	        $message .= "<html lang=\"en-UK\">
 				           <body>
-				             <p>Dear " . $to["SupName"] . ",</p>
-				             <p>The student: " . $_SESSION["username"] . ", $id, has requested access to the project:</p>
+				             <p>Dear ".$to["SupName"].",</p>
+				             <p>The student: ".$_SESSION["username"].", $id, has requested access to the project:</p>
                              <p>$project.</p>
-				             <p><a href=\"http://liacs.leidenuniv.nl/~csthesis/project_request_list.php?code=".$randstring."\">Click here</a> to accept their request.<p>
+				             <p><a href=\"http://csthesis.liacs.leidenuniv.nl/project_request_list.php?code=".$randstring."\">Click here</a> to accept their request.<p>
 				             $smessage
 				             <p>Please do not reply to this e-mail.</p>
+                             <p>(notactually)LIACS</p>
 				          </body>
 				        </html> ";
 
@@ -71,9 +74,9 @@ $project = $_GET["prjct"];
 	        $headers .= "From: $email_from \r\n";
 	        $headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
 
-            mail($to["SupEMAIL",$subject,$message,$headers)
+            mail($to["SupEMAIL"],$subject,$message,$headers);
 
-		    header( 'Location: http://csthesis.liacs.leidenuniv.nl/main_page.php' );
+		    header("Location: http://csthesis.liacs.leidenuniv.nl/main_page.php");
 		}
 	}
 	

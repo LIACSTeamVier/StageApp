@@ -80,19 +80,20 @@ if(isset($_POST['yes']))
 	            $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
 
 	            // Plain text body
-	            $message .= "Dear " . $to["SupName"] . ",\n\nThe student: " . $_SESSION["username"] . ", $id, has requested access to the project:\n$project.\nEnter this url 'http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring' in your browser to accept their request.\n\nPlease do not reply to this e-mail.";
+	            $message .= "Dear ".$to["SupName"].",\n\nThe student: ".$_SESSION["username"].", $id, has requested access to the project:\n$project.\nEnter this url 'http://csthesis.liacs.leidenuniv.nl/request_list.php?code=$randstring' in your browser to accept their request.\n\nPlease do not reply to this e-mail.";
 	            $message .= "\r\n\r\n--" . $boundary . "\r\n";
 	            $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
 	
 	            // HTML body
 	            $message .= "<html lang=\"en-UK\">
 				               <body>
-				                 <p>Dear " . $to["SupName"] . ",</p>
-				                 <p>The student: " . $_SESSION["username"] . ", $id, has requested access to the project:</p>
+				                 <p>Dear ".$to["SupName"].",</p>
+				                 <p>The student: ".$_SESSION["username"].", $id, has requested access to the project:</p>
                                  <p>$project.</p>
-				                 <p><a href=\"http://liacs.leidenuniv.nl/~csthesis/project_request_list.php?code=".$randstring."\">Click here</a> to accept their request.<p>
+				                 <p><a href=\"http://csthesis.liacs.leidenuniv.nl/project_request_list.php?code=".$randstring."\">Click here</a> to accept their request.<p>
 				                 $smessage
 				                 <p>Please do not reply to this e-mail.</p>
+                                 <p>(notactually)LIACS</p>
 				              </body>
 				            </html> ";
 

@@ -71,7 +71,7 @@
 		$message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
 		
 		// Plain text body
-		$message .= "Dear $DocName,\nThe student: $StudentName, $StudentID, has requested you to be their $type.\nEnter this url 'http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=$randstring' in your browser to accept their request.\n$smessage\nPlease do not reply to this e-mail.";
+		$message .= "Dear $DocName,\nThe student: $StudentName, $StudentID, has requested you to be their $type.\nEnter this url 'http://csthesis.liacs.leidenuniv.nl/request_list.php?code=$randstring' in your browser to accept their request.\n$smessage\nPlease do not reply to this e-mail.";
 		$message .= "\r\n\r\n--" . $boundary . "\r\n";
 		$message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
 		
@@ -80,9 +80,10 @@
 					   <body>
 					     <p>Dear $DocName,</p>
 					     <p>The student: $StudentName, $StudentID, has requested you to be their $type.</p>
-					     <p><a href=\"http://liacs.leidenuniv.nl/~csthesis/request_list.php?code=".$randstring."\">Click here</a> to accept their request.<p>
+					     <p><a href=\"http://csthesis.liacs.leidenuniv.nl/request_list.php?code=".$randstring."\">Click here</a> to accept their request.<p>
 					     $smessage
 					     <p>Please do not reply to this e-mail.</p>
+                         <p>(notactually)LIACS</p>
 					  </body>
 					</html> ";
 

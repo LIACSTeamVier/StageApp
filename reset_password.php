@@ -127,15 +127,24 @@ function forgot_password_email($name, $email, $uname, $password) {
         $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
         
         // Plain text body
-        $message .= "Dear ".$name.",\nYou requested a password reset for your account on the LIACS InternshipApp\nhttp://csthesis.liacs.leidenuniv.nl\nYour username and password are as follows:\nUsername: ".$uname."\nPassword: ".$password."\nPlease do not reply to this e-mail.\n(notactually)LIACS"; // TODO replace with file
+        $message .= "Dear $name,\nYou requested a password reset for your account on the LIACS InternshipApp\nhttp://csthesis.liacs.leidenuniv.nl\nYour username and password are as follows:\nUsername: $uname\nPassword: $password\nPlease do not reply to this e-mail.\n(notactually)LIACS";
         $message .= "\r\n\r\n--" . $boundary . "\r\n";
         $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
         
         // HTML body
-        $message .= "Dear ".$name.",<br> You requested a password reset for your account on the
-    <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.<br> Your username and password are as follows:<br> Username: ".$uname."<br> Password: ".$password."<br> Please do not reply to this e-mail.<br>(notactually)LIACS"; // TODO replace with file
-        $message .= "\r\n\r\n--" . $boundary . "--";
-        
+        $message .= "<html lang=\"en-UK\">
+					   <body>
+					     <p>Dear $name,</p>
+                         <p>You requested a password reset for your account on the <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.</p>
+                         <p>Your username and password are as follows:</p>
+                         <p>Username: $uname</p>
+                         <p>Password: $password</p>
+                         <p>Please do not reply to this e-mail.</p>
+                         <p>(notactually)LIACS</p>
+                       </body>
+                     </html>";
+
+        $message .= "\r\n\r\n--" . $boundary . "--";        
         
         $headers = "MIME-Version: 1.0\r\n";
         $headers .= "From: $email_from \r\n";
