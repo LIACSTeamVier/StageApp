@@ -326,7 +326,7 @@
                 }
                 if ($class == "Student") {
                     //Show your project and supervisors
-                    $result = query_our_database("SELECT Does.ProjectName, Does.Accepted, Project.Description, Project.Progress, Project.Time, Project.Internship, Project.SupID, Project.IConID FROM Does LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE StuID='".$_SESSION["ID"]."'");
+                    $result = query_our_database("SELECT Does.ProjectName, Does.Accepted, Project.Description, Project.Progress, Project.Time, Project.Internship, Project.SupID, Project.IConID FROM Does LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE StuID='".$_SESSION["ID"]."' AND (Does.Accepted='0' OR Does.Accepted='1')");
                     $row = mysqli_fetch_array($result);
                     echo "<h2>My project</h2>";
                     if ($row['ProjectName'] != "" && $row['Accepted'] == "1") {
