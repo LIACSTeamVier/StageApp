@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once "general_functions.php";
-
 $id = $_SESSION["ID"];
 $project = $_GET["prjct"];
 ?>
@@ -34,10 +33,9 @@ $project = $_GET["prjct"];
 if(isset($_POST['no']))
 {
 	if($_POST['name'] = "no"){
-		header( 'Location: http://csthesis.liacs.leidenuniv.nl/main_page.php' );
+		header( 'Location: main_page.php' );
 	}
 }
-
 if(isset($_POST['yes']))
 {
 	if($_POST['name'] = "yes"){
@@ -47,7 +45,6 @@ if(isset($_POST['yes']))
 		if(!$con){
 			echo "error, no connection";
 		}
-
 		$sql = "DELETE FROM Does WHERE StuID= '" . $id . "'";
 		if (!$con->query($sql)){
 			echo "ERROR: connection time-out";
@@ -65,20 +62,16 @@ if(isset($_POST['yes']))
 			}else{
 			    $to = $result->fetch_assoc();
                 $randstring = random_str(32); // TODO insert this into ActivationCode column of Does!
-
                 $email_from = $configs["noreply"];
 	            $subject = "Subscription request";
 	            $boundary = uniqid('np');
-
 	            $headers = "MIME-Version: 1.0\r\n";
 	            $headers .= "From: $email_from \r\n";
 	            $headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
-
 	            // MIME stuff
 	            $message = "This is a MIME encoded message.";
 	            $message .= "\r\n\r\n--" . $boundary . "\r\n";
 	            $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
-
 	            // Plain text body
 	            $message .= "Dear ".$to["SupName"].",\n\nThe student: ".$_SESSION["username"].", $id, has requested access to the project:\n$project.\nEnter this url 'http://csthesis.liacs.leidenuniv.nl/request_list.php?code=$randstring' in your browser to accept their request.\n\nPlease do not reply to this e-mail.";
 	            $message .= "\r\n\r\n--" . $boundary . "\r\n";
@@ -96,20 +89,16 @@ if(isset($_POST['yes']))
                                  <p>(notactually)LIACS</p>
 				              </body>
 				            </html> ";
-
 	            $headers = "MIME-Version: 1.0\r\n";
 	            $headers .= "From: $email_from \r\n";
 	            $headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
-
                 mail($to["SupEMAIL"],$subject,$message,$headers);
-
 				header("Location: main_page.php");
 			}	
 		}
 		echo "<a href= 'main_page.php'>Return Home</a>";
 	}
 }
-
 ?>
 </body>
 </html>
