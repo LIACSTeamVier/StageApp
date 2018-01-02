@@ -18,9 +18,18 @@ require_once "sidebar_selector.php";
     <body>
         <div class="main">
             <h1>LIACS Student Project Manager</h1>
+            
+                <form>
+					<input
+						type = "button" value = "make your own project"
+						onclick = "window.location.href='student_project.php'"
+					/>
+                </form>
+            
             <?php
                 $configs = include("config.php");
                 $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
+                
                 
                 // Check connection
                 if (mysqli_connect_errno()) {
@@ -30,7 +39,7 @@ require_once "sidebar_selector.php";
                 $in_a_project = mysqli_query($con, "SELECT ProjectName FROM Does WHERE StuID = '" . $_SESSION["ID"] ."'") or die('Unable to run query:' . mysqli_error());
                 $project_name = mysqli_fetch_array($in_a_project);
                 
-                $project_table = mysqli_query($con, "SELECT * FROM Project") or die('Unable to run query:' . mysqli_error());
+                $project_table = mysqli_query($con, "SELECT * FROM Project WHERE SupID IS NOT NULL OR IConID IS NOT NULL") or die('Unable to run query:' . mysqli_error());
                 echo "<table class=\"list\" id='project_table'>"; // Start a table tag in the HTML
                 
                 // Column names
