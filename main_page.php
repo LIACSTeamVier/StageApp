@@ -376,20 +376,20 @@
                         echo "</table>";
                         echo "<h3>Progress:</h3>";
                         $prog = $row['Progress'];
-                        $result = query_our_database("SELECT * FROM Student WHERE StuID='".$_SESSION["ID"]."'");
+                        $result = query_our_database("SELECT * FROM Project WHERE ProjectName='".$_SESSION["ProjectName"]."'");
                         $row = mysqli_fetch_row($result);
                         $check = array("", "", "", "", "", ""); // Keeps track of previously checked checkboxes
-                        if (preg_match('/True/',$row[4]))
+                        if (preg_match('/True/',$row[11]))
                             $check[0] = "checked";
-                        if (preg_match('/True/',$row[5]))
+                        if (preg_match('/True/',$row[12]))
                             $check[1] = "checked";
-                        if (preg_match('/True/',$row[6]))
+                        if (preg_match('/True/',$row[13]))
                             $check[2] = "checked";
-                        if (preg_match('/True/',$row[7]))
+                        if (preg_match('/True/',$row[14]))
                             $check[3] = "checked";
-                        if (preg_match('/True/',$row[8]))
+                        if (preg_match('/True/',$row[15]))
                             $check[4] = "checked";
-                        if (preg_match('/True/',$row[9]))
+                        if (preg_match('/True/',$row[16]))
                             $check[5] = "checked";
                         $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
                         echo "<form action=\"$temp\" method=\"post\">
