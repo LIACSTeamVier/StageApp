@@ -3,7 +3,10 @@ session_start();
 require_once "general_functions.php";
 
 $id = $_SESSION["ID"];
-$project = $_GET["prjct"];
+$project = $_POST["prjctname"];
+/*if !($_SERVER["REQUEST_METHOD"] == "POST") {
+	 header("Location: main_page.php");
+}*/
 ?>
  
  <!DOCTYPE html>
@@ -17,18 +20,18 @@ $project = $_GET["prjct"];
 <h1>Your request is being processed, please wait...</h1>
 <?php
 	$configs = include("config.php");
-    
+	
 	$con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
 	if(!$con){
 		echo "error, no connection";
 	}
-	$sql = "DELETE FROM Does WHERE StuID= '" . $id . "'";
+	
+	/*$sql = "DELETE FROM Does WHERE StuID= '" . $id . "'"; unneeded and in the way of logging
 	if (!$con->query($sql)){
 		echo "ERROR: connection time-out";
-	}else {
-		$stmt = $con->prepare("INSERT INTO Does (StuID, ProjectName, DateRequested) VALUES (?,?,?)");
-		$stmt->bind_param("sss", $id, $project, date('Y-m-d:h:i:s'));
-		$stmt->execute();
+	}else {*/
+		$stmt = $con->prepare("INSERT INTO Does (StuID, ProjectName, DateRequested, ActivationCode, Accepted) VALUES (?,?,?,?,'0')");
+		$stmt->bind_param("ssss", $id, $project, date('Y-m-d:h:i:s'), $randstring);
 		
 		$sql2 = "SELECT * FROM Supervisor INNER JOIN Supervises ON Supervisor.SupID = Supervises.SupID WHERE Supervises.StuID = '" . $_SESSION['ID'] . "' AND Supervises.Accepted = '1'";
 		
@@ -37,7 +40,7 @@ $project = $_GET["prjct"];
 			echo "ERROR: Connection time-out";
 		}else{
 		    $to = $result->fetch_assoc();
-            $randstring = random_str(32); // TODO insert this into ActivationCode column of Does!
+            $randstring = random_str(32); // TODO insert this into ActivationCode column of Does! this works already? (cause stmt is executed later maybe?)
 
             $email_from = $configs["noreply"];
 	        $subject = "Subscription request";
@@ -74,11 +77,13 @@ $project = $_GET["prjct"];
 	        $headers .= "From: $email_from \r\n";
 	        $headers .= "Content-Type: multipart/alternative;boundary=" . $boundary . "\r\n";
 
+
+			$stmt->execute();
             mail($to["SupEMAIL"],$subject,$message,$headers);
 
 		    header("Location: main_page.php");
 		}
-	}
+	//}
 	
 	echo "<a href= 'main_page.php'>Return Home</a>";
 ?>
