@@ -120,8 +120,6 @@
 				$row = mysqli_fetch_array($result);
 				if($reqtyp == $row["type"]){
 					$_SESSION["needsDeleting"] = $row["type"];//$needsDeleting = true;
-					echo "<div class=\"main\"><p>You already made a request for this type of supervisor,
-					</br> delete that request or request another type</p><br></div>";
 				}
 				else{
 					$existingDocID = $row["SupID"];
@@ -138,8 +136,7 @@
 						if(!empty($rowres4)){
 							if ( ($rowres4["Background"] == $existingBackground)
 									&& ($existingBackground != "BOTH") )
-								echo "<div class=\"main\"><p>You need one supervisor with background in CS and one in Business.</br>
-										You already have one with background in: $existingBackground</p></br></div>";
+		                        $_SESSION["needsDeleting"] = $existingBackground;
 							else{
 									if ( ($rowres4["RoleFirst"] == "yes" && $reqtyp == "First Supervisor") ||
 										 ($rowres4["RoleSecond"] == "yes" && $reqtyp == "Second Supervisor")){
@@ -195,17 +192,19 @@
      
     if ($_SESSION["needsDeleting"] == "true"){
 		echo "<a>You already made requests for both types of supervisor, delete one or more of them</a></br></br>
-                  <a><form action=\"$temp\" method=\"post\">
-					<input type=\"submit\" name=\"delreq1\" value=\"Delete Request For The First Supervisor\">
-        			</form></a>
-	              <a><form action=\"$temp\" method=\"post\">
-                     <input type=\"submit\" name=\"delreq2\" value=\"Delete Request For The Second Supervisor\">
-					</form></a>";	
+              <a><form action=\"$temp\" method=\"post\">
+				<input type=\"submit\" name=\"delreq1\" value=\"Delete Request For The First Supervisor\">
+    			</form></a>
+              <a><form action=\"$temp\" method=\"post\">
+                 <input type=\"submit\" name=\"delreq2\" value=\"Delete Request For The Second Supervisor\">
+				</form></a>";	
     }
     else if($_SESSION["needsDeleting"] == "First Supervisor"){
-                echo "<a><form action=\"$temp\" method=\"post\">
-                                        <input type=\"submit\" name=\"delreq1\" value=\"Delete Request For The First Supervisor\">
-                                        </form></a>";
+                echo "<a>You already made a request for this type of supervisor,</br>
+                         delete that request or request another type</a></br></br>
+                      <a><form action=\"$temp\" method=\"post\">
+                         <input type=\"submit\" name=\"delreq1\" value=\"Delete Request For The First Supervisor\">
+                         </form></a>";
     }
     else if($_SESSION["needsDeleting"] == "Second Supervisor"){
                 echo "<a><form action=\"$temp\" method=\"post\">
@@ -227,7 +226,11 @@
              </form>";
         echo "<script>document.getElementById(2).submit()</script>";
     }
-
+    
+    else if ($_SESSION["needsDeleting"] == "BUS" || $_SESSION["needsDeleting"] == "CS"){
+		echo "<a>You need one supervisor with background in CS and one in Business.</br>
+              <a>You already have one with a background in: ".$_SESSION["needsDeleting"]."</a></br>";	
+    }
 
     $sup_table = mysqli_query($con, "SELECT * FROM Supervisor") or die('Unable to run query:' . mysqli_error());
 	if($class =="Student"){
