@@ -4,7 +4,7 @@
 	
 	date_default_timezone_set("Europe/Amsterdam");
 	$configs = include("config.php");
-        $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
+    $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
 	$_SESSION["needsDeleting"] = "false";
 	$class = $_SESSION["class"];
 	if (empty($_SESSION["ID"]))
@@ -92,7 +92,6 @@
 			//$row = mysqli_fetch_array($result);
 			if($numrow >= 2){ 
 				$_SESSION["needsDeleting"] = true;//var_dump($needsDeleting);
-				echo "<div class=\"main\"><p>You already made requests for both types of supervisor, delete one or more of them</p></br></div>";
 			}
 			else if($numrow == 0){//als er nog geen requests gemaakt zijn
 				$stmt2 = mysqli_prepare($con, "SELECT RoleFirst, RoleSecond FROM Supervisor WHERE SupID=?");
@@ -195,7 +194,8 @@
     }
      
     if ($_SESSION["needsDeleting"] == "true"){
-		echo "<a><form action=\"$temp\" method=\"post\">
+		echo "<a>You already made requests for both types of supervisor, delete one or more of them</a></br></br>
+                  <a><form action=\"$temp\" method=\"post\">
 					<input type=\"submit\" name=\"delreq1\" value=\"Delete Request For The First Supervisor\">
         			</form></a>
 	              <a><form action=\"$temp\" method=\"post\">
