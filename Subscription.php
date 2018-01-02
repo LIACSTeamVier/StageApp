@@ -76,7 +76,7 @@ $project = $_GET["prjct"];
 
             mail($to["SupEMAIL"],$subject,$message,$headers);
 
-		    header("Location: http://csthesis.liacs.leidenuniv.nl/main_page.php");
+		    header("Location: main_page.php");
 		}
 	}
 	
