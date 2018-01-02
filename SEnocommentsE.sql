@@ -32,12 +32,6 @@ CREATE TABLE Student(
 	StuName	VARCHAR(30),
 	StuEMAIL	VARCHAR(50),
 	StuTel	VARCHAR(10),
-	PropAccept VARCHAR(30),
-	StartPro VARCHAR(30),
-	MidRev VARCHAR(30),
-	ThesisSub VARCHAR(30),
-	ThesisAcc VARCHAR(30),
-	PresSched VARCHAR(30),
 	
 	PRIMARY KEY(StuID),
 	FOREIGN KEY(StuID) REFERENCES InternshipApp_Users(Identifier)
@@ -66,6 +60,12 @@ CREATE TABLE Project(
 	IConID VARCHAR(30),
 	CompanyName	VARCHAR(30),
 	IConName VARCHAR(30),
+	PropAccept VARCHAR(30),
+	StartPro VARCHAR(30),
+	MidRev VARCHAR(30),
+	ThesisSub VARCHAR(30),
+	ThesisAcc VARCHAR(30),
+	PresSched VARCHAR(30),
 	
 	PRIMARY KEY(ProjectName),
 	FOREIGN KEY(SupID) REFERENCES Supervisor(SupID),
