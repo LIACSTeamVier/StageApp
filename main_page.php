@@ -4,6 +4,7 @@
     require_once "general_functions.php";
     
     date_default_timezone_set("Europe/Amsterdam");
+    $date = date("Y-m-d: H:i:s");
     $configs = include("config.php");
     $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
     // Check connection
@@ -28,7 +29,6 @@
             }
             $result = query_our_database("SELECT p.PropAccept, p.StartPro, p.MidRev, p.ThesisSub, p.ThesisAcc, p.PresSched FROM Project p WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             $row = mysqli_fetch_row($result);
-            $date = date("Y-m-d: H:i:s");
             if(isset($_POST["newcheck0"]) && preg_match("/False/",$row[0]))             // change True to False 
                 query_our_database("UPDATE Project SET PropAccept ='True ".$date."' WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             elseif(!isset($_POST["newcheck0"]) && preg_match("/True/",$row[0]))         // or vice versa for each
@@ -56,7 +56,31 @@
             
             $progressupdated = "Progress has been updated!";
             unset($_SESSION["ProjectName"]);
-        }        
+        }
+        if (!empty($_POST["delwarn1"])) {
+            echo "<form id='1' action=\"$test\" method=\"post\">
+	              <input type=\"hidden\" name=\"del1\" value=\"true\">
+	              <script>document.write('<input type=\"hidden\" name=\"confirmed\" value=\"'+confirm(\"This is a serious action, do you really want to delete the first supervisor?\")+'\">');</script>
+	              </form>";
+	        echo "<script>document.getElementById(1).submit()</script>";
+        }
+        if (!empty($_POST["del1"])) {
+            query_our_database("UPDATE Supervises SET Accepted='-1', ActivationCode=NULL, DateTerminated='$date' WHERE type='First Supervisor' AND StuID=".$_SESSION["ID"]." AND Accepted='1'");//keep track when accepted relations are deleted
+            //dont keep track of unaccepted deletion
+            query_our_database("DELETE FROM Supervises WHERE type='First Supervisor' AND StuID=".$_SESSION["ID"]." AND Accepted='0'");
+        }
+        if (!empty($_POST["delwarn2"])) {
+            echo "<form id='2' action=\"$test\" method=\"post\">
+	              <input type=\"hidden\" name=\"del2\" value=\"true\">
+	              <script>document.write('<input type=\"hidden\" name=\"confirmed\" value=\"'+confirm(\"This is a serious action, do you really want to delete the second supervisor?\")+'\">');</script>
+	              </form>";
+	        echo "<script>document.getElementById(2).submit()</script>";
+        }
+        if (!empty($_POST["del2"])) {
+            query_our_database("UPDATE Supervises SET Accepted='-1', ActivationCode=NULL, DateTerminated='$date' WHERE type='Second Supervisor' AND StuID=".$_SESSION["ID"]." AND Accepted='1'");//keep track when accepted relations are deleted
+            //dont keep track of unaccepted deletion
+            query_our_database("DELETE FROM Supervises WHERE type='Second Supervisor' AND StuID=".$_SESSION["ID"]." AND Accepted='0'");
+        }
     }
     mysqli_close($con);
 ?>
@@ -428,6 +452,9 @@
                                 echo " (not confirmed yet)</h3>";
                             echo "<p style='margin-left: 5px'>E-mail: " . $rowcontact['SupEMAIL'] . "</p>";
                             echo "<p style='margin-left: 5px'>Telephone: " . $rowcontact['SupTel'] . "</p>";
+                            echo "<a><form action=\"$temp\" method=\"post\">
+                                     <input type=\"submit\" name=\"delwarn1\" value=\"Delete first supervisor\">
+                                     </form></a>";
                             break;
                         }
                     }
@@ -448,6 +475,9 @@
                                 echo " (not confirmed yet)</h3>";
                             echo "<p style='margin-left: 5px'>E-mail: " . $rowcontact['SupEMAIL'] . "</p>";
                             echo "<p style='margin-left: 5px'>Telephone: " . $rowcontact['SupTel'] . "</p>";
+                            echo "<a><form action=\"$temp\" method=\"post\">
+                                     <input type=\"submit\" name=\"delwarn2\" value=\"Delete second supervisor\">
+                                     </form></a>";
                             break;
                         }
                     }
