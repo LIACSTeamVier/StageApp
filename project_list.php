@@ -18,14 +18,12 @@ require_once "sidebar_selector.php";
     <body>
         <div class="main">
             <h1>LIACS Student Project Manager</h1>
-            
                 <form>
-					<input
-						type = "button" value = "make your own project"
-						onclick = "window.location.href='student_project.php'"
-					/>
+		    <input
+		    type = "button" value = "make your own project"
+		    onclick = "window.location.href='student_project.php'"
+		    />
                 </form>
-            
             <?php
                 $configs = include("config.php");
                 $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
