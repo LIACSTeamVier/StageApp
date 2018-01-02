@@ -26,35 +26,36 @@
                     die("Error updating progress");
                 }
             }
-            $result = query_our_database("SELECT s.PropAccept, s.StartPro, s.MidRev, s.ThesisSub, s.ThesisAcc, s.PresSched FROM Student s WHERE StuID='".$_SESSION["ID"]."'");
+            $result = query_our_database("SELECT p.PropAccept, p.StartPro, p.MidRev, p.ThesisSub, p.ThesisAcc, p.PresSched FROM Project p WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             $row = mysqli_fetch_row($result);
             $date = date("Y-m-d: H:i:s");
             if(isset($_POST["newcheck0"]) && preg_match("/False/",$row[0]))             // change True to False 
-                query_our_database("UPDATE Student SET PropAccept ='True ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+                query_our_database("UPDATE Project SET PropAccept ='True ".$date."' WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             elseif(!isset($_POST["newcheck0"]) && preg_match("/True/",$row[0]))         // or vice versa for each
-                query_our_database("UPDATE Student SET PropAccept ='False ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+                query_our_database("UPDATE Project SET PropAccept ='False ".$date."' WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             if(isset($_POST["newcheck1"]) && preg_match("/False/",$row[1]))             // possible progresscheck.
-                query_our_database("UPDATE Student SET StartPro ='True ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+                query_our_database("UPDATE Project SET StartPro ='True ".$date."' WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             elseif(!isset($_POST["newcheck1"]) && preg_match("/True/",$row[1]))
-                query_our_database("UPDATE Student SET StartPro ='False ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+                query_our_database("UPDATE Project SET StartPro ='False ".$date."' WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             if(isset($_POST["newcheck2"]) && preg_match("/False/",$row[2]))
-                query_our_database("UPDATE Student SET MidRev ='True ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+                query_our_database("UPDATE Project SET MidRev ='True ".$date."' WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             elseif(!isset($_POST["newcheck2"]) && preg_match("/True/",$row[2]))
-                query_our_database("UPDATE Student SET MidRev ='False ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+                query_our_database("UPDATE Project SET MidRev ='False ".$date."' WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             if(isset($_POST["newcheck3"]) && preg_match("/False/",$row[3]))
-                query_our_database("UPDATE Student SET ThesisSub ='True ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+                query_our_database("UPDATE Project SET ThesisSub ='True ".$date."' WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             elseif(!isset($_POST["newcheck3"]) && preg_match("/True/",$row[3]))
-                query_our_database("UPDATE Student SET ThesisSub ='False ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+                query_our_database("UPDATE Project SET ThesisSub ='False ".$date."' WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             if(isset($_POST["newcheck4"]) && preg_match("/False/",$row[4]))
-                query_our_database("UPDATE Student SET ThesisAcc ='True ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+                query_our_database("UPDATE Project SET ThesisAcc ='True ".$date."' WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             elseif(!isset($_POST["newcheck4"]) && preg_match("/True/",$row[4]))
-                query_our_database("UPDATE Student SET ThesisAcc ='False ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+                query_our_database("UPDATE Project SET ThesisAcc ='False ".$date."' WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             if(isset($_POST["newcheck5"]) && preg_match("/False/",$row[5]))
-                query_our_database("UPDATE Student SET PresSched ='True ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+                query_our_database("UPDATE Project SET PresSched ='True ".$date."' WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             elseif(!isset($_POST["newcheck5"]) && preg_match("/True/",$row[5]))
-                query_our_database("UPDATE Student SET PresSched ='False ".$date."' WHERE StuID='".$_SESSION["ID"]."'");
+                query_our_database("UPDATE Project SET PresSched ='False ".$date."' WHERE ProjectName='".$_SESSION["ProjectName"]."'");
             
             $progressupdated = "Progress has been updated!";
+            unset($_SESSION["ProjectName"]);
         }        
     }
     mysqli_close($con);
@@ -305,6 +306,7 @@
                     $row = mysqli_fetch_array($result);
                     echo "<h2>My project</h2>";
                     if ($row['ProjectName'] != "" && $row['Accepted'] == "1") {
+                        $_SESSION["ProjectName"] = $row["ProjectName"];
                         $type = $row["Internship"];//1 is internship
                         if($type == "1"){
                             $result2 = query_our_database("SELECT * FROM Internship_of WHERE ProjectName='".$row["ProjectName"]."'");
@@ -403,41 +405,13 @@
                             </br>
                             <input type=\"submit\" name=\"progressupdate\" value=\"Update Your Progress\">
                         </form>
-                        <span class=\"error\">$progressupdated</span>";                 
-                        
+                        <span class=\"error\">$progressupdated</span>"; 
                     }
                     else {
                         if($row['ProjectName'] != "")
                             echo "You made a request to join the project: ".$row['ProjectName'].".";
                         else
                             echo "You currently have no project.<br>";
-                        $result = query_our_database("SELECT * FROM Student WHERE StuID='".$_SESSION["ID"]."'");
-                        $row = mysqli_fetch_row($result);
-                        $check = array("", "", "", "", "", ""); // Keeps track of previously checked checkboxes
-                        if (preg_match('/True/',$row[4]))
-                            $check[0] = "checked";
-                        if (preg_match('/True/',$row[5]))
-                            $check[1] = "checked";
-                        if (preg_match('/True/',$row[6]))
-                            $check[2] = "checked";
-                        if (preg_match('/True/',$row[7]))
-                            $check[3] = "checked";
-                        if (preg_match('/True/',$row[8]))
-                            $check[4] = "checked";
-                        if (preg_match('/True/',$row[9]))
-                            $check[5] = "checked";
-                        $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
-                        echo "<form action=\"$temp\" method=\"post\">
-                            </br>
-                            <td><input type=\"checkbox\" name=\"newcheck0\" $check[0]>Research proposal accepted</td></br>
-                            <td><input type=\"checkbox\" name=\"newcheck1\" $check[1]>Started project</td></br>
-                            <td><input type=\"checkbox\" name=\"newcheck2\" $check[2]>Midterm review</td></br>
-                            <td><input type=\"checkbox\" name=\"newcheck3\" $check[3]>Thesis submitted</td></br>
-                            <td><input type=\"checkbox\" name=\"newcheck4\" $check[4]>Thesis accepted</td></br>
-                            <td><input type=\"checkbox\" name=\"newcheck5\" $check[5]>Presentation scheduled</td></br>
-                            </br>
-                            <input type=\"submit\" name=\"progressupdate\" value=\"Update Your Progress\">
-                        </form>";
                     }
                     $result = query_our_database("SELECT SupID, Accepted FROM Supervises WHERE StuID='".$_SESSION["ID"]."' AND type='First SuperVisor'");
                     //first supervisor

@@ -4,7 +4,7 @@ require_once "sidebar_selector.php";
 //TODO put stuff in sessions when logging in, fix the vars in here to match the session, fix the stuff in here to match the correct database, and fix to match the table
 ///!!!! put correct stuff in the session
 
-//test if the user is allowed to make a project   TODO put correct vars in session and check the correct values
+//test if the user is allowed to make a project
 if (($_SESSION["class"] != "Admin") && ($_SESSION["class"] != "Supervisor")){
 	//redirect to main page
 	header("Location: main_page.php");
@@ -89,8 +89,8 @@ function insertIntoDatabase($name, $topic, $description, $squal, $tijdrest, $con
 	$docid = $_SESSION["ID"];//of haal het uit de begeleider tabel als alleen de naam in de sessie staat
 	
 	$stmt1 = mysqli_prepare($con,
-	 "INSERT INTO Project(ProjectName, Description, Time, Studentqualities, Topic, Internship, SupID)
-	 VALUES (?,?,?,?,?,'0',?)"); 
+	 "INSERT INTO Project VALUES
+      (?,?,NULL,?,?,?,'0',?,NULL,NULL,NULL,'False','False','False','False','False','False')"); 
 	mysqli_bind_param($stmt1, 'ssssss', $name, $description, $tijdrest, $squal, $topic, $docid);
 	$result1 = mysqli_execute($stmt1);
 	mysqli_close($stmt1);

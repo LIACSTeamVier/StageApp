@@ -63,8 +63,6 @@ function attemptLogin($uname, $password) {
             // set session vars
             $_SESSION["username"] = "$row[2]";
             $_SESSION["class"] = "$row[1]";
-
-            /*****TEMP*****/
 	        $_SESSION["ID"] = $uname;
 
 
