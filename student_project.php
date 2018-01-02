@@ -86,7 +86,7 @@ require_once "sidebar_selector.php";
 		  
 		  $sql = "INSERT INTO Does(ProjectName, Accepted, DateAccepted, DateRequested, StuID) VALUES ('". $name ."', '1', '" . date("Y-m-d: H:i:s") ."','". date("Y-m-d: H:i:s") ."', '" . $_SESSION['ID'] . "')";
 		   
-		  $sql2 = "DELETE FROM Does WHERE StuID = '" . $_SESSION['ID'] . "'";
+		  $sql2 = "DELETE FROM Does WHERE StuID = '" . $_SESSION['ID'] . "' AND (Accepted='0' OR Accepted='1')";
 		  $result = $con->query($sql2);
 		  if(!$result){echo "query 1";
 			die('Unable to run query1:' . mysqli_error());}
