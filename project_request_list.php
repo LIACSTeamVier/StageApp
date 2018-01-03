@@ -53,9 +53,19 @@
 						</script>";
 				die();
 			}
-			echo "<div class=\"main\"><a>Wrong or Expired code</a>
-                              <a href=\"main_page.php\">Go to the main page</a>
-                              </div>";
+			?>
+            <link rel="stylesheet" type="text/css" href="style.css">
+			<div class="main">
+                <table class="form">
+                    <tr>
+                        <td>Wrong or Expired url.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="index.php">Return to the login page</a></td>
+                    </tr>
+                </table>
+            </div>
+            <?php
 			die();
 		}
 		
@@ -145,8 +155,8 @@
     <body>
 
         <div class="main">
-            <h1>LIACS Student Project Manager</h1>
-            <?php
+           <h1>LIACS Student Project Manager</h1> 
+           <?php
             $configs = include("config.php");
             $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
             // check connection

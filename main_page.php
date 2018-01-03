@@ -6,12 +6,28 @@
     date_default_timezone_set("Europe/Amsterdam");
     $date = date("Y-m-d: H:i:s");
     $configs = include("config.php");
+    $self = htmlspecialchars($_SERVER["PHP_SELF"]);
     $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
     // Check connection
     if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
     } 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (!empty($_POST["unsubproject"])) {
+            echo "<form id='1' action=\"$self\" method=\"post\">
+	              <input type=\"hidden\" name=\"delproj\" value=\"true\">
+	              <script>document.write('<input type=\"hidden\" name=\"confirmedproj\" value=\"'+confirm(\"This is a serious action, do you really want to unsubscribe from project: ".$_POST["projname"]."?\")+'\">');</script>
+	              </form>";
+	        echo "<script>document.getElementById(1).submit()</script>";
+        }
+        if (!empty($_POST["delproj"]) && $_POST["confirmedproj"] == "true") {
+            //keep track when accepted relations are deleted
+            query_our_database("UPDATE Does SET Accepted='-1', ActivationCode=NULL, DateTerminated='$date' WHERE StuID=".$_SESSION["ID"]." AND Accepted='1'");
+        }
+        if (!empty($_POST["delreq"])) {
+            //dont keep track of unaccepted deletion
+            query_our_database("DELETE FROM Does WHERE StuID=".$_SESSION["ID"]." AND Accepted='0'");
+        }
         if (!empty($_POST["progressupdate"])){
             if($_POST["progupdate"] != $_POST["progold"]){
                 $pupupdate = test_input($_POST["progupdate"]);
@@ -58,25 +74,25 @@
             unset($_SESSION["ProjectName"]);
         }
         if (!empty($_POST["delwarn1"])) {
-            echo "<form id='1' action=\"$test\" method=\"post\">
+            echo "<form id='1' action=\"$self\" method=\"post\">
 	              <input type=\"hidden\" name=\"del1\" value=\"true\">
 	              <script>document.write('<input type=\"hidden\" name=\"confirmed\" value=\"'+confirm(\"This is a serious action, do you really want to delete the first supervisor?\")+'\">');</script>
 	              </form>";
 	        echo "<script>document.getElementById(1).submit()</script>";
         }
-        if (!empty($_POST["del1"])) {
+        if (!empty($_POST["del1"]) && $_POST["confirmed"] == "true") {
             query_our_database("UPDATE Supervises SET Accepted='-1', ActivationCode=NULL, DateTerminated='$date' WHERE type='First Supervisor' AND StuID=".$_SESSION["ID"]." AND Accepted='1'");//keep track when accepted relations are deleted
             //dont keep track of unaccepted deletion
             query_our_database("DELETE FROM Supervises WHERE type='First Supervisor' AND StuID=".$_SESSION["ID"]." AND Accepted='0'");
         }
         if (!empty($_POST["delwarn2"])) {
-            echo "<form id='2' action=\"$test\" method=\"post\">
+            echo "<form id='2' action=\"$self\" method=\"post\">
 	              <input type=\"hidden\" name=\"del2\" value=\"true\">
-	              <script>document.write('<input type=\"hidden\" name=\"confirmed\" value=\"'+confirm(\"This is a serious action, do you really want to delete the second supervisor?\")+'\">');</script>
+	              <script>document.write('<input type=\"hidden\" name=\"confirmed2\" value=\"'+confirm(\"This is a serious action, do you really want to delete the second supervisor?\")+'\">');</script>
 	              </form>";
 	        echo "<script>document.getElementById(2).submit()</script>";
         }
-        if (!empty($_POST["del2"])) {
+        if (!empty($_POST["del2"]) && $_POST["confirmed2"] == "true") {
             query_our_database("UPDATE Supervises SET Accepted='-1', ActivationCode=NULL, DateTerminated='$date' WHERE type='Second Supervisor' AND StuID=".$_SESSION["ID"]." AND Accepted='1'");//keep track when accepted relations are deleted
             //dont keep track of unaccepted deletion
             query_our_database("DELETE FROM Supervises WHERE type='Second Supervisor' AND StuID=".$_SESSION["ID"]." AND Accepted='0'");
@@ -341,6 +357,10 @@
                         else{
                             $result2 = query_our_database("SELECT * FROM Supervisor WHERE SupID='".$row["SupID"]."'");
                             $rowcontactinfo = mysqli_fetch_array($result2);
+                            if ($row["SupID"] == NULL)
+                                $owner = $_SESSION["username"];
+                            else
+                                $owner = $rowcontactinfo['SupName'];
                         }
                         
                         echo "<table class=\"list\" id='student_table'>
@@ -389,15 +409,20 @@
                             <tr>
                             <td><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
                             <td>" . $row['Time'] . "</td>
-                            <td>" . $rowcontactinfo['SupName'] . "</td>
+                            <td>" . $owner . "</td>
                             <td>" . $rowcontactinfo['SupEMAIL'] . "</td>
                             <td>" . $rowcontactinfo['SupTel'] . "</td>
                             <td>" . $rowcontactinfo['Topics'] . "</td>
                             <td>University Project</td>
                             </tr>";
                         }
-                        
                         echo "</table>";
+                        
+                        echo "<form action=\"$self\" method=\"post\">
+                                <input type=\"hidden\" name=\"projname\" value=\"".$row['ProjectName']."\">
+                                <input type=\"submit\" name=\"unsubproject\" value=\"Unsubscribe from project\">
+                              </form>";
+                        
                         echo "<h3>Progress:</h3>";
                         $prog = $row['Progress'];
                         $result = query_our_database("SELECT * FROM Project WHERE ProjectName='".$_SESSION["ProjectName"]."'");
@@ -415,8 +440,7 @@
                             $check[4] = "checked";
                         if (preg_match('/True/',$row[16]))
                             $check[5] = "checked";
-                        $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
-                        echo "<form action=\"$temp\" method=\"post\">
+                        echo "<form action=\"$self\" method=\"post\">
                             <textarea name=\"progupdate\" rows=\"5\" cols=\"40\">$prog</textarea>
                             </br>
                             <td><input type=\"checkbox\" name=\"newcheck0\" $check[0]>Research proposal accepted</td></br>
@@ -432,8 +456,12 @@
                         <span class=\"error\">$progressupdated</span>"; 
                     }
                     else {
-                        if($row['ProjectName'] != "")
-                            echo "You made a request to join the project: ".$row['ProjectName'].".";
+                        if($row['ProjectName'] != "") {
+                            echo "You made a request to join the project: ".$row['ProjectName'].".
+                                  <form action=\"$self\" method=\"post\">
+                                    <input type=\"submit\" name=\"delreq\" value=\"Delete request\">
+                                  </form>";
+                        }
                         else
                             echo "You currently have no project.<br>";
                     }
@@ -452,7 +480,7 @@
                                 echo " (not confirmed yet)</h3>";
                             echo "<p style='margin-left: 5px'>E-mail: " . $rowcontact['SupEMAIL'] . "</p>";
                             echo "<p style='margin-left: 5px'>Telephone: " . $rowcontact['SupTel'] . "</p>";
-                            echo "<a><form action=\"$temp\" method=\"post\">
+                            echo "<a><form action=\"$self\" method=\"post\">
                                      <input type=\"submit\" name=\"delwarn1\" value=\"Delete first supervisor\">
                                      </form></a>";
                             break;
@@ -475,7 +503,7 @@
                                 echo " (not confirmed yet)</h3>";
                             echo "<p style='margin-left: 5px'>E-mail: " . $rowcontact['SupEMAIL'] . "</p>";
                             echo "<p style='margin-left: 5px'>Telephone: " . $rowcontact['SupTel'] . "</p>";
-                            echo "<a><form action=\"$temp\" method=\"post\">
+                            echo "<a><form action=\"$self\" method=\"post\">
                                      <input type=\"submit\" name=\"delwarn2\" value=\"Delete second supervisor\">
                                      </form></a>";
                             break;

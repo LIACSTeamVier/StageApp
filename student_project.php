@@ -23,33 +23,27 @@ require_once "sidebar_selector.php";
     
     $configs = include("config.php");
     $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
-    $stmt = $con->prepare( "INSERT INTO Project(ProjectName, Description, Progress, Time, Studentqualities, Topic, Internship, SupID) VALUES (?,?, NULL,?,?,?,'0')");
-
-
-	$sql = "SELECT StuID, ProjectName FROM Does WHERE StuID = " . $_SESSION['ID'];
+	$sql = "SELECT StuID, ProjectName FROM Does WHERE StuID = ".$_SESSION['ID']." AND (Accepted = '0' OR Accepted = '1')";
 	$result = $con->query($sql);
 	if($result->num_rows > 0) {
 		$row = $result->fetch_assoc();
-		echo "You are already suscribed to " . $row["ProjectName"] . ", if you continue making this project you will automatically be re-allocated to it.";
-		if($row["SupID"] = NULL){
+		echo "You are already subscribed to " . $row["ProjectName"] . ", if you continue making this project you will automatically be re-allocated to it.";
+		if($row["SupID"] == NULL && $row["IConID"] == NULL){
 			$previous = $row["ProjectName"];
 			echo " and " . $row["ProjectName"] . "will be deleted";
 		}
 	}
 
-
-    $stmt->bind_param("sssss", $name, $description, $tijdrest, $squal, $topic);
-    
-	$nameErr = $descriptionErr = $tijdrestErr = $squalErr = $topicErr = "";
-	$name = $description = $tijdrest = $squal = $topic = "";
+	$nameErr = $descriptionErr = $timeErr = $topicErr = "";
+	$name = $description = $time = $topic = "";
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$success = "true";
-	  if (empty($_POST["naam"])) {
+	  if (empty($_POST["name"])) {
 		$nameErr = "Name is required";
 		$success = "false";
 	  } else {
-		$name = test_input($_POST["naam"]);
+		$name = test_input($_POST["name"]);
 	  }
 	  
 	  if (empty($_POST["project"])) {
@@ -59,29 +53,24 @@ require_once "sidebar_selector.php";
 		$description = test_input($_POST["project"]);
 	  } 
 		
-	  if (empty($_POST["looptijd"])) {
-		$tijdrestErr = "Time is required";
+	  if (empty($_POST["time"])) {
+		$timeErr = "Time is required";
 		$success = "false";
 	  } else {
-		$tijdrest = test_input($_POST["looptijd"]);
+		$time = test_input($_POST["time"]);
 	  }
 
-	  if (empty($_POST["eisen"])) {
-		$squalErr = "Student qualities are required";
-		$success = "false";
-	  } else {
-		$squal = test_input($_POST["eisen"]);
-	  }
-
-	  if (empty($_POST["onderwerp"])) {
+	  if (empty($_POST["topic"])) {
 		$topicErr = "topic is required";
 		$success = "false";
 	  } else {
-		$topic = test_input($_POST["onderwerp"]);
+		$topic = test_input($_POST["topic"]);
 	  }
 	  
 	  if($success == "true"){
-		  $nameErr = $descriptionErr = $tijdrestErr = $squalErr = $topicErr = "";
+		  $nameErr = $descriptionErr = $timeErr = $topicErr = "";
+          $stmt = $con->prepare( "INSERT INTO Project VALUES (?,?,NULL,?,NULL,?,'0',NULL,NULL,NULL,NULL,False,False,False,False,False,False)");
+          $stmt->bind_param("ssss", $name, $description, $time, $topic);
 		  $stmt->execute();
 		  
 		  $sql = "INSERT INTO Does(ProjectName, Accepted, DateAccepted, DateRequested, StuID) VALUES ('". $name ."', '1', '" . date("Y-m-d: H:i:s") ."','". date("Y-m-d: H:i:s") ."', '" . $_SESSION['ID'] . "')";
@@ -101,41 +90,36 @@ require_once "sidebar_selector.php";
 		  $result = $con->query($sql);
 		  if(!$result){echo "query 2";
 			die('Unable to run query2:' . mysqli_error());}
-		  //header("Location: main_page.php");
+		  header("Location: main_page.php");
 	  }
 	}
-	?> 
+	?>
 
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" name="form1" >
-	    Project name: <input type="text" name="naam">
-		<span class="error">* <?php echo $nameErr;?></span><br> <br>
-	    Required skills: <input type="text" name="eisen">
-		<span class="error">* <?php echo $squalErr;?></span><br> <br>
-	    Required time: <input type="text" name="looptijd">
-		<span class="error">* <?php echo $tijdrestErr;?></span><br> <br>
-	    Description: 
-	    <textarea name="project" rows="5" cols="40"></textarea>
-		<span class="error">* <?php echo $descriptionErr;?></span> <br>
-	    Topic: <input type="text" name="onderwerp">
-		<span class="error">* <?php echo $topicErr;?></span><br> <br>
+        <table class="form">
+		    <tr>
+			    <td>Project name:</td>
+				<td><input type="text" name="name" value="<?php echo $name;?>"></td>
+				<td><span class="error">* <?php echo $nameErr;?></span></td>
+			</tr>
+            <tr>
+			    <td>Required time:</td>
+				<td><input type="text" name="time" value="<?php echo $time;?>"></td>
+				<td><span class="error">* <?php echo $timeErr;?></span></td>
+			</tr>
+            <tr>
+                <td>Topic:</td>
+                <td><input type="text" name="topic" value="<?php echo $topic;?>"></td>
+		        <td><span class="error">* <?php echo $topicErr;?></span></td>
+            </tr>
+            <tr>
+                <td>Description:</td> 
+	            <td><textarea name="project" rows="5" cols="40"></textarea></td>
+		        <td><span class="error">* <?php echo $descriptionErr;?></span></td>
+            </tr>
+        </table>
     <input type="submit" name="create" value="create" />
     </form>
-
-    <?php
-/*
-    if(isset($_POST['create'])){
-    $name = $_POST['naam'];
-    $description = $_POST['project'];
-    $tijdrest = $_POST['looptijd'];
-    $squal = $_POST['eisen'];
-    $topic = $_POST['onderwerp'];
-    $stmt->execute();
-    $sql = "INSERT INTO Does(ProjectName, Accepted, DateAccepted, DateRequested, StuID) VALUES (". $name; .", 1, " . date('l jS \of F Y h:i:s A') .",". date('l jS \of F Y h:i:s A') .", " . $_SESSION['ID'] . ")";
-    $result = $con->query($sql);
-    header("Location: main_page.php");
-    }
-    * */
-    ?>
 
 </div>
 </body>
