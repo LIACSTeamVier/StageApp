@@ -141,7 +141,7 @@ function insertIntoStudent($uname, $name, $email, $phonenum){
     if (mysqli_connect_errno()) {
         $_SESSION["regErr"] = "Failed to connect to MySQL: " . mysqli_connect_error();
     }
-	$stmt2 = mysqli_prepare($con, "INSERT INTO Student VALUES (?, ?, ?, ?, 'False', 'False', 'False', 'False', 'False', 'False')");
+	$stmt2 = mysqli_prepare($con, "INSERT INTO Student VALUES (?, ?, ?, ?)");
 	mysqli_stmt_bind_param($stmt2,'ssss', $uname, $name, $email, $phonenum);
 	$result2 = mysqli_execute($stmt2);
 	mysqli_close($stmt2);
