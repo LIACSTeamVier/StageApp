@@ -18,6 +18,7 @@
         <meta charset="utf-8" /> 
         <link rel="stylesheet" type="text/css" href="style.css">
         <title>Progress history for <?php echo $stuid;?> - LIACS Student Project Manager</title>
+        <script src="sortTable.js"></script>
     </head>
     <body>
         <div class="main">
@@ -148,8 +149,25 @@
                         echo "</p>";
                     }
                 }
+                $result = query_our_database("SELECT Date, Entry FROM Log WHERE StuID =".$stuid);
+                echo "<h3>Progress Log</hr>
+                            <table class=\"list\" id='log_table'>"; // start a table tag in the HTML
+                
+                    // column names
+                    echo "<tr><th onclick=\"sortTable(0, 'log_table')\">Date</th>
+                              <th onclick=\"sortTable(1, 'log_table')\">Entry</th>
+                          </tr>";
+                    // rows of the database
+                    while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+                        
+                        echo "<tr><td>".$row['Date']."</td>
+                                  <td>".$row['Entry']."</td>
+                              </tr>";
+                    }
+                    echo "</table><br>"; //Close the table in HTML
                 
                 ?>
         </div>
     </body>
 </html> 
+
