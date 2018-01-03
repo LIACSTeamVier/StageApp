@@ -29,13 +29,21 @@
             query_our_database("DELETE FROM Does WHERE StuID=".$_SESSION["ID"]." AND Accepted='0'");
         }
         if (!empty($_POST["progressupdate"])){
-            if($_POST["progupdate"] != $_POST["progold"]){
+            if(!empty($_POST["progupdate"])){
                 $pupupdate = test_input($_POST["progupdate"]);
                 $resproj = mysqli_query($con,"SELECT * FROM Does WHERE StuID='".$_SESSION["ID"]."'");
                 $rowproj = mysqli_fetch_array($resproj);
                 $projname = $rowproj["ProjectName"];
                 $stmt = mysqli_prepare($con, "UPDATE Project SET Progress=? WHERE ProjectName=?");
                 mysqli_bind_param($stmt, 'ss', $pupupdate, $projname);
+                mysqli_stmt_execute($stmt);
+                $numrow = mysqli_affected_rows($con);
+                mysqli_stmt_close($stmt);
+                if($numrow != 1){
+                    die("Error updating progress");
+                }
+                $stmt = mysqli_prepare($con, "INSERT INTO Log VALUES (?, ?, ?)");
+                mysqli_bind_param($stmt, 'sss', $_SESSION["ID"], $date, $_POST["progupdate"]);
                 mysqli_stmt_execute($stmt);
                 $numrow = mysqli_affected_rows($con);
                 mysqli_stmt_close($stmt);
@@ -441,7 +449,7 @@
                         if (preg_match('/True/',$row[16]))
                             $check[5] = "checked";
                         echo "<form action=\"$self\" method=\"post\">
-                            <textarea name=\"progupdate\" rows=\"5\" cols=\"40\">$prog</textarea>
+                            <textarea name=\"progupdate\" rows=\"5\" cols=\"40\"></textarea>
                             </br>
                             <td><input type=\"checkbox\" name=\"newcheck0\" $check[0]>Research proposal accepted</td></br>
                             <td><input type=\"checkbox\" name=\"newcheck1\" $check[1]>Started project</td></br>
@@ -449,7 +457,6 @@
                             <td><input type=\"checkbox\" name=\"newcheck3\" $check[3]>Thesis submitted</td></br>
                             <td><input type=\"checkbox\" name=\"newcheck4\" $check[4]>Thesis accepted</td></br>
                             <td><input type=\"checkbox\" name=\"newcheck5\" $check[5]>Presentation scheduled</td></br>
-                            <input type=\"hidden\" name=\"progold\" value=\"$prog\">
                             </br>
                             <input type=\"submit\" name=\"progressupdate\" value=\"Update Your Progress\">
                         </form>
