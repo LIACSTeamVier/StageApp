@@ -134,3 +134,12 @@ CREATE TABLE Part_of(
 	FOREIGN KEY(CompanyName) REFERENCES Internship_Contact(CompanyName)
 );
 
+CREATE TABLE Log(
+	StuID	VARCHAR(30),
+	Date	VARCHAR(30),
+	Entry	TEXT,
+	
+	PRIMARY KEY(StuID, Date),
+	FOREIGN KEY(StuID) REFERENCES Student(StuID)	
+);
+
