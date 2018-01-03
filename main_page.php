@@ -366,14 +366,25 @@
                             $result2 = query_our_database("SELECT * FROM Supervisor WHERE SupID='".$row["SupID"]."'");
                             $rowcontactinfo = mysqli_fetch_array($result2);
                             if ($row["SupID"] == NULL)
-                                $owner = $_SESSION["username"];
-                            else
-                                $owner = $rowcontactinfo['SupName'];
+                                $type = "2"; //2 is project made by student
                         }
-                        
                         echo "<table class=\"list\" id='student_table'>
                             <tr>";
-                        if($type == "1"){
+                        
+                        if($type == "2"){
+                            echo "<th onclick=\"sortTable(0, 'student_table')\">Name and Description</th>
+                                  <th onclick=\"sortTable(1, 'student_table')\">Time</th>
+                                  <th onclick=\"sortTable(2, 'student_table')\">Project Owner Name</th>
+                                  <th onclick=\"sortTable(3, 'student_table')\">Type</th>
+                            </tr>
+                            <tr>
+                            <td><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
+                            <td>" . $row['Time'] . "</td>
+                            <td>" . $_SESSION['username'] . "</td>
+                            <td>University Project</td>
+                            </tr>";
+                        }
+                        else if($type == "1"){
                             echo "<th onclick=\"sortTable(0, 'student_table')\">Name and Description</th>
                                   <th onclick=\"sortTable(1, 'student_table')\">Time</th>
                                   <th onclick=\"sortTable(2, 'student_table')\">Project Owner Name</th>
@@ -417,7 +428,7 @@
                             <tr>
                             <td><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
                             <td>" . $row['Time'] . "</td>
-                            <td>" . $owner . "</td>
+                            <td>" . $rowcontactinfo['SupName'] . "</td>
                             <td>" . $rowcontactinfo['SupEMAIL'] . "</td>
                             <td>" . $rowcontactinfo['SupTel'] . "</td>
                             <td>" . $rowcontactinfo['Topics'] . "</td>

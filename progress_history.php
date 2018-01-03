@@ -29,7 +29,7 @@
                     die();
                 }
                 //Get student info
-                $stmt = mysqli_prepare($con, "SELECT * FROM Student s LEFT JOIN Does d ON s.StuID = d.StuID LEFT JOIN Project p ON d.ProjectName = p.Projectname WHERE s.StuID=?");
+                $stmt = mysqli_prepare($con, "SELECT * FROM Student s LEFT JOIN Does d ON s.StuID = d.StuID LEFT JOIN Project p ON d.ProjectName = p.Projectname WHERE s.StuID=? AND d.Accepted = 1");
                 mysqli_bind_param($stmt, 's', $stuid);
                 mysqli_stmt_execute($stmt);
                 $stuinfo = mysqli_fetch_array(mysqli_stmt_get_result($stmt));
@@ -159,7 +159,7 @@
                       </tr>";
                 // rows of the database
                 while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
-
+                    
                     echo "<tr><td>".$row['Date']."</td>
                               <td>".$row['Entry']."</td>
                           </tr>";

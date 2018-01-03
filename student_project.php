@@ -69,7 +69,7 @@ require_once "sidebar_selector.php";
 	  
 	  if($success == "true"){
 		  $nameErr = $descriptionErr = $timeErr = $topicErr = "";
-          $stmt = $con->prepare( "INSERT INTO Project VALUES (?,?,NULL,?,NULL,?,'0',NULL,NULL,NULL,NULL,False,False,False,False,False,False)");
+          $stmt = $con->prepare( "INSERT INTO Project VALUES (?,?,NULL,?,NULL,?,'0',NULL,NULL,NULL,NULL,'False','False','False','False','False','False')");
           $stmt->bind_param("ssss", $name, $description, $time, $topic);
 		  $stmt->execute();
 		  
