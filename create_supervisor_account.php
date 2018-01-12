@@ -214,7 +214,7 @@ function deleteUser($email) {
                 <table class="form">
 					<tr>
 						<td>Full name:</td>
-						<td><input type="text" name="name" value="<?php  echo $name;?>"></td>
+						<td><input type="text" name="name" value="<?php echo $name;?>"></td>
 						<td><span class="error">* <?php echo $nameErr;?></span></td>
 					</tr>
 					<tr>

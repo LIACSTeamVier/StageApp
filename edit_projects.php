@@ -1,18 +1,60 @@
 <?php
-session_start();
-require_once "sidebar_selector.php";
-require_once "general_functions.php";
+    session_start();
+    require_once "sidebar_selector.php";
+    require_once "general_functions.php";
+    
+    $descErr = $topicErr = "";
+    
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (!empty($_POST["updateproject"]))
+            updateProject();
+        $result = query_our_database("SELECT ProjectName, Description, Time, Studentqualities, Topic FROM Project WHERE ProjectName='".$_POST["projname"]."'");
+        $row = mysqli_fetch_array($result);
+    }
+    else {
+        header("Location: main_page.php");
+        exit;
+    }
+    
+    function updateProject() {
+        global $descErr, $topicErr;
+        $description = $time = $squal = $topic = "";
+        $error = False;
+        
+        if (empty($_POST["description"])) {
+            $descErr = "Description is required";
+            $error = True;
+        } else {
+            $description = test_input($_POST["description"]); 
+        }
+        
+        $time = test_input($_POST["time"]);
+        $squal = test_input($_POST["squal"]);
 
-$configs = include("config.php");
-$con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]); 
-$id = $_SESSION["id"];
-echo $id;
-if ($con->connect_error){
-	die("Connection failed: " . $conn->connect_error);
-}
-$sql = "SELECT ProjectName, Topic FROM Project";
-$result = $con->query($sql);
-
+        $topic = test_input($_POST["topic"]); 
+        if(strlen($topic) > 127) {
+            $topicErr = "No more than 127 characters";
+            $error = True;
+        }
+        
+        if (!$error) {
+            $configs = include("config.php");
+            $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);
+            // Check connection
+            if (mysqli_connect_errno()) {
+                $_SESSION["regErr"] = "Failed to connect to MySQL: " . mysqli_connect_error();
+                header("Location: main_page.php");
+                exit;
+            }
+            else {
+                $stmt2 = mysqli_prepare($con, "UPDATE Project SET Description = ?, Time = ?, Studentqualities = ?, Topic = ? WHERE ProjectName = ?");
+	            mysqli_stmt_bind_param($stmt2,'sssss', $description, $time, $squal, $topic, $_POST['projname']);
+	            $result2 = mysqli_execute($stmt2);
+	            mysqli_close($stmt2);
+                mysqli_close($con);
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -29,96 +71,46 @@ $result = $con->query($sql);
 <div class="main">
     <h1>LIACS Student Project Manager</h1>
     <h3>Edit a project</h3>
+    
+    <table class="list" id='project_table'>
+      <tr>
+        <th>Name and Description</th>
+        <th>Time</th>
+        <th>Studentqualities</th>
+        <th>Topic</th>
+      </tr>
+      <tr>
+        <td><b><?php echo $row['ProjectName'];?></b><p style='margin-left: 5px'><?php echo $row['Description'];?></p></td>
+        <td><?php echo $row['Time'];?></td>
+        <td><?php echo $row['Studentqualities'];?></td>
+        <td><?php echo $row['Topic'];?></td>
+      </tr>
+    </table>
 
-    <form action="#" method="post">
-	    <select name="Projects">
-		    <?php 
-		        while($row = mysqli_fetch_array($result)){
-			        echo "<option value=". $row['ProjectName'] . ">" . $row['ProjectName'] . "</option>";
-			        //echo "<option value=". $id . ">" . $id . "</option>";
-			    } 
-	        ?>
-	    </select>
-	    <select name = "attribute">
-		    <option value= "Naam"> Name </option>
-		    <option value= "Beschrijving"> Description </option>
-		    <option value= "Tijd"> Time </option>
-		    <option value= "qualities"> Requirements </option>
-		    <option value= "Topic"> Topic </option>
-		    <option value= "Internship"> Internship Status </option>
-		    <option value= "DocentID"> Supervisor Number</option>
-		    <option value= "SBegeleider"> Business </option>
-		    <option value= "Progress"> Progress </option>
-		    <option value= ""> </option>
-	    </select>
-	    <input type="submit" name="submit" value="edit" />
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+      <table class="form">
+        <tr>
+          <td>Description:</td>
+          <td><textarea name="description" rows="5" cols="40"><?php echo $row['Description'];?></textarea></td>
+	      <td><span class="error"><?php echo $descErr;?></span></td>
+        </tr>
+        <tr>
+		  <td>Time:</td>
+		  <td><textarea name="time" rows="5" cols="40"><?php echo $row['Time'];?></textarea></td>
+        </tr>
+        <tr>
+		  <td>Studentqualities:</td>
+		  <td><textarea name="squal" rows="5" cols="40"><?php echo $row['Studentqualities'];?></textarea></td>
+        </tr>
+        <tr>
+		  <td>Topic:</td>
+		  <td><input type="text" name="topic" value="<?php echo $row['Topic'];?>"></td>
+		  <td><span class="error"><?php echo $topicErr;?></span></td>
+        </tr>
+      </table>
+      <input type="hidden" name ="projname" value="<?php echo $_POST['projname'];?>">
+      <input type="submit" name="updateproject" value="Update project">
     </form>
-    <?php
-    if(isset($_POST['submit'])){
-	    $selected_val = $_POST['attribute'];
-	    $prjct = $_POST['Projects'];
-	    $sql = "SELECT Internship FROM Project WHERE ProjectNaam =" . $prjct;
-	    $result = $conn->query($sql);
-	    //$row = $result->fetch_assoc();
-	    //echo "ah" . $row["Internship"] . "";
-	    if($selected_val == "SBegeleider" && $row['Internship'] == "0"){
-		    echo "the selected project is not an internship";
-	    } else {
-		    if($selected_val != "Internship"){
-			    if($selected_val == "SBegeleider"){
-				    echo "
-				    <form action=\"##\" method=\"post\">
-				    Business Supervisor <input type=\"text\" name=\"icon\">
-				    <br><br>
-				    Business Name: <input type=\"text\" name=\"comp\">
-				    <br><br>
-				    <input type=\"submit\" name=\"create\" value=\"replace\" />
-				    ";
-			    } else{
-				    echo "
-				    <form action=\"##\" method=\"post\">
-				    <textarea name=\"project\" rows=\"5\" cols=\"40\"></textarea> <br>
-				    ";
-				    if($selected_val == "Progress"){
-					    echo"
-					    <input type=\"submit\" name=\"create\" value=\"append\" />
-					    ";
-				    }else{
-					    echo"
-					    <input type=\"submit\" name=\"create\" value=\"replace\" />
-					    ";
-				    }
-				    echo "</form>";
-			    }
-		    } else{ /*
-			    if($row['Internship'] == "0"){
-				    echo "Make an internship?";
-				    $switch = 1;
-			    }
-			    else{
-				    echo "Take away internship status?";
-				    $switch = 0;
-			    }
-			    echo "
-				    <form action=\"##\" method=\"post\">
-				    <input type=\"submit\" name=\"create\" value=\"yes\" />
-				    </form>
-			    ";*/
-			    echo "not yet implemented";
-		    }
-	    }
-	    if(isset($_POST['create'])){
-		    echo $selected_val;
-		    if($selected_val == "SBegeleider"){
-			    $sql = "UPDATE Project SET IConName = '" . $_POST['icon'] . "' WHERE ProjectName = '" . $prjct . "'";
-			    $sql .= "UPDATE Project SET CompanyName = '" . $_POST['comp'] . "' WHERE ProjectName = " . $prjct . "'";
-		    }
-		    echo $sql;
-		    $conn->query($sql);
-	    }
-    }
-
-    ?>
 </div>
 </body>
 </html>

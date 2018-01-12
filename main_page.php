@@ -186,7 +186,6 @@
                 }
                 if ($class == "Supervisor") {
                     //List assigned students and their projects
-                    //$result = query_our_database("SELECT Student.StuID, Student.StuName, Student.StuEMAIL, Student.StuTel, Does.ProjectName, Project.Progress FROM Student LEFT JOIN Does ON Student.StuID=Does.StuID LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE Project.SupID='".$_SESSION["ID"]."'");
                     $result = query_our_database("SELECT Supervises.StuID, StuName, StuEMAIL, StuTel, PropAccept, StartPro, MidRev, ThesisSub, ThesisAcc, PresSched, type, Supervises.SupID, Supervises.Accepted as SupAccepted, Does.ProjectName, Does.Accepted as ProjectAccepted, Description, Progress FROM Student LEFT JOIN Supervises ON Student.StuID=Supervises.StuID LEFT JOIN Does ON Student.StuID=Does.StuID LEFT JOIN Project ON Does.ProjectName=Project.ProjectName WHERE Supervises.SupID='".$_SESSION["ID"]."' AND Supervises.Accepted='1' ORDER BY StuID");
                     if(mysqli_num_rows($result) > 0){
                         echo "<h3>Student overview</h3>
@@ -284,7 +283,7 @@
                         }
                         echo "</table><br>"; //Close the table in HTML  
                     }
-                    $result = query_our_database("SELECT Project.ProjectName, Description, Does.StuID, StuName, StuEMAIL, StuTel, Progress FROM Project LEFT JOIN Does ON Project.ProjectName=Does.ProjectName LEFT JOIN Student ON Does.StuID=Student.StuID WHERE Project.SupID='".$_SESSION["ID"]."'");
+                    $result = query_our_database("SELECT Project.ProjectName, Description, Does.StuID, StuName, StuEMAIL, StuTel, Progress FROM Project LEFT JOIN Does ON Project.ProjectName=Does.ProjectName LEFT JOIN Student ON Does.StuID=Student.StuID WHERE Project.SupID='".$_SESSION["ID"]."' AND Does.Accepted=1");
                     
                     if(mysqli_num_rows($result) > 0){
                         echo "<h3>Project Overview</h3>
@@ -296,6 +295,7 @@
                                 <th onclick=\"sortTable(2, 'sup_table2')\">Student E-mail</th>
                                 <th onclick=\"sortTable(3, 'sup_table2')\">Student Phone Number</th>
                                 <th onclick=\"sortTable(4, 'sup_table2')\">Progress</th>
+                                <th></th>
                                 </tr>";
                         
                         
@@ -305,10 +305,15 @@
                                         <td>" . $row['StuName'] . "</td>
                                         <td>" . $row['StuEMAIL'] . "</td>
                                         <td>" . $row['StuTel'] . "</td>
-                                        <td>" . $row['Progress'] . "</td></tr>";    //$row['index'] the index here is a field name
+                                        <td>" . $row['Progress'] . "</td>
+                                        <td>
+                                          <form action=\"edit_projects.php\" method=\"post\">
+                                            <input type=\"hidden\" name=\"projname\" value=\"".$row['ProjectName']."\">
+                                            <input type=\"submit\" name=\"editproject\" value=\"Edit project\">
+                                          </form>
+                                        </td></tr>";
                         }
-                        
-                        echo "</table><br>"; //Close the table in HTML  
+                        echo "</table><br>"; //Close the table in HTML 
                     }
                 }
                 if ($class == "Internship Contact") {
@@ -326,6 +331,7 @@
                                 <th onclick=\"sortTable(5, 'icon_table')\">Location</th>
                                 <th onclick=\"sortTable(6, 'icon_table')\">Pay</th>
                                 <th onclick=\"sortTable(7, 'icon_table')\">Travel</th>
+                                <th></th>
                                 </tr>";
                         
                         
@@ -342,7 +348,12 @@
                                             echo "<td>Travel, </br>" . $row['Tnotes'] . "</td>";
                                         else
                                             echo "<td>No Travel Compensation</td>";
-                                        echo "</tr>";   //$row['index'] the index here is a field name
+                                        echo "<td>
+                                                <form action=\"edit_projects.php\" method=\"post\">
+                                                  <input type=\"hidden\" name=\"projname\" value=\"".$row['ProjectName']."\">
+                                                  <input type=\"submit\" name=\"editproject\" value=\"Edit Internship\">
+                                                </form>
+                                              </td></tr>";
                         }
                         
                         echo "</table><br>"; //Close the table in HTML  
@@ -437,6 +448,13 @@
                         }
                         echo "</table>";
                         
+                        if ($type == 2) { // Student can edit own project
+                        echo"<form action=\"edit_projects.php\" method=\"post\">
+                               <input type=\"hidden\" name=\"projname\" value=\"".$row['ProjectName']."\">
+                               <input type=\"submit\" name=\"editproject\" value=\"Edit project\">
+                             </form>";
+                        }
+
                         echo "<form action=\"$self\" method=\"post\">
                                 <input type=\"hidden\" name=\"projname\" value=\"".$row['ProjectName']."\">
                                 <input type=\"submit\" name=\"unsubproject\" value=\"Unsubscribe from project\">
