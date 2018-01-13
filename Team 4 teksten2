@@ -1,0 +1,65 @@
+OVERVIEW (/main_page.php) 
+[geen instructies] 
+tabel met eigen project eigenschappen 
+voortgangs updater
+ de supervisors (en of ze je ge-accepteerd hebben) of de projecten waar je supervisor over bent of, in het geval van de administrator, een lijst met alle studenten 
+
+SUPERVISORS (/supervisor_list.php) 
+These are the available supervisors.  You need one First Supervisor and one Second Supervisor.  You need one supervisor with a background in Computer Science (ICT), and one with background in Business (BUS).  Supervisors with background 'BOTH' can fill either role. 
+tabel met mogelijk supervisors en knoppen om ze aan te vragen 
+
+PROJECTS(/project_list.php) 
+[geen instructies] 
+tabel met alle projecten en knoppen om je er voor in te schrijven 
+
+MY PROFILE (/profile.php) 
+Hello [name], this is your profile information.
+tabel met je naam, email en telefoonnummer, plus overige informatie voor supervisors velden om je email, telefoon, wachtwoord en eventueel andere eigenschappen te veranderen 
+supervisor changes 
+
+CREATE PROJECT (project.php) 
+Please fill in the forms to make your project information available to the students. 
+Een aantal velden voor de data van het nieuwe project, waarvan alleen de naam en de beschrijving vereist zijn 
+
+SUPERVISION REQUESTS(request_list.php) 
+Please confirm that you will act as FIRST SUPERVISOR for these student(s). 
+Please confirm that you will act as SECOND SUPERVISOR for these student(s).
+Onder beide twee instructies staat een tabel met studentinformatie en knoppen voor het accepteren 
+
+PROJECT JOIN REQUESTS(project_request_list.php) 
+These students want to join your project. They should have contacted you directly. Please confirm their request.
+een tabel met project en student (contact)informatie en knoppen om ze te accepteren 
+admin pages 
+
+CREATE ACCOUNT: INTERNSHIP CONTACT(create_intern_contact_account.php) 
+Fill in this form to create a new internship contact account. 
+* Required field. 
+Een form voor het invullen van de naam, e-mail en bedrijfsnaam van de contact, alle drie zijn verplichte velden 
+
+
+CREATE ACCOUNT: SUPERVISOR (create_supervisor_account.php) 
+Fill in this form to create a new supervisor account. 
+* Required field. 
+Een form waar alle aspecten van een supervisor kunnen worden ingevuld, alleen de naam, email en telefoon zijn verplicht 
+
+CREATE ACCOUNT: STUDENT (create_student_account.php) 
+Fill in this form to create a new student account. 
+* Required field. 
+Een form voor het invullen van de naam, het studentnummer en het email adres, alle drie zijn verplicht 
+
+CREATE ACCOUNT: ADMIN (create_admin_account.php) 
+Fill in this form to create a new administrator account. 
+* Required field. 
+Een form voor het invullen van de naam en email, beide velden zijn verplicht 
+
+STUDENTS (student_list.php) 
+[geen instructies] 
+een lijst met alle studenten en een knop om de supervision history te bekijken 
+
+SUPERVISION HISTORY (supervisor_history.php) 
+Supervisor history for the student: 
+Active supervisions 
+Pending supervision requests 
+Terminated supervisions 
+onder elk kopje een tabel met de betreffende informatie (wie de student is, wie nu diens supervisor heeft, uitstaande supervisor requests en tenietgedane supervisor relaties respectievelijk) 
+
