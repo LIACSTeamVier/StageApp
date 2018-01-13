@@ -23,8 +23,8 @@ CREATE TABLE Supervisor(
 	Background      VARCHAR(20),
 	
 	PRIMARY KEY(SupID),
+	FOREIGN KEY(SupID) REFERENCES InternshipApp_Users(Identifier),
         FOREIGN KEY(Background) REFERENCES BackgroundOptions(Background),
-	FOREIGN KEY(SupID) REFERENCES InternshipApp_Users(Identifier)
 );
 
 CREATE TABLE Student(
