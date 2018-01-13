@@ -39,7 +39,7 @@
 				mysqli_stmt_execute($stmt1);
 				$proinfo = mysqli_fetch_array(mysqli_stmt_get_result($stmt1));
 				mysqli_stmt_close($stmt1);
-				echo "<h3>Supervisor History for the student:</h3>
+				echo "<h3>Supervisor history for the student:</h3>
 						<table class=\"list\">
 							<tr>
 								<th>Name</th><th>Project</th><th>Progress</th><th>Email</th><th>PhoneNumber</th><th>Student ID</th>
@@ -58,7 +58,7 @@
 				mysqli_stmt_execute($stmt2);
 				$result = mysqli_stmt_get_result($stmt2);
 				mysqli_stmt_close($stmt2);
-				echo "<h3>Active Supervision Relations</h3>
+				echo "<h3>Active supervisions</h3>
 						<table class=\"list\">"; // start a table tag in the HTML
 			
 				// column names
@@ -87,7 +87,7 @@
 				mysqli_stmt_execute($stmt3);
 				$result2 = mysqli_stmt_get_result($stmt3);
 				mysqli_stmt_close($stmt3);
-				echo "<h3>Supervision Requests</h3>
+				echo "<h3>Pending supervision requests</h3>
 						<table class=\"list\">"; // start a table tag in the HTML
 			
 				// column names
@@ -114,7 +114,7 @@
 				mysqli_stmt_execute($stmt4);
 				$result3 = mysqli_stmt_get_result($stmt4);
 				mysqli_stmt_close($stmt4);
-				echo "<h3>Terminated Supervision Relations</h3>
+				echo "<h3>Terminated supervisions</h3>
 						<table class=\"list\">"; // start a table tag in the HTML
 			
 				// column names

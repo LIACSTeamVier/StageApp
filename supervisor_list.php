@@ -212,7 +212,7 @@
                                         </form></a>";
     }
     else if($_SESSION["needsDeleting"] == "conf1"){
-	echo "<form id='1' action=\"$test\" method=\"post\">
+	echo "<form id='1' action=\"$temp\" method=\"post\">
 	      <input type=\"hidden\" name=\"delreq1\" value=\"true\">
 	      <script>document.write('<input type=\"hidden\" name=\"confirmed\" value=\"'+confirm(\"This is a serious action, do you really want to delete the supervisor?\")+'\">');</script>
 	     </form>";
@@ -220,7 +220,7 @@
     }
  
     else if($_SESSION["needsDeleting"] == "conf2"){
-        echo "<form id='2' action=\"$test\" method=\"post\">
+        echo "<form id='2' action=\"$temp\" method=\"post\">
               <input type=\"hidden\" name=\"delreq2\" value=\"true\">
               <script>document.write('<input type=\"hidden\" name=\"confirmed2\" value=\"'+confirm(\"This is a serious action, do you really want to delete the supervisor?\")+'\">');</script>
              </form>";
@@ -236,7 +236,7 @@
 	if($class =="Student"){
 		echo "These are the available supervisors.</br>";
 		echo "You need one First Supervisor and one Second Supervisor.</br>";
-		echo "You need one supervisor with a background in Computer Science(ICT), and one with background in Business(BUS).</br>";
+		echo "You need one supervisor with a background in Computer Science (ICT), and one with background in Business (BUS).</br>";
 		echo "Supervisors with background 'BOTH' can fill either role</br>";
 	}
 	echo "<table id='1strequest_table' class=\"list\">"; // start a table tag in the HTML

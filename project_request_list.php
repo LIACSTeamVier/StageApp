@@ -119,7 +119,7 @@
             $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
         
             // Plain text body
-            $message .= "Dear $StudentName,\n$supname, has accepted your request to take part in their project, $projname\nPlease do not reply to this e-mail."; //"Hello,\nPlease open this e-mail in HTML-mode to view its contents.\nPlease do not reply to this e-mail.\n\nThanks"; 
+            $message .= "Dear $StudentName,\n$supname, has accepted your request to take part in their project, $projname.\nPlease do not reply to this e-mail."; //"Hello,\nPlease open this e-mail in HTML-mode to view its contents.\nPlease do not reply to this e-mail.\n\nThanks"; 
             $message .= "\r\n\r\n--" . $boundary . "\r\n";
             $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
         
@@ -127,7 +127,7 @@
             $message .= "<html lang=\"en-UK\">
                     <body>
                       <p>Dear $StudentName,</p>
-                      <p>$contactname, has accepted your request to take part in their project, $projname</p>
+                      <p>$supname, has accepted your request to take part in their project, $projname.</p>
                       <p>Please do not reply to this e-mail.</p>
                     </body>
                     </html> ";
@@ -167,7 +167,7 @@
             $temp = htmlspecialchars($_SERVER["PHP_SELF"]);
        
             $project_table = mysqli_query($con, "SELECT p.ProjectName, Description, SupID, d.StuID, Accepted, StuName, StuTel, StuEMAIL FROM Project p LEFT JOIN Does d ON d.ProjectName=p.ProjectName LEFT JOIN Student s ON d.StuID=s.StuID WHERE SupID='$supid' AND Accepted='0'") or die('Unable to run query:' . mysqli_error());
-            echo "These students want to join your project, they should probably have contacted you already";
+            echo "These students want to join your project. They should have contacted you directly. Please confirm their request.";
             echo "<table id='1strequest_table' class=\"list\">"; // start a table tag in the HTML
             // column names
             echo "<tr>
