@@ -1,0 +1,194 @@
+DROP TABLE Log_backup;
+DROP TABLE Part_of_backup;
+DROP TABLE Does_backup;
+DROP TABLE Supervises_backup;
+DROP TABLE RelationOptions_backup;
+DROP TABLE Internship_of_backup;
+DROP TABLE Project_backup;
+DROP TABLE Internship_Contact_backup;
+DROP TABLE Student_backup;
+DROP TABLE Supervisor_backup;
+DROP TABLE BackgroundOptions_backup;
+DROP TABLE InternshipApp_Users_backup;
+
+CREATE TABLE InternshipApp_Users_backup(
+	Identifier VARCHAR(50),
+	Class VARCHAR(30),
+	Name VARCHAR(30),
+	Password VARCHAR(60),
+	
+	PRIMARY KEY(Identifier)
+);
+
+CREATE TABLE BackgroundOptions_backup(
+    Background VARCHAR(20),
+    
+    PRIMARY KEY (Background)
+);
+
+CREATE TABLE Supervisor_backup(
+	SupID VARCHAR(50),
+	SupName VARCHAR(30),
+	SupEMAIL VARCHAR(50),
+	SupTel VARCHAR(10),
+	RoleFirst VARCHAR(3),
+	RoleSecond VARCHAR(3),
+	Background VARCHAR(20),
+    Topics VARCHAR(144),
+	
+	PRIMARY KEY(SupID),
+    FOREIGN KEY(SupID) REFERENCES InternshipApp_Users_backup(Identifier),
+    FOREIGN KEY(Background) REFERENCES BackgroundOptions_backup(Background)
+);
+
+CREATE TABLE Student_backup(
+	StuID VARCHAR(30),
+	StuName	VARCHAR(30),
+	StuEMAIL VARCHAR(50),
+	StuTel VARCHAR(10),
+	
+	PRIMARY KEY(StuID),
+	FOREIGN KEY(StuID) REFERENCES InternshipApp_Users_backup(Identifier)
+);
+
+CREATE TABLE Internship_Contact_backup(
+    IConID VARCHAR(50) UNIQUE,
+	CompanyName VARCHAR(30),
+	IConName VARCHAR(30),
+	IConEMAIL VARCHAR(50),
+	IConTel VARCHAR(10),
+	
+	PRIMARY KEY(CompanyName, IConName),
+	FOREIGN KEY(IConID) REFERENCES InternshipApp_Users_backup(Identifier)
+);
+
+CREATE TABLE Project_backup(
+	ProjectName VARCHAR(30),
+	Description TEXT,
+	Progress TEXT,
+	Time TEXT,
+	Studentqualities TEXT,
+	Topic VARCHAR(127),
+	Internship INT(1),
+	SupID VARCHAR(50),
+	IConID VARCHAR(50),
+	CompanyName VARCHAR(30),
+	IConName VARCHAR(30),
+	PropAccept VARCHAR(30),
+	StartPro VARCHAR(30),
+	MidRev VARCHAR(30),
+	ThesisSub VARCHAR(30),
+	ThesisAcc VARCHAR(30),
+	PresSched VARCHAR(30),
+	
+	PRIMARY KEY(ProjectName),
+	FOREIGN KEY(SupID) REFERENCES Supervisor_backup(SupID),
+	FOREIGN KEY(IConID) REFERENCES Internship_Contact_backup(IConID),
+	FOREIGN KEY(CompanyName, IConName) REFERENCES Internship_Contact_backup(CompanyName, IConName)
+);
+
+CREATE TABLE Internship_of_backup(
+	ProjectName VARCHAR(30),
+	LocName VARCHAR(30),
+	Location VARCHAR(30),
+	StreetNr VARCHAR(30),
+	Travel INT(1),
+	Tnotes VARCHAR(30),
+	Pay VARCHAR(30),
+	CompanyName VARCHAR(30), 
+	
+	PRIMARY KEY(ProjectName),
+	FOREIGN KEY(ProjectName) REFERENCES Project_backup(ProjectName),
+	FOREIGN KEY(CompanyName) REFERENCES Internship_Contact_backup(CompanyName) ON DELETE CASCADE
+);
+
+CREATE TABLE RelationOptions_backup(
+    type VARCHAR(20),
+    
+    PRIMARY KEY (type)
+);
+
+CREATE TABLE Supervises_backup(
+    type VARCHAR(20),	
+    SupID VARCHAR(50),
+    StuID VARCHAR(30),
+    Accepted INT(1),
+    ActivationCode VARCHAR(32) UNIQUE,
+    DateRequested VARCHAR(30),
+    DateAccepted VARCHAR(30),
+    DateTerminated VARCHAR(30),
+
+ 	
+    PRIMARY KEY (type, StuID, DateRequested),
+    FOREIGN KEY(type) REFERENCES RelationOptions_backup(type),
+    FOREIGN KEY(SupID) REFERENCES Supervisor_backup(SupID),
+    FOREIGN KEY(StuID) REFERENCES Student_backup(StuID)
+);
+
+CREATE TABLE Does_backup(
+	StuID VARCHAR(30),
+	ProjectName VARCHAR(30),
+	Accepted INT(1),
+	ActivationCode VARCHAR(32) UNIQUE,
+	DateRequested VARCHAR(30),	
+	DateAccepted VARCHAR(30),	
+	DateTerminated VARCHAR(30),
+
+	PRIMARY KEY(StuID, ProjectName, DateRequested),
+	FOREIGN KEY(StuID) REFERENCES Student_backup(StuID),
+	FOREIGN KEY(ProjectName) REFERENCES Project_backup(ProjectName)
+);
+
+CREATE TABLE Part_of_backup(
+	ProjectName	VARCHAR(30),
+	CompanyName	VARCHAR(30),
+	
+	PRIMARY KEY(ProjectName, CompanyName),
+	FOREIGN KEY(ProjectName) REFERENCES Project_backup(ProjectName),
+	FOREIGN KEY(CompanyName) REFERENCES Internship_Contact_backup(CompanyName)
+);
+
+CREATE TABLE Log_backup(
+	StuID VARCHAR(30),
+	Date VARCHAR(30),
+	Entry TEXT,
+	
+	PRIMARY KEY(StuID, Date),
+	FOREIGN KEY(StuID) REFERENCES Student_backup(StuID)	
+);
+
+INSERT INTO InternshipApp_Users_backup
+SELECT * FROM InternshipApp_Users;
+
+INSERT INTO BackgroundOptions_backup
+SELECT * FROM BackgroundOptions;
+
+INSERT INTO Supervisor_backup
+SELECT * FROM Supervisor;
+
+INSERT INTO Student_backup
+SELECT * FROM Student;
+
+INSERT INTO Internship_Contact_backup
+SELECT * FROM Internship_Contact;
+
+INSERT INTO Project_backup
+SELECT * FROM Project;
+
+INSERT INTO Internship_of_backup
+SELECT * FROM Internship_of;
+
+INSERT INTO RelationOptions_backup
+SELECT * FROM RelationOptions;
+
+INSERT INTO Supervises_backup
+SELECT * FROM Supervises;
+
+INSERT INTO Does_backup
+SELECT * FROM Does;
+
+INSERT INTO Part_of_backup
+SELECT * FROM Part_of;
+
+INSERT INTO Log_backup
+SELECT * FROM Log;
