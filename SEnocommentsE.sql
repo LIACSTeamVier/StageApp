@@ -1,5 +1,5 @@
 CREATE TABLE InternshipApp_Users(
-	Identifier	VARCHAR(30),
+	Identifier	VARCHAR(50),
 	Class	VARCHAR(30),
 	Name	VARCHAR(30),
 	Password	VARCHAR(60),
@@ -14,7 +14,7 @@ CREATE TABLE BackgroundOptions(
 );
 
 CREATE TABLE Supervisor(
-	SupID	VARCHAR(30),
+	SupID	VARCHAR(50),
 	SupName	VARCHAR(30),
 	SupEMAIL	VARCHAR(50),
 	SupTel	VARCHAR(10),
@@ -38,7 +38,7 @@ CREATE TABLE Student(
 );
 
 CREATE TABLE Internship_Contact(
-    IConID VARCHAR(30) UNIQUE,
+    IConID VARCHAR(50) UNIQUE,
 	CompanyName	VARCHAR(30),
 	IConName	VARCHAR(30),
 	IConEMAIL	VARCHAR(50),
@@ -56,8 +56,8 @@ CREATE TABLE Project(
 	Studentqualities TEXT,
 	Topic		VARCHAR(127),
 	Internship	INT(1),
-	SupID	VARCHAR(30),
-	IConID VARCHAR(30),
+	SupID	VARCHAR(50),
+	IConID VARCHAR(50),
 	CompanyName	VARCHAR(30),
 	IConName VARCHAR(30),
 	PropAccept VARCHAR(30),
@@ -96,7 +96,7 @@ CREATE TABLE RelationOptions(
 
 CREATE TABLE Supervises(
     type        VARCHAR(20),	
-    SupID	VARCHAR(30),
+    SupID	VARCHAR(50),
     StuID	VARCHAR(30),
     Accepted	INT(1),
     ActivationCode	VARCHAR(32) UNIQUE,
