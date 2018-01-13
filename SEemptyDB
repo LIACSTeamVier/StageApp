@@ -1,0 +1,12 @@
+DELETE FROM Log;
+DELETE FROM Part_of;
+DELETE FROM Does;
+DELETE FROM Supervises;
+DELETE FROM RelationOptions;
+DELETE FROM Internship_of;
+DELETE FROM Project;
+DELETE FROM Internship_Contact;
+DELETE FROM Student;
+DELETE FROM Supervisor;
+DELETE FROM BackgroundOptions;
+DELETE FROM InternshipApp_Users;
