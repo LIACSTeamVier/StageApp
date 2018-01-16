@@ -227,8 +227,8 @@
         echo "<script>document.getElementById(2).submit()</script>";
     }
     
-    else if ($_SESSION["needsDeleting"] == "BUS" || $_SESSION["needsDeleting"] == "CS"){
-		echo "<a>You need one supervisor with background in CS and one in Business.</br>
+    else if ($_SESSION["needsDeleting"] == "BUS" || $_SESSION["needsDeleting"] == "ICT"){
+		echo "<a>You need one supervisor with background in ICT and one in Business.</br>
               <a>You already have one with a background in: ".$_SESSION["needsDeleting"]."</a></br>";	
     }
 
@@ -236,7 +236,7 @@
 	if($class =="Student"){
 		echo "These are the available supervisors.</br>";
 		echo "You need one First Supervisor and one Second Supervisor.</br>";
-		echo "You need one supervisor with a background in Computer Science (ICT), and one with background in Business (BUS).</br>";
+		echo "You need one supervisor with a background in ICT, and one with background in Business (BUS).</br>";
 		echo "Supervisors with background 'BOTH' can fill either role</br>";
 	}
 	echo "<table id='1strequest_table' class=\"list\">"; // start a table tag in the HTML

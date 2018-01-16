@@ -16,7 +16,7 @@ require_once "sidebar_selector.php";
 <div class="main">
 	<h1>LIACS Student Project Manager</h1>
 	<h3>Contact</h3>
-	
-	<!-- TODO -->
+	<a>Please send an e-mail to:</a><br>
+    <a>ictinbusiness@liacs.leidenuniv.nl</a>
 	
 </div>

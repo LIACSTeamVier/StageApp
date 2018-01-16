@@ -121,17 +121,20 @@
 		$message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
 	
 		// Plain text body
-		$message .= "Dear $StudentName,\n$DocName, has accepted being your $type\n Enter this url'http://csthesis.liacs.leidenuniv.nl' in your browser to go to the LIACS InternshipApp.\nPlease do not reply to this e-mail.";
+		$message .= "Dear $StudentName,\n\n$DocName, has accepted being your $type\n Enter this url'http://csthesis.liacs.leidenuniv.nl' in your browser to go to the LIACS InternshipApp.\nPlease do not reply to this e-mail.\nBest regards,\n\nthe LIACS Graduation Application";
 		$message .= "\r\n\r\n--" . $boundary . "\r\n";
 		$message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
 	
 		// HTML body
 		$message .= "<html lang=\"en-UK\">
 				<body>
-				  <p>Dear $StudentName,</p>
+				  <p>Dear $StudentName,</p><br>
 				  <p>$DocName has accepted being your $type.</p>
                   <p><a href='http://csthesis.liacs.leidenuniv.nl'>Click here</a> to go to the LIACS InternshipApp.<p>
 				  <p>Please do not reply to this e-mail.</p>
+                  <p>Best regards,</p><br>
+                  <p>the LIACS Graduation Application</p>
+                  <p>
 				</body>
 				</html> ";
 
@@ -173,7 +176,7 @@
                 $RoleAllow = mysqli_fetch_array($RoleAllowRes);
                 if($RoleAllow['RoleFirst'] == "yes"){
 		            $project_table = mysqli_query($con, "SELECT * FROM Supervises b WHERE b.SupID='$docid' AND b.type = 'First Supervisor' AND b.Accepted='0'") or die('Unable to run query:' . mysqli_error());
-		            echo "These students want you as FIRST SUPERVISOR";
+		            echo "Please confirm that you will act as FIRST SUPERVISOR for these student(s). ";
 		            echo "<table class=\"list\" id='1strequest_table'>"; // start a table tag in the HTML
 		            // column names
 		            echo "<tr><th onclick=\"sortTable(0, '1strequest_table')\">Student Id</th>
@@ -196,7 +199,7 @@
 	            }
 	            if($RoleAllow['RoleSecond'] == "yes"){
 		            $project_table = mysqli_query($con, "SELECT * FROM Supervises b WHERE b.SupID='$docid' AND b.type = 'Second Supervisor' AND b.Accepted='0'") or die('Unable to run query:' . mysqli_error());
-		            echo "These students want you as SECOND SUPERVISOR";
+		            echo "Please confirm that you will act as SECOND SUPERVISOR for these student(s).";
 		            echo "<table class=\"list\" id='2ndrequest_table'>"; // start a table tag in the HTML
 		            // column names
 		            echo "<tr><th onclick=\"sortTable(0, '2ndrequest_table')\">Student Id</th>

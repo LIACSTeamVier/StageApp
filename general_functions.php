@@ -63,20 +63,22 @@
         $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
         
         // Plain text body
-        $message .= "Dear $name,\nAn account has been made for you on the LIACS InternshipApp. Please follow the following link:\nhttp://csthesis.liacs.leidenuniv.nl\nYour username and password are as follows:\nUsername: $uname\nPassword: $password\nPlease do not reply to this e-mail.\n(notactually)LIACS";
+        $message .= "Dear $name,\n\nAn account has been made for you on the LIACS Graduation Application. Please follow the following link:\nhttp://csthesis.liacs.leidenuniv.nl\nYour username and password are as follows:\nUsername: $uname\nPassword: $password\nPlease do not reply to this e-mail.\nBest regards,\n\nthe LIACS Graduation Application";
         $message .= "\r\n\r\n--" . $boundary . "\r\n";
         $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
         
         // HTML body
         $message .= "<html lang=\"en-UK\">
 					   <body>
-					     <p>Dear $name,</p>
-                         <p>An account has been made for you on the <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS InternshipApp</a>.</p>
+					     <p>Dear $name,</p><br>
+                         <p>An account has been made for you on the <a href='http://csthesis.liacs.leidenuniv.nl'>LIACS Graduation Application</a>.</p>
                          <p>Your username and password are as follows:</p>
                          <p>Username: $uname</p>
                          <p>Password: $password</p>
                          <p>Please do not reply to this e-mail.</p>
-                         <p>(notactually)LIACS</p>
+                         <p>Best regards,</p><br>
+                         <p>the LIACS Graduation Application</p>
+                         <p>
                        </body>
                      </html>";
 

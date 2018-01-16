@@ -119,16 +119,19 @@
             $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
         
             // Plain text body
-            $message .= "Dear $StudentName,\n$supname, has accepted your request to take part in their project, $projname.\nPlease do not reply to this e-mail."; //"Hello,\nPlease open this e-mail in HTML-mode to view its contents.\nPlease do not reply to this e-mail.\n\nThanks"; 
+            $message .= "Dear $StudentName,\n\n$supname, has accepted your request to take part in their project, $projname.\nPlease do not reply to this e-mail.\nBest regards,\n\nthe LIACS Graduation Application";
             $message .= "\r\n\r\n--" . $boundary . "\r\n";
             $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
         
             // HTML body
             $message .= "<html lang=\"en-UK\">
                     <body>
-                      <p>Dear $StudentName,</p>
+                      <p>Dear $StudentName,</p><br>
                       <p>$supname, has accepted your request to take part in their project, $projname.</p>
                       <p>Please do not reply to this e-mail.</p>
+                      <p>Best regards,</p><br>
+                      <p>the LIACS Graduation Application</p>
+                      <p>
                     </body>
                     </html> ";
 

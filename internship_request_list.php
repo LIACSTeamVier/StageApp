@@ -112,16 +112,19 @@
             $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
         
             // Plain text body
-            $message .= "Dear $StudentName,\n$contactname, from $compName has accepted your request to take part in their internship program, $projname\nPlease do not reply to this e-mail."; //"Hello,\nPlease open this e-mail in HTML-mode to view its contents.\nPlease do not reply to this e-mail.\n\nThanks"; 
+            $message .= "Dear $StudentName,\n\n$contactname, from $compName has accepted your request to take part in their internship program, $projname.\nPlease do not reply to this e-mail.\nBest regards,\n\nthe LIACS Graduation Application";
             $message .= "\r\n\r\n--" . $boundary . "\r\n";
             $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
         
             // HTML body
             $message .= "<html lang=\"en-UK\">
                     <body>
-                      <p>Dear $StudentName,</p>
-                      <p>$contactname, from $compName has accepted your request to take part in their internship program, $projname</p>
+                      <p>Dear $StudentName,</p><br>
+                      <p>$contactname, from $compName has accepted your request to take part in their internship program, $projname.</p>
                       <p>Please do not reply to this e-mail.</p>
+                      <p>Best regards,</p><br>
+                      <p>the LIACS Graduation Application</p>
+                      <p>
                     </body>
                     </html> ";
 
@@ -148,7 +151,7 @@
     <body>
 
         <div class="main">
-            <h1>LIACS Student Project Manager</h1>		
+            <h1>LIACS Student Project Manager</h1>
             <?php
             $configs = include("config.php");
             $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);

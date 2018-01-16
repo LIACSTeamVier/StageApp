@@ -4,9 +4,11 @@ require_once "general_functions.php";
 
 $id = $_SESSION["ID"];
 $project = $_POST["prjctname"];
-/*if !($_SERVER["REQUEST_METHOD"] == "POST") {
-	 header("Location: main_page.php");
-}*/
+
+if ($_SERVER["REQUEST_METHOD"] != "POST") { 
+	header( 'Location: main_page.php' );
+}
+
 ?>
  
  <!DOCTYPE html>
@@ -56,20 +58,22 @@ $project = $_POST["prjctname"];
 	        $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
 	
 	        // Plain text body
-	        $message .= "Dear ".$to["SupName"].",\n\nThe student: ".$_SESSION["username"].", $id, has requested access to the project:\n$project.\nEnter this url 'http://csthesis.liacs.leidenuniv.nl/request_list.php?code=$randstring' in your browser to accept their request.\n\nPlease do not reply to this e-mail.";
+	        $message .= "Dear ".$to["SupName"].",\n\nThe student: ".$_SESSION["username"].", $id, has requested access to the project:\n$project.\nEnter this url 'http://csthesis.liacs.leidenuniv.nl/request_list.php?code=$randstring' in your browser to accept their request.\n\nPlease do not reply to this e-mail.\nBest regards,\n\nthe LIACS Graduation Application";
 	        $message .= "\r\n\r\n--" . $boundary . "\r\n";
 	        $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
 	
 	        // HTML body
 	        $message .= "<html lang=\"en-UK\">
 				           <body>
-				             <p>Dear ".$to["SupName"].",</p>
+				             <p>Dear ".$to["SupName"].",</p><br>
 				             <p>The student: ".$_SESSION["username"].", $id, has requested access to the project:</p>
                              <p>$project.</p>
 				             <p><a href=\"http://csthesis.liacs.leidenuniv.nl/project_request_list.php?code=".$randstring."\">Click here</a> to accept their request.<p>
 				             $smessage
 				             <p>Please do not reply to this e-mail.</p>
-                             <p>(notactually)LIACS</p>
+                             <p>Best regards,</p><br>
+                             <p>the LIACS Graduation Application</p>
+                             <p>
 				          </body>
 				        </html> ";
 
@@ -89,3 +93,4 @@ $project = $_POST["prjctname"];
 ?>
 </body>
 </html>
+

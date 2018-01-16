@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = True;
     } else {
         if (!isset($_POST["back1"]))
-            $background = "CS";
+            $background = "ICT";
         else if (!isset($_POST["back2"]))
             $background = "BUS";
         else
