@@ -34,36 +34,36 @@ INSERT INTO InternshipApp_Users VALUES ('e.m.bakker@liacs.leidenuniv.nl', 'Super
 
 
 INSERT INTO Supervisor VALUES ('BKR@tg.nl', 'Bas Kruiswijk', 'BKR@tg.nl', '', 'yes', 'yes', 'ICT', 'ICT Strategy, ICT Architecture')'
-INSERT INTO Supervisor VALUES ('c.j.stettina@cdh.leidenuniv.nl', 'Christoph Stettina', 'c.j.stettina@cdh.leidenuniv.nl', 
-INSERT INTO Supervisor VALUES ('tyron@tyronofferman.nl', 'Tyron Offerman', 'tyron@tyronofferman.nl
-INSERT INTO Supervisor VALUES ('s.jong@liacs.leidenuniv.nl', 'Simcha Jong', 's.jong@liacs.leidenuniv.nl 
-INSERT INTO Supervisor VALUES ('x.li@sbb.leidenuniv.nl', 'Xishu Li', 'x.li@sbb.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('j.wang@sbb.leidenuniv.nl', 'Jian Wang', 'j.wang@sbb.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('n.van.weeren@liacs.leidenuniv.nl', 'Niels van Weeren', 'n.van.weeren@liacs.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('mohamedatef1982@gmail.com', 'Mohamed Atef', 'mohamedatef1982@gmail.com
-INSERT INTO Supervisor VALUES ('peter@connectcmc.nl', 'Peter van Veen', 'peter@connectcmc.nl 
-INSERT INTO Supervisor VALUES ('m.baratchi@liacs.leidenuniv.nl', 'Mitra Baratchi', 'm.baratchi@liacs.leidenuniv.nl 
-INSERT INTO Supervisor VALUES ('tino@r2t2.nl', 'Supervisor', 'tino@r2t2.nl 
-INSERT INTO Supervisor VALUES ('j.schalk@fgga.leidenuniv.nl', 'Jelmer Schalk', 'j.schalk@fgga.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('s.n.giest@fgga.leidenuniv.nl', 'Sarah Giest', 's.n.giest@fgga.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('stefan.pickl@unibw.de', 'Stefan Pickl', 'stefan.pickl@unibw.de
-INSERT INTO Supervisor VALUES ('p.m.kwantes@liacs.leidenuniv.nl', 'Pieter Kwantes', 'p.m.kwantes@liacs.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('w.j.kowalczyk@liacs.leidenuniv.nl', 'Wojtek Kowalczyk', 'w.j.kowalczyk@liacs.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('m.van.leeuwen@liacs.leidenuniv.nl', 'Matthijs van Leeuwen', 'm.van.leeuwen@liacs.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('emmerich@liacs.nl', 'Michael Emmerich', 'emmerich@liacs.nl
-INSERT INTO Supervisor VALUES ('e.van.der.kouwe@liacs.leidenuniv.nl', 'e.van.der.kouwe@liacs.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('w.heijstek@gmail.com', 'Werner Heijstek', 'w.heijstek@gmail.com
-INSERT INTO Supervisor VALUES ('r.t.hewins@gmail.com', 'Robert Hewins', 'r.t.hewins@gmail.com
-INSERT INTO Supervisor VALUES ('c.bucker@liacs.leidenuniv.nl', 'Claudia Bücker', 'c.bucker@liacs.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('r.cachucho@liacs.leidenuniv.nl', 'Ricardo Cachucho', 'r.cachucho@liacs.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('p.w.h.van.der.putten@liacs.leidenuniv.nl', 'Peter van der Putten', 'p.w.h.van.der.putten@liacs.leidenuniv.nl 
-INSERT INTO Supervisor VALUES ('j.n.kok@liacs.leidenuniv.nl', 'Joost Kok', 'j.n.kok@liacs.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('c.j.veenman@liacs.leidenuniv.nl', 'Cor Veenman', 'c.j.veenman@liacs.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('w.kraaij@liacs.leidenuniv.nl', 'Wessel Kraaij', 'w.kraaij@liacs.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('a.plaat@liacs.leidenuniv.nl', 'Aske Plaat', 'a.plaat@liacs.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('T.H.W.Baeck@liacs.leidenuniv.nl', 'Thomas Bäck', 'T.H.W.Baeck@liacs.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('f.neukart@gmail.com', 'Florian Neukart', 'f.neukart@gmail.com
-INSERT INTO Supervisor VALUES ('f.j.verbeek@liacs.leidenuniv.nl', 'Fons Verbeek', 'f.j.verbeek@liacs.leidenuniv.nl
-INSERT INTO Supervisor VALUES ('k.j.wolstencroft@liacs.leidenuniv.nl', 'Katy Wolstencroft', 'k.j.wolstencroft@liacs.leidenuniv.nl 
-INSERT INTO Supervisor VALUES ('e.m.bakker@liacs.leidenuniv.nl', 'Erwin Bakker', 'e.m.bakker@liacs.leidenuniv.nl 
+INSERT INTO Supervisor VALUES ('c.j.stettina@cdh.leidenuniv.nl', 'Christoph Stettina', 'c.j.stettina@cdh.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('tyron@tyronofferman.nl', 'Tyron Offerman', 'tyron@tyronofferman.nl', '', 'no', '
+INSERT INTO Supervisor VALUES ('s.jong@liacs.leidenuniv.nl', 'Simcha Jong', 's.jong@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('x.li@sbb.leidenuniv.nl', 'Xishu Li', 'x.li@sbb.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('j.wang@sbb.leidenuniv.nl', 'Jian Wang', 'j.wang@sbb.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('n.van.weeren@liacs.leidenuniv.nl', 'Niels van Weeren', 'n.van.weeren@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('mohamedatef1982@gmail.com', 'Mohamed Atef', 'mohamedatef1982@gmail.com', '', 'no', '
+INSERT INTO Supervisor VALUES ('peter@connectcmc.nl', 'Peter van Veen', 'peter@connectcmc.nl', '', 'no', '
+INSERT INTO Supervisor VALUES ('m.baratchi@liacs.leidenuniv.nl', 'Mitra Baratchi', 'm.baratchi@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('tino@r2t2.nl', 'Supervisor', 'tino@r2t2.nl', '', 'no', '
+INSERT INTO Supervisor VALUES ('j.schalk@fgga.leidenuniv.nl', 'Jelmer Schalk', 'j.schalk@fgga.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('s.n.giest@fgga.leidenuniv.nl', 'Sarah Giest', 's.n.giest@fgga.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('stefan.pickl@unibw.de', 'Stefan Pickl', 'stefan.pickl@unibw.de', '', 'yes', '
+INSERT INTO Supervisor VALUES ('p.m.kwantes@liacs.leidenuniv.nl', 'Pieter Kwantes', 'p.m.kwantes@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('w.j.kowalczyk@liacs.leidenuniv.nl', 'Wojtek Kowalczyk', 'w.j.kowalczyk@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('m.van.leeuwen@liacs.leidenuniv.nl', 'Matthijs van Leeuwen', 'm.van.leeuwen@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('emmerich@liacs.nl', 'Michael Emmerich', 'emmerich@liacs.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('e.van.der.kouwe@liacs.leidenuniv.nl', 'e.van.der.kouwe@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('w.heijstek@gmail.com', 'Werner Heijstek', 'w.heijstek@gmail.com', '', 'yes', '
+INSERT INTO Supervisor VALUES ('r.t.hewins@gmail.com', 'Robert Hewins', 'r.t.hewins@gmail.com', '', 'no
+INSERT INTO Supervisor VALUES ('c.bucker@liacs.leidenuniv.nl', 'Claudia Bücker', 'c.bucker@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('r.cachucho@liacs.leidenuniv.nl', 'Ricardo Cachucho', 'r.cachucho@liacs.leidenuniv.nl', '', 'no
+INSERT INTO Supervisor VALUES ('p.w.h.van.der.putten@liacs.leidenuniv.nl', 'Peter van der Putten', 'p.w.h.van.der.putten@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('j.n.kok@liacs.leidenuniv.nl', 'Joost Kok', 'j.n.kok@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('c.j.veenman@liacs.leidenuniv.nl', 'Cor Veenman', 'c.j.veenman@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('w.kraaij@liacs.leidenuniv.nl', 'Wessel Kraaij', 'w.kraaij@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('a.plaat@liacs.leidenuniv.nl', 'Aske Plaat', 'a.plaat@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('T.H.W.Baeck@liacs.leidenuniv.nl', 'Thomas Bäck', 'T.H.W.Baeck@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('f.neukart@gmail.com', 'Florian Neukart', 'f.neukart@gmail.com', '', 'yes', '
+INSERT INTO Supervisor VALUES ('f.j.verbeek@liacs.leidenuniv.nl', 'Fons Verbeek', 'f.j.verbeek@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('k.j.wolstencroft@liacs.leidenuniv.nl', 'Katy Wolstencroft', 'k.j.wolstencroft@liacs.leidenuniv.nl', '', 'yes', '
+INSERT INTO Supervisor VALUES ('e.m.bakker@liacs.leidenuniv.nl', 'Erwin Bakker', 'e.m.bakker@liacs.leidenuniv.nl', '', 'yes', '
 
