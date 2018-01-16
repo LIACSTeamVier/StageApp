@@ -1,71 +1,71 @@
-DELETE FROM Supervisor
-DELETE FROM InternshipApp_Users
+DELETE FROM Supervisor;
+DELETE FROM InternshipApp_Users;
 
-INSERT INTO InternshipApp_Users VALUES ('BKR@tg.nl', 'Supervisor', 'Bas Kruiswijk', '$2y$10$X9k2cRD5vG4rOrKTf0GV7.xWuXVRv8TW7Ix.hvFaWC1rQ4rfq7.O6')
-INSERT INTO InternshipApp_Users VALUES ('c.j.stettina@cdh.leidenuniv.nl', 'Supervisor', 'Christoph Stettina', '$2y$10$8MVR79MvruPD27tTU8iRpOVsn0g4T.0EnfaWJeHeae0aVF.TTWvr.')
-INSERT INTO InternshipApp_Users VALUES ('tyron@tyronofferman.nl', 'Supervisor', 'Tyron Offerman', '$2y$10$FckXzI6OFl7uDYUJfS6q0OR3A.FewsVgAGZbxx9RJsOErBwx5k.Iq')
-INSERT INTO InternshipApp_Users VALUES ('s.jong@liacs.leidenuniv.nl', 'Supervisor', 'Simcha Jong', '$2y$10$WyGwo.gQvhu.gLQRZQju6.wegtWYql85OM4hwUjTAaMCsjjvBQQOy')
-INSERT INTO InternshipApp_Users VALUES ('x.li@sbb.leidenuniv.nl', 'Supervisor', 'Xishu Li', '$2y$10$JqYvjqbtJBTiEJ/qNkLM2.y1mnm6PHNTPlaTsaej1AYRV3VhyhPq6')
-INSERT INTO InternshipApp_Users VALUES ('j.wang@sbb.leidenuniv.nl', 'Supervisor', 'Jian Wang', '$2y$10$olvSQYRZXlE/t4/DbvUa8.Nl6fJ5//bK1QOpqEMxOHQSxEJN11jni')
-INSERT INTO InternshipApp_Users VALUES ('n.van.weeren@liacs.leidenuniv.nl', 'Supervisor', 'Niels van Weeren', '$2y$10$HHbqswDhL5YYdr3zY6JH8OTKtf5OaoQgwklGx/32z0KHZDnMhnNHm')
-INSERT INTO InternshipApp_Users VALUES ('mohamedatef1982@gmail.com', 'Supervisor', 'Mohamed Atef', '$2y$10$YWlbWgKAiqhIfQ5fWFWrNudSakNnfuH0yEFcRB8A7pc7ZNVT2iND.')
-INSERT INTO InternshipApp_Users VALUES ('peter@connectcmc.nl', 'Supervisor', 'Peter van Veen', '$2y$10$qWDlx6rHF6iRXcBu8l4wEOnIXHhb01tH3KVoAA/vSQuxqAOqKumJC')
-INSERT INTO InternshipApp_Users VALUES ('m.baratchi@liacs.leidenuniv.nl', 'Supervisor', 'Mitra Baratchi', '$2y$10$naT2Vh5pzuNmMcxWjFSUf.2Zj2Iyf8mwknlV4pwT/v5s4ixqkyRFu')
-INSERT INTO InternshipApp_Users VALUES ('tino@r2t2.nl', 'Supervisor', 'Tino de Rijk', '$2y$10$L6OvST/wLdn6.MYpqQ11n.oBzQfswDvKjYlknQzprbpPzxu5H4Zq.')
-INSERT INTO InternshipApp_Users VALUES ('j.schalk@fgga.leidenuniv.nl', 'Supervisor', 'Jelmer Schalk', '$2y$10$x05y4ACcMLMmwOcXRwWKXOAGDYwI.CTNz6NUWnrLI80Iactb4kkTK')
-INSERT INTO InternshipApp_Users VALUES ('s.n.giest@fgga.leidenuniv.nl', 'Supervisor', 'Sarah Giest', '$2y$10$703kDBS2WQu.7qEhKzKYkOaen/uYT5oZw6lzjIWXMK/Ejdp7j8Qva')
-INSERT INTO InternshipApp_Users VALUES ('stefan.pickl@unibw.de', 'Supervisor', 'Stefan Pickl', '$2y$10$kmVPPXZSUY14.6zYNDOJpuDk31DRYwlOk/fsdXuN82icbW6N67z3y')
-INSERT INTO InternshipApp_Users VALUES ('p.m.kwantes@liacs.leidenuniv.nl', 'Supervisor', 'Pieter Kwantes', '$2y$10$9Qyj5u2UmvOIwYULUA4ZYeMmY9QtNs.BGurdWrY4c0cjsJ4AFBlfi')
-INSERT INTO InternshipApp_Users VALUES ('w.j.kowalczyk@liacs.leidenuniv.nl', 'Supervisor', 'Wojtek Kowalczyk', '$2y$10$YviFJoKnSADF/dbVAyQi5e0cX8zLCn3XgnAN1/qyYGXw4IpaFZviO')
-INSERT INTO InternshipApp_Users VALUES ('m.van.leeuwen@liacs.leidenuniv.nl', 'Supervisor', 'Matthijs van Leeuwen', '$2y$10$Gd926EDvu4J9NzyTwhGE0.mcyF/st.bzjDzGEasdmLY3mP6awbIWS')
-INSERT INTO InternshipApp_Users VALUES ('emmerich@liacs.nl', 'Supervisor', 'Michael Emmerich', '$2y$10$PZEv0N9hMjyA96aLSqa1VuODe12IToVfLGNwPYLGEsZg7JsoLmOHy')
-INSERT INTO InternshipApp_Users VALUES ('e.van.der.kouwe@liacs.leidenuniv.nl', 'Supervisor', 'Erik van der Kouwe', '$2y$10$vfcbVipCYpDBNFPO/C1uKOxI4GA8UhOapL4sOOQhuCVndPzMxbLYa')
-INSERT INTO InternshipApp_Users VALUES ('w.heijstek@gmail.com', 'Supervisor', 'Werner Heijstek', '$2y$10$Stf46dpm7zMfAoyeMJEE5O.ZXHGgEZWUIliv6pQ29TD3X9mAZ23kS')
-INSERT INTO InternshipApp_Users VALUES ('r.t.hewins@gmail.com', 'Supervisor', 'Robert Hewins', '$2y$10$4RW7ORt.vtp.oAleo6ahRuB1LTw2uDx4BPjNTrbWdZ/ORc1kp7SU.')
-INSERT INTO InternshipApp_Users VALUES ('c.bucker@liacs.leidenuniv.nl', 'Supervisor', 'Claudia Bücker', '$2y$10$ox6WjWOyud2xRj6p0L8WbeqAYhxhy5.38PktX91jzF01.vZeVH386')
-INSERT INTO InternshipApp_Users VALUES ('r.cachucho@liacs.leidenuniv.nl', 'Supervisor', 'Ricardo Cachucho', '$2y$10$0U03fUPFC4Jq4HNfS9YknuHzWiRwh49oOD5xXKH8jx7qFbWa9RHPC')
-INSERT INTO InternshipApp_Users VALUES ('p.w.h.van.der.putten@liacs.leidenuniv.nl', 'Supervisor', 'Peter van der Putten', '$2y$10$HTOIuaaGxJBVcNbvTB6HIOOw2k39Gl.j.UTo6jmycfhhAVpxysyBi')
-INSERT INTO InternshipApp_Users VALUES ('j.n.kok@liacs.leidenuniv.nl', 'Supervisor', 'Joost Kok', '$2y$10$YWn..hNLguohjYYf50ahoOvXVronEJDdwJoyGj/aHE4X2D4oyMVMO')
-INSERT INTO InternshipApp_Users VALUES ('c.j.veenman@liacs.leidenuniv.nl', 'Supervisor', 'Cor Veenman', '$2y$10$p541qfY11z/uDOhU.G1gwO5h4DMJOI1eragGvU1UDAg1QixEfHxQW')
-INSERT INTO InternshipApp_Users VALUES ('w.kraaij@liacs.leidenuniv.nl', 'Supervisor', 'Wessel Kraaij', '$2y$10$SvayzRHHbshp9Jn7m17YquyCuvpFVWjuvltv2Q9rEFc7lUIXKPe0W')
-INSERT INTO InternshipApp_Users VALUES ('a.plaat@liacs.leidenuniv.nl', 'Supervisor', 'Aske Plaat', '$2y$10$gLAP.J77ckbUBUvnKlW94ubRt4T2L1Kq3DsMPy0OIYXwrVUmi51wS')
-INSERT INTO InternshipApp_Users VALUES ('T.H.W.Baeck@liacs.leidenuniv.nl', 'Supervisor', 'Thomas Bäck', '$2y$10$4keLOk/YSKb6S9tRwbCj0utP7Fk5p978GQiee//LHreYYCdKG3JSm')
-INSERT INTO InternshipApp_Users VALUES ('f.neukart@gmail.com', 'Supervisor', 'Florian Neukart', '$2y$10$lE5nzlOqlRsDZocjneD3dOK7LpoogWNhDYuEIwCZUDq.cIJOOBl2W')
-INSERT INTO InternshipApp_Users VALUES ('f.j.verbeek@liacs.leidenuniv.nl', 'Supervisor', 'Fons Verbeek', '$2y$10$WyMDlMLcKIT/geQbgratiuTeC.nOsi.EqdxXBvFi1rG1eHj3JTkXy')
-INSERT INTO InternshipApp_Users VALUES ('k.j.wolstencroft@liacs.leidenuniv.nl', 'Supervisor', 'Katy Wolstencroft', '$2y$10$cUpKKNmkIj0iq6dHUjc0i.3VThRBa55Szjjw4W/qirAxSPu8Ap6D2')
-INSERT INTO InternshipApp_Users VALUES ('e.m.bakker@liacs.leidenuniv.nl', 'Supervisor', 'Erwin Bakker', '$2y$10$zaYiLFxzlkbDGLOwzLlclOAraJh0NYL2AH7771WDWQmu8MzUR4CuK')
+INSERT INTO InternshipApp_Users VALUES ('BKR@tg.nl', 'Supervisor', 'Bas Kruiswijk', '$2y$10$X9k2cRD5vG4rOrKTf0GV7.xWuXVRv8TW7Ix.hvFaWC1rQ4rfq7.O6');
+INSERT INTO InternshipApp_Users VALUES ('c.j.stettina@cdh.leidenuniv.nl', 'Supervisor', 'Christoph Stettina', '$2y$10$8MVR79MvruPD27tTU8iRpOVsn0g4T.0EnfaWJeHeae0aVF.TTWvr.');
+INSERT INTO InternshipApp_Users VALUES ('tyron@tyronofferman.nl', 'Supervisor', 'Tyron Offerman', '$2y$10$FckXzI6OFl7uDYUJfS6q0OR3A.FewsVgAGZbxx9RJsOErBwx5k.Iq');
+INSERT INTO InternshipApp_Users VALUES ('s.jong@liacs.leidenuniv.nl', 'Supervisor', 'Simcha Jong', '$2y$10$WyGwo.gQvhu.gLQRZQju6.wegtWYql85OM4hwUjTAaMCsjjvBQQOy');
+INSERT INTO InternshipApp_Users VALUES ('x.li@sbb.leidenuniv.nl', 'Supervisor', 'Xishu Li', '$2y$10$JqYvjqbtJBTiEJ/qNkLM2.y1mnm6PHNTPlaTsaej1AYRV3VhyhPq6');
+INSERT INTO InternshipApp_Users VALUES ('j.wang@sbb.leidenuniv.nl', 'Supervisor', 'Jian Wang', '$2y$10$olvSQYRZXlE/t4/DbvUa8.Nl6fJ5//bK1QOpqEMxOHQSxEJN11jni');
+INSERT INTO InternshipApp_Users VALUES ('n.van.weeren@liacs.leidenuniv.nl', 'Supervisor', 'Niels van Weeren', '$2y$10$HHbqswDhL5YYdr3zY6JH8OTKtf5OaoQgwklGx/32z0KHZDnMhnNHm');
+INSERT INTO InternshipApp_Users VALUES ('mohamedatef1982@gmail.com', 'Supervisor', 'Mohamed Atef', '$2y$10$YWlbWgKAiqhIfQ5fWFWrNudSakNnfuH0yEFcRB8A7pc7ZNVT2iND.');
+INSERT INTO InternshipApp_Users VALUES ('peter@connectcmc.nl', 'Supervisor', 'Peter van Veen', '$2y$10$qWDlx6rHF6iRXcBu8l4wEOnIXHhb01tH3KVoAA/vSQuxqAOqKumJC');
+INSERT INTO InternshipApp_Users VALUES ('m.baratchi@liacs.leidenuniv.nl', 'Supervisor', 'Mitra Baratchi', '$2y$10$naT2Vh5pzuNmMcxWjFSUf.2Zj2Iyf8mwknlV4pwT/v5s4ixqkyRFu');
+INSERT INTO InternshipApp_Users VALUES ('tino@r2t2.nl', 'Supervisor', 'Tino de Rijk', '$2y$10$L6OvST/wLdn6.MYpqQ11n.oBzQfswDvKjYlknQzprbpPzxu5H4Zq.');
+INSERT INTO InternshipApp_Users VALUES ('j.schalk@fgga.leidenuniv.nl', 'Supervisor', 'Jelmer Schalk', '$2y$10$x05y4ACcMLMmwOcXRwWKXOAGDYwI.CTNz6NUWnrLI80Iactb4kkTK');
+INSERT INTO InternshipApp_Users VALUES ('s.n.giest@fgga.leidenuniv.nl', 'Supervisor', 'Sarah Giest', '$2y$10$703kDBS2WQu.7qEhKzKYkOaen/uYT5oZw6lzjIWXMK/Ejdp7j8Qva');
+INSERT INTO InternshipApp_Users VALUES ('stefan.pickl@unibw.de', 'Supervisor', 'Stefan Pickl', '$2y$10$kmVPPXZSUY14.6zYNDOJpuDk31DRYwlOk/fsdXuN82icbW6N67z3y');
+INSERT INTO InternshipApp_Users VALUES ('p.m.kwantes@liacs.leidenuniv.nl', 'Supervisor', 'Pieter Kwantes', '$2y$10$9Qyj5u2UmvOIwYULUA4ZYeMmY9QtNs.BGurdWrY4c0cjsJ4AFBlfi');
+INSERT INTO InternshipApp_Users VALUES ('w.j.kowalczyk@liacs.leidenuniv.nl', 'Supervisor', 'Wojtek Kowalczyk', '$2y$10$YviFJoKnSADF/dbVAyQi5e0cX8zLCn3XgnAN1/qyYGXw4IpaFZviO');
+INSERT INTO InternshipApp_Users VALUES ('m.van.leeuwen@liacs.leidenuniv.nl', 'Supervisor', 'Matthijs van Leeuwen', '$2y$10$Gd926EDvu4J9NzyTwhGE0.mcyF/st.bzjDzGEasdmLY3mP6awbIWS');
+INSERT INTO InternshipApp_Users VALUES ('emmerich@liacs.nl', 'Supervisor', 'Michael Emmerich', '$2y$10$PZEv0N9hMjyA96aLSqa1VuODe12IToVfLGNwPYLGEsZg7JsoLmOHy');
+INSERT INTO InternshipApp_Users VALUES ('e.van.der.kouwe@liacs.leidenuniv.nl', 'Supervisor', 'Erik van der Kouwe', '$2y$10$vfcbVipCYpDBNFPO/C1uKOxI4GA8UhOapL4sOOQhuCVndPzMxbLYa');
+INSERT INTO InternshipApp_Users VALUES ('w.heijstek@gmail.com', 'Supervisor', 'Werner Heijstek', '$2y$10$Stf46dpm7zMfAoyeMJEE5O.ZXHGgEZWUIliv6pQ29TD3X9mAZ23kS');
+INSERT INTO InternshipApp_Users VALUES ('r.t.hewins@gmail.com', 'Supervisor', 'Robert Hewins', '$2y$10$4RW7ORt.vtp.oAleo6ahRuB1LTw2uDx4BPjNTrbWdZ/ORc1kp7SU.');
+INSERT INTO InternshipApp_Users VALUES ('c.bucker@liacs.leidenuniv.nl', 'Supervisor', 'Claudia Bücker', '$2y$10$ox6WjWOyud2xRj6p0L8WbeqAYhxhy5.38PktX91jzF01.vZeVH386');
+INSERT INTO InternshipApp_Users VALUES ('r.cachucho@liacs.leidenuniv.nl', 'Supervisor', 'Ricardo Cachucho', '$2y$10$0U03fUPFC4Jq4HNfS9YknuHzWiRwh49oOD5xXKH8jx7qFbWa9RHPC');
+INSERT INTO InternshipApp_Users VALUES ('p.w.h.van.der.putten@liacs.leidenuniv.nl', 'Supervisor', 'Peter van der Putten', '$2y$10$HTOIuaaGxJBVcNbvTB6HIOOw2k39Gl.j.UTo6jmycfhhAVpxysyBi');
+INSERT INTO InternshipApp_Users VALUES ('j.n.kok@liacs.leidenuniv.nl', 'Supervisor', 'Joost Kok', '$2y$10$YWn..hNLguohjYYf50ahoOvXVronEJDdwJoyGj/aHE4X2D4oyMVMO');
+INSERT INTO InternshipApp_Users VALUES ('c.j.veenman@liacs.leidenuniv.nl', 'Supervisor', 'Cor Veenman', '$2y$10$p541qfY11z/uDOhU.G1gwO5h4DMJOI1eragGvU1UDAg1QixEfHxQW');
+INSERT INTO InternshipApp_Users VALUES ('w.kraaij@liacs.leidenuniv.nl', 'Supervisor', 'Wessel Kraaij', '$2y$10$SvayzRHHbshp9Jn7m17YquyCuvpFVWjuvltv2Q9rEFc7lUIXKPe0W');
+INSERT INTO InternshipApp_Users VALUES ('a.plaat@liacs.leidenuniv.nl', 'Supervisor', 'Aske Plaat', '$2y$10$gLAP.J77ckbUBUvnKlW94ubRt4T2L1Kq3DsMPy0OIYXwrVUmi51wS');
+INSERT INTO InternshipApp_Users VALUES ('T.H.W.Baeck@liacs.leidenuniv.nl', 'Supervisor', 'Thomas Bäck', '$2y$10$4keLOk/YSKb6S9tRwbCj0utP7Fk5p978GQiee//LHreYYCdKG3JSm');
+INSERT INTO InternshipApp_Users VALUES ('f.neukart@gmail.com', 'Supervisor', 'Florian Neukart', '$2y$10$lE5nzlOqlRsDZocjneD3dOK7LpoogWNhDYuEIwCZUDq.cIJOOBl2W');
+INSERT INTO InternshipApp_Users VALUES ('f.j.verbeek@liacs.leidenuniv.nl', 'Supervisor', 'Fons Verbeek', '$2y$10$WyMDlMLcKIT/geQbgratiuTeC.nOsi.EqdxXBvFi1rG1eHj3JTkXy');
+INSERT INTO InternshipApp_Users VALUES ('k.j.wolstencroft@liacs.leidenuniv.nl', 'Supervisor', 'Katy Wolstencroft', '$2y$10$cUpKKNmkIj0iq6dHUjc0i.3VThRBa55Szjjw4W/qirAxSPu8Ap6D2');
+INSERT INTO InternshipApp_Users VALUES ('e.m.bakker@liacs.leidenuniv.nl', 'Supervisor', 'Erwin Bakker', '$2y$10$zaYiLFxzlkbDGLOwzLlclOAraJh0NYL2AH7771WDWQmu8MzUR4CuK');
 
 
-INSERT INTO Supervisor VALUES ('BKR@tg.nl', 'Bas Kruiswijk', 'BKR@tg.nl', '', 'yes', 'yes', 'ICT', 'ICT Strategy, ICT Architecture')
-INSERT INTO Supervisor VALUES ('c.j.stettina@cdh.leidenuniv.nl', 'Christoph Stettina', 'c.j.stettina@cdh.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'software engineering, systrems development, agileI, RT and organisation')
-INSERT INTO Supervisor VALUES ('tyron@tyronofferman.nl', 'Tyron Offerman', 'tyron@tyronofferman.nl', '', 'no', 'yes', 'ICT', 'BOTH', '(IT) Strategy, information/enterprise modeling, (project) management, business capabilities, technology innovation')
-INSERT INTO Supervisor VALUES ('s.jong@liacs.leidenuniv.nl', 'Simcha Jong', 's.jong@liacs.leidenuniv.nl', '', 'yes', 'yes', 'BUS', 'Entrepeneurship, science based business, technology management')
-INSERT INTO Supervisor VALUES ('x.li@sbb.leidenuniv.nl', 'Xishu Li', 'x.li@sbb.leidenuniv.nl', '', 'yes', 'yes', 'BUS', 'Technology & Operations Management, science based business, decision science, capacity investment, dynamic pricing')
-INSERT INTO Supervisor VALUES ('j.wang@sbb.leidenuniv.nl', 'Jian Wang', 'j.wang@sbb.leidenuniv.nl', '', 'yes', 'yes', 'BUS', 'Technological Innovation, Entrepreneurship, and Strategic Management, Science based business, tehnology transfer, technology, organisation, incentive system')
-INSERT INTO Supervisor VALUES ('n.van.weeren@liacs.leidenuniv.nl', 'Niels van Weeren', 'n.van.weeren@liacs.leidenuniv.nl', '', 'yes', 'yes', 'BOTH', 'Marketing, data-driven marketing')
-INSERT INTO Supervisor VALUES ('mohamedatef1982@gmail.com', 'Mohamed Atef', 'mohamedatef1982@gmail.com', '', 'no', 'yes', 'ICT', 'Project management, systems development, SE, MDB')
-INSERT INTO Supervisor VALUES ('peter@connectcmc.nl', 'Peter van Veen', 'peter@connectcmc.nl', '', 'no', 'yes', 'BOTH', 'Public Sector, finance of the government')
-INSERT INTO Supervisor VALUES ('m.baratchi@liacs.leidenuniv.nl', 'Mitra Baratchi', 'm.baratchi@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Data mining, spatio-temporal data')
-INSERT INTO Supervisor VALUES ('tino@r2t2.nl', 'Supervisor', 'tino@r2t2.nl', '', 'no', 'yes', 'ICT', 'Security, maturity models, cloud computing')
-INSERT INTO Supervisor VALUES ('j.schalk@fgga.leidenuniv.nl', 'Jelmer Schalk', 'j.schalk@fgga.leidenuniv.nl', '', 'yes', 'yes', 'BUS', 'Public Administration, rol of IT in public administration')
-INSERT INTO Supervisor VALUES ('s.n.giest@fgga.leidenuniv.nl', 'Sarah Giest', 's.n.giest@fgga.leidenuniv.nl', '', 'yes', 'yes', 'BUS', 'Public administration, data-driven policy making, government-citizen interaction')
-INSERT INTO Supervisor VALUES ('stefan.pickl@unibw.de', 'Stefan Pickl', 'stefan.pickl@unibw.de', '', 'yes', 'yes', 'ICT', 'operations research, management theory, management science, risk management, IT-based decision support, analytics, big data')
-INSERT INTO Supervisor VALUES ('p.m.kwantes@liacs.leidenuniv.nl', 'Pieter Kwantes', 'p.m.kwantes@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Business Modelling, Business Process Modelling, Financial Markets and Modelling Languages')
-INSERT INTO Supervisor VALUES ('w.j.kowalczyk@liacs.leidenuniv.nl', 'Wojtek Kowalczyk', 'w.j.kowalczyk@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'data science, deep learning, neural networks, fraud detection, finance')
-INSERT INTO Supervisor VALUES ('m.van.leeuwen@liacs.leidenuniv.nl', 'Matthijs van Leeuwen', 'm.van.leeuwen@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'data science, industrial applications')
-INSERT INTO Supervisor VALUES ('emmerich@liacs.nl', 'Michael Emmerich', 'emmerich@liacs.nl', '', 'yes', 'yes', 'ICT', 'block chain')
-INSERT INTO Supervisor VALUES ('e.van.der.kouwe@liacs.leidenuniv.nl', 'e.van.der.kouwe@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'security (technical)')
-INSERT INTO Supervisor VALUES ('w.heijstek@gmail.com', 'Werner Heijstek', 'w.heijstek@gmail.com', '', 'yes', 'yes', 'BOTH', 'Economical aspects of IT, large scale software development, software architecture, IT valuation models, Agile development methods, Outsourcing and offshoring, system quality')
-INSERT INTO Supervisor VALUES ('r.t.hewins@gmail.com', 'Robert Hewins', 'r.t.hewins@gmail.com', '', 'no', 'yes', 'BUS', 'Organisation, Innovation, Business Transformations, Project and Programme Management, Strategy, Stakeholder Management,')
-INSERT INTO Supervisor VALUES ('c.bucker@liacs.leidenuniv.nl', 'Claudia Bücker', 'c.bucker@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'modellering')
-INSERT INTO Supervisor VALUES ('r.cachucho@liacs.leidenuniv.nl', 'Ricardo Cachucho', 'r.cachucho@liacs.leidenuniv.nl', '', 'no', 'yes', 'ICT', 'data science, time series mining, sports analytics')
-INSERT INTO Supervisor VALUES ('p.w.h.van.der.putten@liacs.leidenuniv.nl', 'Peter van der Putten', 'p.w.h.van.der.putten@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Data mining, data science, creative research and start ups')
-INSERT INTO Supervisor VALUES ('j.n.kok@liacs.leidenuniv.nl', 'Joost Kok', 'j.n.kok@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'data science')
-INSERT INTO Supervisor VALUES ('c.j.veenman@liacs.leidenuniv.nl', 'Cor Veenman', 'c.j.veenman@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Applied Data Analytics, text mining, natural language processing')
-INSERT INTO Supervisor VALUES ('w.kraaij@liacs.leidenuniv.nl', 'Wessel Kraaij', 'w.kraaij@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Applied Data Analytics, text mining, natural language processing')
-INSERT INTO Supervisor VALUES ('a.plaat@liacs.leidenuniv.nl', 'Aske Plaat', 'a.plaat@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'decision making, organisational behaviour,  data science, public sector, gaming and AI')
-INSERT INTO Supervisor VALUES ('T.H.W.Baeck@liacs.leidenuniv.nl', 'Thomas Bäck', 'T.H.W.Baeck@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Industry 4.0, Production process data mining, Project management, Big data for industry, Optimisation')
-INSERT INTO Supervisor VALUES ('f.neukart@gmail.com', 'Florian Neukart', 'f.neukart@gmail.com', '', 'yes', 'yes', 'ICT', 'data science')
-INSERT INTO Supervisor VALUES ('f.j.verbeek@liacs.leidenuniv.nl', 'Fons Verbeek', 'f.j.verbeek@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Image processing and analyses')
-INSERT INTO Supervisor VALUES ('k.j.wolstencroft@liacs.leidenuniv.nl', 'Katy Wolstencroft', 'k.j.wolstencroft@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'bio-informatics and modelling')
-INSERT INTO Supervisor VALUES ('e.m.bakker@liacs.leidenuniv.nl', 'Erwin Bakker', 'e.m.bakker@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Security (technische kant)')
+INSERT INTO Supervisor VALUES ('BKR@tg.nl', 'Bas Kruiswijk', 'BKR@tg.nl', '', 'yes', 'yes', 'ICT', 'ICT Strategy, ICT Architecture');
+INSERT INTO Supervisor VALUES ('c.j.stettina@cdh.leidenuniv.nl', 'Christoph Stettina', 'c.j.stettina@cdh.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'software engineering, systrems development, agileI, RT and organisation');
+INSERT INTO Supervisor VALUES ('tyron@tyronofferman.nl', 'Tyron Offerman', 'tyron@tyronofferman.nl', '', 'no', 'yes', 'ICT', 'BOTH', '(IT) Strategy, information/enterprise modeling, (project) management, business capabilities, technology innovation');
+INSERT INTO Supervisor VALUES ('s.jong@liacs.leidenuniv.nl', 'Simcha Jong', 's.jong@liacs.leidenuniv.nl', '', 'yes', 'yes', 'BUS', 'Entrepeneurship, science based business, technology management');
+INSERT INTO Supervisor VALUES ('x.li@sbb.leidenuniv.nl', 'Xishu Li', 'x.li@sbb.leidenuniv.nl', '', 'yes', 'yes', 'BUS', 'Technology & Operations Management, science based business, decision science, capacity investment, dynamic pricing');
+INSERT INTO Supervisor VALUES ('j.wang@sbb.leidenuniv.nl', 'Jian Wang', 'j.wang@sbb.leidenuniv.nl', '', 'yes', 'yes', 'BUS', 'Technological Innovation, Entrepreneurship, and Strategic Management, Science based business, tehnology transfer, technology, organisation, incentive system');
+INSERT INTO Supervisor VALUES ('n.van.weeren@liacs.leidenuniv.nl', 'Niels van Weeren', 'n.van.weeren@liacs.leidenuniv.nl', '', 'yes', 'yes', 'BOTH', 'Marketing, data-driven marketing');
+INSERT INTO Supervisor VALUES ('mohamedatef1982@gmail.com', 'Mohamed Atef', 'mohamedatef1982@gmail.com', '', 'no', 'yes', 'ICT', 'Project management, systems development, SE, MDB');
+INSERT INTO Supervisor VALUES ('peter@connectcmc.nl', 'Peter van Veen', 'peter@connectcmc.nl', '', 'no', 'yes', 'BOTH', 'Public Sector, finance of the government');
+INSERT INTO Supervisor VALUES ('m.baratchi@liacs.leidenuniv.nl', 'Mitra Baratchi', 'm.baratchi@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Data mining, spatio-temporal data');
+INSERT INTO Supervisor VALUES ('tino@r2t2.nl', 'Supervisor', 'tino@r2t2.nl', '', 'no', 'yes', 'ICT', 'Security, maturity models, cloud computing');
+INSERT INTO Supervisor VALUES ('j.schalk@fgga.leidenuniv.nl', 'Jelmer Schalk', 'j.schalk@fgga.leidenuniv.nl', '', 'yes', 'yes', 'BUS', 'Public Administration, rol of IT in public administration');
+INSERT INTO Supervisor VALUES ('s.n.giest@fgga.leidenuniv.nl', 'Sarah Giest', 's.n.giest@fgga.leidenuniv.nl', '', 'yes', 'yes', 'BUS', 'Public administration, data-driven policy making, government-citizen interaction');
+INSERT INTO Supervisor VALUES ('stefan.pickl@unibw.de', 'Stefan Pickl', 'stefan.pickl@unibw.de', '', 'yes', 'yes', 'ICT', 'operations research, management theory, management science, risk management, IT-based decision support, analytics, big data');
+INSERT INTO Supervisor VALUES ('p.m.kwantes@liacs.leidenuniv.nl', 'Pieter Kwantes', 'p.m.kwantes@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Business Modelling, Business Process Modelling, Financial Markets and Modelling Languages');
+INSERT INTO Supervisor VALUES ('w.j.kowalczyk@liacs.leidenuniv.nl', 'Wojtek Kowalczyk', 'w.j.kowalczyk@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'data science, deep learning, neural networks, fraud detection, finance');
+INSERT INTO Supervisor VALUES ('m.van.leeuwen@liacs.leidenuniv.nl', 'Matthijs van Leeuwen', 'm.van.leeuwen@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'data science, industrial applications');
+INSERT INTO Supervisor VALUES ('emmerich@liacs.nl', 'Michael Emmerich', 'emmerich@liacs.nl', '', 'yes', 'yes', 'ICT', 'block chain');
+INSERT INTO Supervisor VALUES ('e.van.der.kouwe@liacs.leidenuniv.nl', 'e.van.der.kouwe@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'security (technical)');
+INSERT INTO Supervisor VALUES ('w.heijstek@gmail.com', 'Werner Heijstek', 'w.heijstek@gmail.com', '', 'yes', 'yes', 'BOTH', 'Economical aspects of IT, large scale software development, software architecture, IT valuation models, Agile development methods, Outsourcing and offshoring, system quality');
+INSERT INTO Supervisor VALUES ('r.t.hewins@gmail.com', 'Robert Hewins', 'r.t.hewins@gmail.com', '', 'no', 'yes', 'BUS', 'Organisation, Innovation, Business Transformations, Project and Programme Management, Strategy, Stakeholder Management,');
+INSERT INTO Supervisor VALUES ('c.bucker@liacs.leidenuniv.nl', 'Claudia Bücker', 'c.bucker@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'modellering');
+INSERT INTO Supervisor VALUES ('r.cachucho@liacs.leidenuniv.nl', 'Ricardo Cachucho', 'r.cachucho@liacs.leidenuniv.nl', '', 'no', 'yes', 'ICT', 'data science, time series mining, sports analytics');
+INSERT INTO Supervisor VALUES ('p.w.h.van.der.putten@liacs.leidenuniv.nl', 'Peter van der Putten', 'p.w.h.van.der.putten@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Data mining, data science, creative research and start ups');
+INSERT INTO Supervisor VALUES ('j.n.kok@liacs.leidenuniv.nl', 'Joost Kok', 'j.n.kok@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'data science');
+INSERT INTO Supervisor VALUES ('c.j.veenman@liacs.leidenuniv.nl', 'Cor Veenman', 'c.j.veenman@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Applied Data Analytics, text mining, natural language processing');
+INSERT INTO Supervisor VALUES ('w.kraaij@liacs.leidenuniv.nl', 'Wessel Kraaij', 'w.kraaij@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Applied Data Analytics, text mining, natural language processing');
+INSERT INTO Supervisor VALUES ('a.plaat@liacs.leidenuniv.nl', 'Aske Plaat', 'a.plaat@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'decision making, organisational behaviour,  data science, public sector, gaming and AI');
+INSERT INTO Supervisor VALUES ('T.H.W.Baeck@liacs.leidenuniv.nl', 'Thomas Bäck', 'T.H.W.Baeck@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Industry 4.0, Production process data mining, Project management, Big data for industry, Optimisation');
+INSERT INTO Supervisor VALUES ('f.neukart@gmail.com', 'Florian Neukart', 'f.neukart@gmail.com', '', 'yes', 'yes', 'ICT', 'data science');
+INSERT INTO Supervisor VALUES ('f.j.verbeek@liacs.leidenuniv.nl', 'Fons Verbeek', 'f.j.verbeek@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Image processing and analyses');
+INSERT INTO Supervisor VALUES ('k.j.wolstencroft@liacs.leidenuniv.nl', 'Katy Wolstencroft', 'k.j.wolstencroft@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'bio-informatics and modelling');
+INSERT INTO Supervisor VALUES ('e.m.bakker@liacs.leidenuniv.nl', 'Erwin Bakker', 'e.m.bakker@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'Security (technische kant)');
