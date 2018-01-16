@@ -1,3 +1,6 @@
+DELETE FROM Supervisor
+DELETE FROM InternshipApp_Users
+
 INSERT INTO InternshipApp_Users VALUES ('BKR@tg.nl', 'Supervisor', 'Bas Kruiswijk', '$2y$10$X9k2cRD5vG4rOrKTf0GV7.xWuXVRv8TW7Ix.hvFaWC1rQ4rfq7.O6')
 INSERT INTO InternshipApp_Users VALUES ('c.j.stettina@cdh.leidenuniv.nl', 'Supervisor', 'Christoph Stettina', '$2y$10$8MVR79MvruPD27tTU8iRpOVsn0g4T.0EnfaWJeHeae0aVF.TTWvr.')
 INSERT INTO InternshipApp_Users VALUES ('tyron@tyronofferman.nl', 'Supervisor', 'Tyron Offerman', '$2y$10$FckXzI6OFl7uDYUJfS6q0OR3A.FewsVgAGZbxx9RJsOErBwx5k.Iq')
