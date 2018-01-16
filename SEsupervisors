@@ -38,7 +38,7 @@ INSERT INTO InternshipApp_Users VALUES ('e.m.bakker@liacs.leidenuniv.nl', 'Super
 
 INSERT INTO Supervisor VALUES ('BKR@tg.nl', 'Bas Kruiswijk', 'BKR@tg.nl', '', 'yes', 'yes', 'ICT', 'ICT Strategy, ICT Architecture');
 INSERT INTO Supervisor VALUES ('c.j.stettina@cdh.leidenuniv.nl', 'Christoph Stettina', 'c.j.stettina@cdh.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'software engineering, systrems development, agileI, RT and organisation');
-INSERT INTO Supervisor VALUES ('tyron@tyronofferman.nl', 'Tyron Offerman', 'tyron@tyronofferman.nl', '', 'no', 'yes', 'ICT', 'BOTH', '(IT) Strategy, information/enterprise modeling, (project) management, business capabilities, technology innovation');
+INSERT INTO Supervisor VALUES ('tyron@tyronofferman.nl', 'Tyron Offerman', 'tyron@tyronofferman.nl', '', 'no', 'yes', 'BOTH', '(IT) Strategy, information/enterprise modeling, (project) management, business capabilities, technology innovation');
 INSERT INTO Supervisor VALUES ('s.jong@liacs.leidenuniv.nl', 'Simcha Jong', 's.jong@liacs.leidenuniv.nl', '', 'yes', 'yes', 'BUS', 'Entrepeneurship, science based business, technology management');
 INSERT INTO Supervisor VALUES ('x.li@sbb.leidenuniv.nl', 'Xishu Li', 'x.li@sbb.leidenuniv.nl', '', 'yes', 'yes', 'BUS', 'Technology & Operations Management, science based business, decision science, capacity investment, dynamic pricing');
 INSERT INTO Supervisor VALUES ('j.wang@sbb.leidenuniv.nl', 'Jian Wang', 'j.wang@sbb.leidenuniv.nl', '', 'yes', 'yes', 'BUS', 'Technological Innovation, Entrepreneurship, and Strategic Management, Science based business, tehnology transfer, technology, organisation, incentive system');
@@ -54,7 +54,7 @@ INSERT INTO Supervisor VALUES ('p.m.kwantes@liacs.leidenuniv.nl', 'Pieter Kwante
 INSERT INTO Supervisor VALUES ('w.j.kowalczyk@liacs.leidenuniv.nl', 'Wojtek Kowalczyk', 'w.j.kowalczyk@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'data science, deep learning, neural networks, fraud detection, finance');
 INSERT INTO Supervisor VALUES ('m.van.leeuwen@liacs.leidenuniv.nl', 'Matthijs van Leeuwen', 'm.van.leeuwen@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'data science, industrial applications');
 INSERT INTO Supervisor VALUES ('emmerich@liacs.nl', 'Michael Emmerich', 'emmerich@liacs.nl', '', 'yes', 'yes', 'ICT', 'block chain');
-INSERT INTO Supervisor VALUES ('e.van.der.kouwe@liacs.leidenuniv.nl', 'e.van.der.kouwe@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'security (technical)');
+INSERT INTO Supervisor VALUES ('e.van.der.kouwe@liacs.leidenuniv.nl', 'Erik van der Kouwe', 'e.van.der.kouwe@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'security (technical)');
 INSERT INTO Supervisor VALUES ('w.heijstek@gmail.com', 'Werner Heijstek', 'w.heijstek@gmail.com', '', 'yes', 'yes', 'BOTH', 'Economical aspects of IT, large scale software development, software architecture, IT valuation models, Agile development methods, Outsourcing and offshoring, system quality');
 INSERT INTO Supervisor VALUES ('r.t.hewins@gmail.com', 'Robert Hewins', 'r.t.hewins@gmail.com', '', 'no', 'yes', 'BUS', 'Organisation, Innovation, Business Transformations, Project and Programme Management, Strategy, Stakeholder Management,');
 INSERT INTO Supervisor VALUES ('c.bucker@liacs.leidenuniv.nl', 'Claudia Bücker', 'c.bucker@liacs.leidenuniv.nl', '', 'yes', 'yes', 'ICT', 'modellering');
