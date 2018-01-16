@@ -21,7 +21,7 @@ CREATE TABLE Supervisor(
 	RoleFirst       VARCHAR(3),
 	RoleSecond      VARCHAR(3),
 	Background      VARCHAR(20),
-	Topics		VARCHAR(144),
+	Topics		VARCHAR(200),
 	
 	PRIMARY KEY(SupID),
 	FOREIGN KEY(SupID) REFERENCES InternshipApp_Users(Identifier),
