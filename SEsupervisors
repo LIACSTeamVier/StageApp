@@ -15,6 +15,7 @@ INSERT INTO InternshipApp_Users VALUES ('stefan.pickl@unibw.de', 'Supervisor', '
 INSERT INTO InternshipApp_Users VALUES ('p.m.kwantes@liacs.leidenuniv.nl', 'Supervisor', 'Pieter Kwantes', '$2y$10$9Qyj5u2UmvOIwYULUA4ZYeMmY9QtNs.BGurdWrY4c0cjsJ4AFBlfi')
 INSERT INTO InternshipApp_Users VALUES ('w.j.kowalczyk@liacs.leidenuniv.nl', 'Supervisor', 'Wojtek Kowalczyk', '$2y$10$YviFJoKnSADF/dbVAyQi5e0cX8zLCn3XgnAN1/qyYGXw4IpaFZviO')
 INSERT INTO InternshipApp_Users VALUES ('m.van.leeuwen@liacs.leidenuniv.nl', 'Supervisor', 'Matthijs van Leeuwen', '$2y$10$Gd926EDvu4J9NzyTwhGE0.mcyF/st.bzjDzGEasdmLY3mP6awbIWS')
+INSERT INTO InternshipApp_Users VALUES ('emmerich@liacs.nl', 'Supervisor', 'Michael Emmerich', '$2y$10$PZEv0N9hMjyA96aLSqa1VuODe12IToVfLGNwPYLGEsZg7JsoLmOHy')
 INSERT INTO InternshipApp_Users VALUES ('e.van.der.kouwe@liacs.leidenuniv.nl', 'Supervisor', 'Erik van der Kouwe', '$2y$10$vfcbVipCYpDBNFPO/C1uKOxI4GA8UhOapL4sOOQhuCVndPzMxbLYa')
 INSERT INTO InternshipApp_Users VALUES ('w.heijstek@gmail.com', 'Supervisor', 'Werner Heijstek', '$2y$10$Stf46dpm7zMfAoyeMJEE5O.ZXHGgEZWUIliv6pQ29TD3X9mAZ23kS')
 INSERT INTO InternshipApp_Users VALUES ('r.t.hewins@gmail.com', 'Supervisor', 'Robert Hewins', '$2y$10$4RW7ORt.vtp.oAleo6ahRuB1LTw2uDx4BPjNTrbWdZ/ORc1kp7SU.')
@@ -22,6 +23,7 @@ INSERT INTO InternshipApp_Users VALUES ('c.bucker@liacs.leidenuniv.nl', 'Supervi
 INSERT INTO InternshipApp_Users VALUES ('r.cachucho@liacs.leidenuniv.nl', 'Supervisor', 'Ricardo Cachucho', '$2y$10$0U03fUPFC4Jq4HNfS9YknuHzWiRwh49oOD5xXKH8jx7qFbWa9RHPC')
 INSERT INTO InternshipApp_Users VALUES ('p.w.h.van.der.putten@liacs.leidenuniv.nl', 'Supervisor', 'Peter van der Putten', '$2y$10$HTOIuaaGxJBVcNbvTB6HIOOw2k39Gl.j.UTo6jmycfhhAVpxysyBi')
 INSERT INTO InternshipApp_Users VALUES ('j.n.kok@liacs.leidenuniv.nl', 'Supervisor', 'Joost Kok', '$2y$10$YWn..hNLguohjYYf50ahoOvXVronEJDdwJoyGj/aHE4X2D4oyMVMO')
+INSERT INTO InternshipApp_Users VALUES ('c.j.veenman@liacs.leidenuniv.nl', 'Supervisor', 'Cor Veenman', '$2y$10$p541qfY11z/uDOhU.G1gwO5h4DMJOI1eragGvU1UDAg1QixEfHxQW')
 INSERT INTO InternshipApp_Users VALUES ('w.kraaij@liacs.leidenuniv.nl', 'Supervisor', 'Wessel Kraaij', '$2y$10$SvayzRHHbshp9Jn7m17YquyCuvpFVWjuvltv2Q9rEFc7lUIXKPe0W')
 INSERT INTO InternshipApp_Users VALUES ('a.plaat@liacs.leidenuniv.nl', 'Supervisor', 'Aske Plaat', '$2y$10$gLAP.J77ckbUBUvnKlW94ubRt4T2L1Kq3DsMPy0OIYXwrVUmi51wS')
 INSERT INTO InternshipApp_Users VALUES ('T.H.W.Baeck@liacs.leidenuniv.nl', 'Supervisor', 'Thomas Bäck', '$2y$10$4keLOk/YSKb6S9tRwbCj0utP7Fk5p978GQiee//LHreYYCdKG3JSm')
@@ -32,3 +34,5 @@ INSERT INTO InternshipApp_Users VALUES ('e.m.bakker@liacs.leidenuniv.nl', 'Super
 
 
 
+
+INSERT INTO Supervisor VALUES 
