@@ -194,11 +194,11 @@
 
         <meta name="Description" content= "Offer Internship" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Submit internship - LIACS Student Project Manager</title>
+        <title>Submit internship - LIACS Graduation Application</title>
     </head>
     <body> 
         <div class="main">
-        <h1>LIACS Student Project Manager</h1>
+        <h1>LIACS Graduation Application</h1>
             <p>
             Fill in the forms to make your internship information available to the
             students.

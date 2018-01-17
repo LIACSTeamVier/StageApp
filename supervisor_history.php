@@ -18,11 +18,11 @@
 	<head>
 		<meta charset="utf-8" /> 
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<title>Supervisor history for <?php echo $stuid;?> - LIACS Student Project Manager</title>
+		<title>Supervisor history for <?php echo $stuid;?> - LIACS Graduation Application</title>
 	</head>
 	<body>
 		<div class="main">
-                       <h1>LIACS Student Project Manager</h1>
+                       <h1>LIACS Graduation Application</h1>
 			<?php
 				if($_SESSION["class"] != "Admin" || empty($stuid)) {
 					header("Location: main_page.php");

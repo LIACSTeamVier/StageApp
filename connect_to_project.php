@@ -21,12 +21,12 @@ $result = $con->query($sql);
     <meta charset="utf-8" />
     <meta name="Description" content= "InternshipApp login" />
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Connect to project - LIACS Student Project Manager</title>
+    <title>Connect to project - LIACS Graduation Application</title>
 </head>
 <body>
 
 <div class="main">
-    <h1>LIACS Student Project Manager</h1>
+    <h1>LIACS Graduation Application</h1>
     <h3>Connect to a project</h3>
 
     <select name="Projects"> 

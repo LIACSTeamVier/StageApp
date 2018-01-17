@@ -160,7 +160,7 @@ function insertIntoStudent($uname, $name, $email, $phonenum){
 
         <meta name="Description" content= "Register Account" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Create an account - LIACS Student Project Manager</title>
+        <title>Create an account - LIACS Graduation Application</title>
     </head>
     <body>
         <div class="main">
@@ -170,7 +170,7 @@ function insertIntoStudent($uname, $name, $email, $phonenum){
 					exit;
 				}
             ?>
-            <h1>LIACS Student Project Manager</h1>
+            <h1>LIACS Graduation Application</h1>
             <p>
             Fill in this form to create a new account.
             </p>

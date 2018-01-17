@@ -155,11 +155,11 @@
 	<head>
 		<meta charset="utf-8" /> 
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<title>Profile information - LIACS Student Project Manager</title>
+		<title>Profile information - LIACS Graduation Application</title>
 	</head>
     <body>
         <div class="main">
-        <h1>LIACS Student Project Manager</h1>
+        <h1>LIACS Graduation Application</h1>
         <?php
         if($class != "Admin"){
             echo "<h3>Hello $name, this is your profile information</h3>";

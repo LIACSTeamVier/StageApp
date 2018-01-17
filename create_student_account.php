@@ -146,7 +146,7 @@ function deleteUser($uname) {
 
         <meta name="Description" content= "Register Account" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Create student account - LIACS Student Project Manager</title>
+        <title>Create student account - LIACS Graduation Application</title>
     </head>
     <body>
         <div class="main">
@@ -156,7 +156,7 @@ function deleteUser($uname) {
                     exit();
                 }
             ?>
-            <h1>LIACS Student Project Manager</h1> 
+            <h1>LIACS Graduation Application</h1> 
             <p>
             Fill in this form to create a new student account.
             </p>

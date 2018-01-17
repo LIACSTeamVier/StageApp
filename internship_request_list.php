@@ -145,13 +145,13 @@
 
         <meta name="Description" content= "Requesting Students" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Requesting students - LIACS Student Project Manager</title>
+        <title>Requesting students - LIACS Graduation Application</title>
         <script src="sortTable.js"></script>
     </head>
     <body>
 
         <div class="main">
-            <h1>LIACS Student Project Manager</h1>
+            <h1>LIACS Graduation Application</h1>
             <?php
             $configs = include("config.php");
             $con = mysqli_connect($configs["host"], $configs["username"], $configs["password"], $configs["dbname"]);

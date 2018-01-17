@@ -11,12 +11,12 @@ require_once "sidebar_selector.php";
     <meta name="Description" content= "InternshipApp login" />
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="sortTable.js"></script>
-    <title>Create a project - LIACS Student Project Manager</title>
+    <title>Create a project - LIACS Graduation Application</title>
 </head>
 <body>
 
 <div class="main">
-    <h1>LIACS Student Project Manager</h1>
+    <h1>LIACS Graduation Application</h1>
     <h3>Create a project</h3>
     
     <?php

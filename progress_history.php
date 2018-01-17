@@ -17,12 +17,12 @@
     <head>
         <meta charset="utf-8" /> 
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Progress history for <?php echo $stuid;?> - LIACS Student Project Manager</title>
+        <title>Progress history for <?php echo $stuid;?> - LIACS Graduation Application</title>
         <script src="sortTable.js"></script>
     </head>
     <body>
         <div class="main">
-            <h1>LIACS Student Project Manager</h1>
+            <h1>LIACS Graduation Application</h1>
             <?php
                 if($_SESSION["class"] != "Admin" || empty($stuid)) {
                     header("Location: main_page.php");

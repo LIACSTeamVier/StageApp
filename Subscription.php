@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src="sortTable.js"></script>
-<title>Subscribe to project - LIACS Student Project Manager</title>
+<title>Subscribe to project - LIACS Graduation Application</title>
 </head>
 <body>
 <h1>Your request is being processed, please wait...</h1>
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 			echo "ERROR: Connection time-out";
 		}else{
 		    $to = $result->fetch_assoc();
-            $randstring = random_str(32); // TODO insert this into ActivationCode column of Does! this works already? (cause stmt is executed later maybe?)
+            $randstring = random_str(32);
 
             $email_from = $configs["noreply"];
 	        $subject = "Subscription request";

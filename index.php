@@ -86,12 +86,12 @@ function attemptLogin($uname, $password) {
     <meta charset="utf-8" />
     <meta name="Description" content= "InternshipApp login" />
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Login - LIACS Student Project Manager</title>
+    <title>Login - LIACS Graduation Application</title>
 </head>
 <body>
 
 <div class="main">
-    <h1>LIACS Student Project Manager</h1>
+    <h1>LIACS Graduation Application</h1>
     <h3>Login</h3>
   
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="login">

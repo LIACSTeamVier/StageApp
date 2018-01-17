@@ -64,12 +64,12 @@
     <meta name="Description" content= "InternshipApp login" />
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="sortTable.js"></script>
-    <title>Edit a project - LIACS Student Project Manager</title>
+    <title>Edit a project - LIACS Graduation Application</title>
 </head>
 <body>
 
 <div class="main">
-    <h1>LIACS Student Project Manager</h1>
+    <h1>LIACS Graduation Application</h1>
     <h3>Edit a project</h3>
     
     <table class="list" id='project_table'>

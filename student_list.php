@@ -11,12 +11,12 @@
 
         <meta name="Description" content= "Registered Students" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Student list - LIACS Student Project Manager</title>
+        <title>Student list - LIACS Graduation Application</title>
         <script src="sortTable.js"></script>
     </head>
     <body>
         <div class="main">
-            <h1>LIACS Student Project Manager</h1> 
+            <h1>LIACS Graduation Application</h1> 
             <?php
                 $class = $_SESSION["class"];
                 if ($class != "Admin") {

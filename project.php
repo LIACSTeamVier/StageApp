@@ -114,12 +114,12 @@ function insertIntoDatabase($name, $topic, $description, $squal, $tijdrest, $con
           
         <meta name="Description" content= "Offer Project" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Submit project - LIACS Student Project Manager</title>
+        <title>Submit project - LIACS Graduation Application</title>
     </head>
    <body>
      
     <div class="main">
-    <h1>LIACS Student Project Manager</h1>
+    <h1>LIACS Graduation Application</h1>
     <p>
         Fill in the forms to make your project information available to the
         students.

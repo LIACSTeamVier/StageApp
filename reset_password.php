@@ -164,7 +164,7 @@ function forgot_password_email($name, $email, $uname, $password) {
 
         <meta name="Description" content= "Reset Password" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Reset your password - LIACS Student Project Manager</title>
+        <title>Reset your password - LIACS Graduation Application</title>
     </head>
     <body>
         <div class="main">
@@ -174,7 +174,7 @@ function forgot_password_email($name, $email, $uname, $password) {
 					exit;
 				}
             ?>
-            <h1>LIACS Student Project Manager</h1>
+            <h1>LIACS Graduation Application</h1>
             <p>
             Fill in your e-mail address, and a new password will be emailed to you.
             </p>

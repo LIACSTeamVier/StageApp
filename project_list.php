@@ -55,13 +55,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
         <meta name="Description" content= "Projects and Internships" />
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Projects and internships - LIACS Student Project Manager</title>
+        <title>Projects and internships - LIACS Graduation Application</title>
         <script src="sortTable.js"></script>
         </style>
     </head>
     <body>
         <div class="main">
-            <h1>LIACS Student Project Manager</h1>
+            <h1>LIACS Graduation Application</h1>
             <?php
                 if($_SESSION["needsDeleting"] == "projectRequest"){
                     echo "<form id='1' action=\"$self\" method=\"post\">
@@ -155,3 +155,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
     </body>
 </html>
+
