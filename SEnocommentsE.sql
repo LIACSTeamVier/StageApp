@@ -14,8 +14,8 @@ CREATE TABLE BackgroundOptions(
 );
 
 CREATE TABLE Supervisor(
-	SupName	VARCHAR(30),
 	SupID	VARCHAR(50),
+	SupName	VARCHAR(30),
 	SupEMAIL	VARCHAR(50),
 	SupTel	VARCHAR(10),
 	RoleFirst       VARCHAR(3),
