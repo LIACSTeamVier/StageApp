@@ -13,6 +13,10 @@ CREATE TABLE BackgroundOptions(
     PRIMARY KEY (Background)
 );
 
+INSERT INTO BackgroundOptions VALUES ('BUS');
+INSERT INTO BackgroundOptions VALUES ('ICT');
+INSERT INTO BackgroundOptions VALUES ('BOTH');
+
 CREATE TABLE Supervisor(
 	SupID	VARCHAR(50),
 	SupName	VARCHAR(30),
@@ -94,6 +98,10 @@ CREATE TABLE RelationOptions(
     
     PRIMARY KEY (type)
 );
+
+INSERT INTO RelationOptions VALUES ('First Supervisor');
+INSERT INTO RelationOptions VALUES ('Internship Contact');
+INSERT INTO RelationOptions VALUES ('Second Supervisor');
 
 CREATE TABLE Supervises(
     type        VARCHAR(20),	
