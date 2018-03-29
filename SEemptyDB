@@ -10,3 +10,16 @@ DELETE FROM Student;
 DELETE FROM Supervisor;
 DELETE FROM BackgroundOptions;
 DELETE FROM InternshipApp_Users;
+
+DROP TABLE Log;
+DROP TABLE Part_of;
+DROP TABLE Does;
+DROP TABLE Supervises;
+DROP TABLE RelationOptions;
+DROP TABLE Internship_of;
+DROP TABLE Project;
+DROP TABLE Internship_Contact;
+DROP TABLE Student;
+DROP TABLE Supervisor;
+DROP TABLE BackgroundOptions;
+DROP TABLE InternshipApp_Users;
