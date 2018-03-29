@@ -25,7 +25,7 @@ CREATE TABLE Supervisor(
 	
 	PRIMARY KEY(SupID),
 	FOREIGN KEY(SupID) REFERENCES InternshipApp_Users(Identifier),
-        FOREIGN KEY(Background) REFERENCES BackgroundOptions(Background),
+        FOREIGN KEY(Background) REFERENCES BackgroundOptions(Background)
 );
 
 CREATE TABLE Student(
