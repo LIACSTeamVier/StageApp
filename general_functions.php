@@ -11,8 +11,8 @@
         if (mysqli_connect_errno()) {
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
         }
-
-        $result = mysqli_query($con, $query) or die('Unable to run query:' . mysqli_error());
+        
+        $result = mysqli_query($con, $query) or die('Unable to run query: ' .$query. mysqli_error());
 
         mysqli_close($con);
 

@@ -135,7 +135,7 @@ function attemptRegister($name, $email, $password, $phonenum, $role1, $role2, $b
     insertIntoSupervisor($email, $name, $phonenum, $role1, $role2, $background, $topics);
     if (!isset($_SESSION["regErr"])) {
         $_SESSION["regErr"] = "Account created successfully!";
-        if (!account_created_email($name, $email, $uname, $password)) {
+        if (!account_created_email($name, $email, $email, $password)) {
             $_SESSION["regErr"] = "E-mail could not be delivered. Account not created.";
             deleteUser($email);
         }
