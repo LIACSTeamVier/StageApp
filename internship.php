@@ -159,18 +159,18 @@
 
 
         $stmt4 = mysqli_prepare($con, "INSERT INTO Internship_of(ProjectName, LocName, Location, StreetNr, Travel, Tnotes,
-                                 Pay, CompanyName) VALUES (?,?,?,?,?,?,?,?)");
-        mysqli_stmt_bind_param($stmt4,'ssssssss', $naam, $location, $street, $streetnr, $travel, $tnotes, $pay, $compname);
+                                 Pay, CompanyName, IConName) VALUES (?,?,?,?,?,?,?,?,?)");
+        mysqli_stmt_bind_param($stmt4,'sssssssss', $naam, $location, $street, $streetnr, $travel, $tnotes, $pay, $compname, $intsupname);
         $result4 = mysqli_stmt_execute($stmt4);
         mysqli_stmt_close($stmt4);
         if (!$result4){
             header("Location: ".$_SERVER["PHP_SELF"]);
-            die('Unable to run query4:' . mysqli_error() );
+            die('Unable to run query4: 111111111111111111111111111' . mysqli_error() );
         }
 
 
-        $stmt3 = mysqli_prepare($con, "INSERT INTO Part_of(ProjectName, CompanyName) VALUES(?,?)");
-        mysqli_stmt_bind_param($stmt3,'ss', $naam, $compname);
+        $stmt3 = mysqli_prepare($con, "INSERT INTO Part_of(ProjectName, CompanyName, IConName) VALUES(?,?,?)");
+        mysqli_stmt_bind_param($stmt3,'sss', $naam, $compname, $intsupname);
         $result3 = mysqli_stmt_execute($stmt3);
         mysqli_stmt_close($stmt3);
         if (!$result3){

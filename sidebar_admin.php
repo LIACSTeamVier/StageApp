@@ -28,6 +28,9 @@
         <?php echo ($highlight == "Supervisors") ? "<div class='highlight'>" : "<div class='menu-item'>"; ?>
             <h4><a href="supervisor_list.php">Supervisors</a></h4>
         </div>
+        <?php echo ($highlight == "Internship contacts") ? "<div class='highlight'>" : "<div class='menu-item'>"; ?>
+            <h4><a href="internship_contact_list.php">Internship contacts</a></h4>
+        </div>
         <?php echo ($highlight == "Projects") ? "<div class='highlight'>" : "<div class='menu-item'>"; ?>
             <h4><a href="project_list.php">Projects</a></h4>
         </div>
