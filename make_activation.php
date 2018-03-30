@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $highlight = "Supervisors";
 	require_once "general_functions.php";
 	require_once "sidebar_selector.php";
 	date_default_timezone_set("Europe/Amsterdam");

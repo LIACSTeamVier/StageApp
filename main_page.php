@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $highlight = "Overview";
     require_once "sidebar_selector.php";
     require_once "general_functions.php";
     
@@ -22,11 +23,11 @@
         }
         if (!empty($_POST["delproj"]) && $_POST["confirmedproj"] == "true") {
             //keep track when accepted relations are deleted
-            query_our_database("UPDATE Does SET Accepted='-1', ActivationCode=NULL, DateTerminated='$date' WHERE StuID=".$_SESSION["ID"]." AND Accepted='1'");
+            query_our_database("UPDATE Does SET Accepted='-1', ActivationCode=NULL, DateTerminated='$date' WHERE StuID='".$_SESSION["ID"]."' AND Accepted='1'");
         }
         if (!empty($_POST["delreq"])) {
             //dont keep track of unaccepted deletion
-            query_our_database("DELETE FROM Does WHERE StuID=".$_SESSION["ID"]." AND Accepted='0'");
+            query_our_database("DELETE FROM Does WHERE StuID='".$_SESSION["ID"]."' AND Accepted='0'");
         }
         if (!empty($_POST["progressupdate"])){
             if(!empty($_POST["progupdate"])){

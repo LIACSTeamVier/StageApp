@@ -1,14 +1,12 @@
 <?php //file made with help from w3schools.com
     session_start();
+    $highlight = "Submit internship";
     require_once "general_functions.php";
     require_once "sidebar_selector.php";
-    //TODO put stuff in sessions when logging in, fix the vars in here to match the session, fix the stuff in here to match the correct database, and fix to match the table
-    ///!!!! put correct stuff in the session
 
     $locationErr = $streetErr = $streetnrErr = $payErr = $tnotesErr = $naamErr = $topicErr = $tijdrestErr = $squalErr = $descriptionErr = "";
     $location = $street = $streetnr = $pay = $travel = $tnotes = $description = $tijdrest = $naam = $topic = $squal = "";
 
-    //test if the user is allowed to make a project   TODO put correct vars in session and check the correct values
     if (($_SESSION["class"] != "Admin") && ($_SESSION["class"] != "InternshipInstructor") && ($_SESSION["class"] != "Internship Contact")){
         //redirect to main page
         header("Location: main_page.php");
@@ -37,7 +35,7 @@
                 mysqli_stmt_close($stmt);
                 if (!$result){
                     echo "database error!";
-                    die ('Unable to run query:' . mysqli_error());
+                    die ('Unable to run query1:' . mysqli_error());
                 }
                 else
                     $row = mysqli_fetch_row($result);
@@ -134,7 +132,7 @@
         mysqli_stmt_close($stmt1);
         if (!$result){
             echo "database error!";
-            die ('Unable to run query:' . mysqli_error());
+            die ('Unable to run query2:' . mysqli_error());
         }
         else{
             $row = mysqli_fetch_row($result);
@@ -146,17 +144,17 @@
             //	header("Location: main_page.php");
         }	
 	
-	$icid = $_SESSION["ID"];
+	    $icid = $_SESSION["ID"];
         $stmt2 = mysqli_prepare($con,
          "INSERT INTO Project VALUES (?,?,NULL,?,?,?,'1',NULL,?,?,?,'False','False','False','False','False','False')");
-        mysqli_stmt_bind_param($stmt2, 'ssssssss', $naam, $description, $tijdrest, $squal, $topic,$icid, $intsupname,$compname);
+        mysqli_stmt_bind_param($stmt2, 'ssssssss', $naam, $description, $tijdrest, $squal, $topic, $icid, $compname, $intsupname);
         $result2 = mysqli_stmt_execute($stmt2);
         //$result2 = mysqli_stmt_get_result($stmt2);
         mysqli_stmt_close($stmt2);
         if (!$result2){
             //        echo "database error!";
             //header("Location: ".$_SERVER["PHP_SELF"]);
-            die('Unable to run query:' . mysqli_error() );
+            die('Unable to run query3:' . mysqli_error() );
         }
 
 
@@ -167,7 +165,7 @@
         mysqli_stmt_close($stmt4);
         if (!$result4){
             header("Location: ".$_SERVER["PHP_SELF"]);
-            die('Unable to run query:' . mysqli_error() );
+            die('Unable to run query4:' . mysqli_error() );
         }
 
 
@@ -177,7 +175,7 @@
         mysqli_stmt_close($stmt3);
         if (!$result3){
             header("Location: ".$_SERVER["PHP_SELF"]);
-            die('Unable to run query:' . mysqli_error() );	
+            die('Unable to run query5:' . mysqli_error() );	
         }
 
         mysqli_close($con);

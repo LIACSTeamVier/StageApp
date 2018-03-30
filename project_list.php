@@ -1,6 +1,7 @@
 <?php
 /*This file lists the available projects, students can subscribe to these projects, or make their own*/
-session_start(); 
+session_start();
+$highlight = "Projects";
 require_once "general_functions.php";
 require_once "sidebar_selector.php";
 date_default_timezone_set("Europe/Amsterdam");
@@ -107,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                           <th onclick=\"sortTable(7, 'project_table')\">Company</th>
                           <th onclick=\"sortTable(8, 'project_table')\"></th></tr>";
                           
-                $row = mysqli_fetch_array($project_table);
+//                $row = mysqli_fetch_array($project_table);
                 // Rows of the database
                 while($row = mysqli_fetch_array($project_table)){ // Creates a loop to loop through results
                     $teacher_name_get = mysqli_query($con, "SELECT SupName FROM Supervisor WHERE SupID='".$row['SupID']."'")or die('Unable to run query:' . mysqli_error());
@@ -148,8 +149,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                         }
                     }
                     echo "</tr>";  // $row['index'] the index here is a field name
-                }
+                }//while
                 echo "</table>"; // Close the table in HTML
+
+                if($_SESSION['class'] == "Admin"){//list student created projects
+                    $project_table =  mysqli_query($con, "SELECT * FROM Project WHERE SupID IS NULL AND IConID IS NULL");
+                    echo "</br>Student Created Projects</br>";
+                    echo "<table class=\"list\" id='project_table'>"; // Start a table tag in the HTML
+
+                    // Column names
+                    echo "<tr><th onclick=\"sortTable(0, 'project_table')\">Name and description</th>
+                          <th onclick=\"sortTable(1, 'project_table')\">Topic</th>
+                          <th onclick=\"sortTable(2, 'project_table')\">Time</th>
+                          <th onclick=\"sortTable(3, 'project_table')\">Progress</th>
+                          </tr>";
+
+                    // Rows of the database
+                    while($row = mysqli_fetch_array($project_table)){ // Creates a loop to loop through results
+                         echo "<tr><td><b>" . $row['ProjectName'] . "</b><p style='margin-left: 5px'>" . $row['Description'] . "</p></td>
+                          <td>" . $row['Topic'] . "</td>
+                          <td>" . $row['Time'] . "</td>
+                          <td>" . $row['Progress'] . "</td></tr>";  // $row['index'] the index here is a field name
+                     }//while                    
+                }
+		
                 mysqli_close($con);
             ?>
         </div>

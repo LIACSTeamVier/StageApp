@@ -3,7 +3,8 @@
     if(empty($_SESSION["ID"])){
         header("Location: index.php");
         die();
-    }        
+    }
+    $highlight = "My profile";
     require_once "sidebar_selector.php";
     require_once "general_functions.php";
     $configs = include("config.php");
@@ -268,7 +269,7 @@
         </form>
         <?php
         if ($_SESSION['class'] == 'Student') {
-            $result = query_our_database("SELECT Date, Entry FROM Log WHERE StuID =".$id);
+            $result = query_our_database("SELECT Date, Entry FROM Log WHERE StuID ='".$id."'");
             echo "<h3>Progress Log</hr>
                         <table class=\"list\" id='log_table'>"; // start a table tag in the HTML
             

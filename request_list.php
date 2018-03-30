@@ -1,5 +1,6 @@
 <?php
 	session_start();
+    $highlight = "Supervision requests";
 	date_default_timezone_set("Europe/Amsterdam");
 	$configs = include("config.php");
     require_once "general_functions.php";

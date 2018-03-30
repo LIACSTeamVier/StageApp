@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $highlight = "Students";
     require_once "general_functions.php";
     require_once "sidebar_selector.php";
     
@@ -15,11 +16,11 @@
         else if (!empty($_POST["del"]) && $_POST["confirmed"] == "true") {
             //Delete every mention of this student
             $StuID = $_POST["StuID"];
-            query_our_database("DELETE FROM Log WHERE StuID=".$StuID);
-            query_our_database("DELETE FROM Supervises WHERE StuID=".$StuID);
-            query_our_database("DELETE FROM Does WHERE StuID=".$StuID);
-            query_our_database("DELETE FROM Student WHERE StuID=".$StuID);
-            query_our_database("DELETE FROM InternshipApp_Users WHERE Identifier=".$StuID);
+            query_our_database("DELETE FROM Log WHERE StuID='".$StuID."'");
+            query_our_database("DELETE FROM Supervises WHERE StuID='".$StuID."'");
+            query_our_database("DELETE FROM Does WHERE StuID='".$StuID."'");
+            query_our_database("DELETE FROM Student WHERE StuID='".$StuID."'");
+            query_our_database("DELETE FROM InternshipApp_Users WHERE Identifier='".$StuID."'");
         }
     }
 ?>

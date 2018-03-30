@@ -50,7 +50,7 @@
     function account_created_email($name, $email, $uname, $password) {
         $configs = include("config.php");
         $email_from = $configs["noreply"];
-        $subject = "An account has been made for you on the LIACS InternshipApp";
+        $subject = "An account has been made for you on the LIACS Graduation Application";
         $boundary = uniqid('np');
         
         $headers = "MIME-Version: 1.0\r\n";

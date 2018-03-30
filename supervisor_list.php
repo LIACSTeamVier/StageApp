@@ -1,8 +1,9 @@
+<meta charset="utf-8" />
 <?php 
 	session_start();
+    $highlight = "Supervisors";
 	require_once "general_functions.php";
 	require_once "sidebar_selector.php";
-	
 	
 	date_default_timezone_set("Europe/Amsterdam");
 	$configs = include("config.php");
@@ -38,7 +39,7 @@
 			    mysqli_query($con, "UPDATE Supervises SET Accepted='-1', ActivationCode=NULL, DateTerminated='$dateterm' WHERE type='First Supervisor' AND StuID=$studentid AND Accepted='1'");//keep track when accepted relations are deleted
 			    $del1res = mysqli_affected_rows($con);
                             //dont keep track of unaccepted deletion
-                            mysqli_query($con, "DELETE FROM Supervises WHERE type='First Supervisor' AND StuID=$studentid AND Accepted='0'");
+                            mysqli_query($con, "DELETE FROM Supervises WHERE type='First Supervisor' AND StuID='$studentid' AND Accepted='0'");
                             if(mysqli_affected_rows($con) ==0 && $del1res == 0) 
 			        die("mysql error");
 //			    $needsDeleting = false;
@@ -51,10 +52,10 @@
 		if(!empty($_POST["delreq2"])){
 		    if(!empty($_POST["confirmed2"])){
 			    if($_POST["confirmed2"] == "true"){
-                                mysqli_query($con, "UPDATE Supervises SET Accepted='-1', ActivationCode=NULL, DateTerminated='$dateterm' WHERE type='Second Supervisor' AND StuID=$studentid AND Accepted='1'");//keep track when accepted relations are deleted
+                                mysqli_query($con, "UPDATE Supervises SET Accepted='-1', ActivationCode=NULL, DateTerminated='$dateterm' WHERE type='Second Supervisor' AND StuID='$studentid' AND Accepted='1'");//keep track when accepted relations are deleted
                                 $del2res = mysqli_affected_rows($con);
                                 //dont keep track of unaccepted deletion
-                                mysqli_query($con, "DELETE FROM Supervises WHERE type='Second Supervisor' AND StuID=$studentid AND Accepted='0'");
+                                mysqli_query($con, "DELETE FROM Supervises WHERE type='Second Supervisor' AND StuID='$studentid' AND Accepted='0'");
                                 if(mysqli_affected_rows($con) ==0 && $del2res == 0)
                                     die("mysql error");
 			    }

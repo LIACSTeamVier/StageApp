@@ -1,5 +1,6 @@
 <?php
 	session_start();
+    $highlight = "Students";
 	require_once "sidebar_selector.php";
 	require_once "general_functions.php";
 	
