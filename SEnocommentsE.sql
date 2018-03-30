@@ -86,11 +86,12 @@ CREATE TABLE Internship_of(
 	Travel INT(1),
 	Tnotes VARCHAR(30),
 	Pay VARCHAR(30),
-	CompanyName VARCHAR(30), 
+	CompanyName VARCHAR(30),
+	IConName VARCHAR(30), 
 	
 	PRIMARY KEY(ProjectName),
 	FOREIGN KEY(ProjectName) REFERENCES Project(ProjectName),
-	FOREIGN KEY(CompanyName) REFERENCES Internship_Contact(CompanyName) ON DELETE CASCADE
+	FOREIGN KEY(CompanyName, IConName) REFERENCES Internship_Contact(CompanyName, IConName) ON DELETE CASCADE
 );
 
 CREATE TABLE RelationOptions(
@@ -137,10 +138,11 @@ CREATE TABLE Does(
 CREATE TABLE Part_of(
 	ProjectName VARCHAR(30),
 	CompanyName VARCHAR(30),
+	IConName VARCHAR(30),
 	
 	PRIMARY KEY(ProjectName, CompanyName),
 	FOREIGN KEY(ProjectName) REFERENCES Project(ProjectName),
-	FOREIGN KEY(CompanyName) REFERENCES Internship_Contact(CompanyName)
+	FOREIGN KEY(CompanyName, IConName) REFERENCES Internship_Contact(CompanyName, IConName) ON DELETE CASCADE
 );
 
 CREATE TABLE Log(
