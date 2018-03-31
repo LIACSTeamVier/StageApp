@@ -70,3 +70,4 @@ INSERT INTO Supervisor VALUES ('f.neukart@gmail.com', 'Florian Neukart', 'f.neuk
 INSERT INTO Supervisor VALUES ('f.j.verbeek@liacs.leidenuniv.nl', 'Fons Verbeek', 'f.j.verbeek@liacs.leidenuniv.nl', '31715275773', 'yes', 'yes', 'ICT', 'Image processing and analyses');
 INSERT INTO Supervisor VALUES ('k.j.wolstencroft@liacs.leidenuniv.nl', 'Katy Wolstencroft', 'k.j.wolstencroft@liacs.leidenuniv.nl', '31715278926', 'yes', 'yes', 'ICT', 'bio-informatics and modelling');
 INSERT INTO Supervisor VALUES ('e.m.bakker@liacs.leidenuniv.nl', 'Erwin Bakker', 'e.m.bakker@liacs.leidenuniv.nl', '31681553284', 'yes', 'yes', 'ICT', 'Security (technische kant)');
+
