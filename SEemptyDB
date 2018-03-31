@@ -23,3 +23,4 @@ DROP TABLE Student;
 DROP TABLE Supervisor;
 DROP TABLE BackgroundOptions;
 DROP TABLE InternshipApp_Users;
+
