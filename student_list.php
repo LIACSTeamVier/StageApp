@@ -16,9 +16,20 @@
         else if (!empty($_POST["del"]) && $_POST["confirmed"] == "true") {
             //Delete every mention of this student
             $StuID = $_POST["StuID"];
+            $ProjectName = mysqli_fetch_array(query_our_database("SELECT ProjectName FROM Does WHERE StuID='$StuID'"));
+
+            while (!empty($ProjectName[0])){
+                //Delete projects made by this student
+                $RelatedProject = mysqli_fetch_array(query_our_database("SELECT * FROM Project WHERE ProjectName='".$ProjectName[0]."' AND IConID IS NULL AND SupID IS NULL"));
+                query_our_database("DELETE FROM Does WHERE ProjectName='".$ProjectName[0]."'");
+                if (!empty($RelatedProject[0])){
+                    query_our_database("DELETE FROM Project WHERE ProjectName='".$ProjectName[0]."'");
+                }
+                $ProjectName = mysqli_fetch_array(query_our_database("SELECT ProjectName FROM Does WHERE StuID='$StuID'"));
+            }
+
             query_our_database("DELETE FROM Log WHERE StuID='".$StuID."'");
             query_our_database("DELETE FROM Supervises WHERE StuID='".$StuID."'");
-            query_our_database("DELETE FROM Does WHERE StuID='".$StuID."'");
             query_our_database("DELETE FROM Student WHERE StuID='".$StuID."'");
             query_our_database("DELETE FROM InternshipApp_Users WHERE Identifier='".$StuID."'");
         }
